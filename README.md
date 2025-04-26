@@ -4,4 +4,6 @@ Agents meant to be used with [dolphin-mcp](https://github.com/dwilliams27/dolphi
 
 ## Setup
 
-Assumes this folder is a sibling to `dolphin-mcp-serv/`.
+```bash
+uv run agents/worms_3d.py
+```
