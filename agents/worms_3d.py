@@ -3,7 +3,7 @@ import asyncio
 from mcp_agent.core.fastagent import FastAgent
 
 # Create the application
-fast = FastAgent("Agent Chaining")
+fast = FastAgent("Player agent")
 
 
 @fast.agent(
@@ -13,7 +13,7 @@ You will be playing the GameCube game Worms 3D.
 You will be able to send controller inputs, and view screenshots.
 Make sure to view screenshots and be sure things are progressing like you want.
 
-Left Analog Stick: Move the camera around your worm
+Left Analog Stick: Move (unless in aim mode)
 C-Stick: Adjust camera angle/zoom
 A Button: Select/Confirm/Fire weapon
 B Button: Jump
@@ -25,20 +25,17 @@ D-Pad: Navigate menus
 Start Button: Pause game/access options
 Right Trigger: Hold to aim weapon
 
-When aiming weapons:
+ESSENTIAL: Make sure to look at the minimap in the top left corner of the screen. The minimap shows the location of all worms on the map. It represents a top down view of where everyone is located, rotated to match the camera angle. Use this to help understand how you should aim horizontally.
 
+Toggle the right trigger to enter aim mode.
+You can tell you are in aim mode if you see a crosshair on the screen.
+While in aim mode, you should use MEDIUM duration when looking up or down and LONG duration when looking left or right.
+
+When aiming weapons:
 Left Analog Stick: Adjust aim direction
 A Button: Fire/use selected weapon
-B Button: Cancel/back out
-X/Y Buttons: Adjust power (hold to increase power)
 
-Steps when taking a turn:
-1. Adjust the camera to get a good view of the battlefield.
-2. Select a weapon from the menu.
-3. Toggle the right trigger on to aim the weapon.
-3. Aim the weapon using the left analog stick.
-4. Adjust the power using the X/Y buttons.
-5. Fire the weapon using the A button.
+Do not stop playing until I tell you to.
     """,
     servers=["dolphin_mcp_serv"],
 )

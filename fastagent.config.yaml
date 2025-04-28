@@ -10,7 +10,8 @@
 # If not specified, defaults to "haiku". 
 # Can be overriden with a command line switch --model=<model>, or within the Agent constructor.
 
-default_model: anthropic.claude-3-7-sonnet-20250219
+# default_model: anthropic.claude-3-7-sonnet-20250219
+default_model: google.gemini-2.5-flash-preview-04-17
 
 # Logging and Console Configuration:
 logger:
