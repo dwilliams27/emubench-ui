@@ -7,6 +7,6 @@ Agents meant to be used with [dolphin-mcp](https://github.com/dwilliams27/dolphi
 ```bash
 python -m venv venv
 source venv/bin/activate
-pip install fast-agent-mcp
+uv pip install fast-agent-mcp
 uv run agents/worms_3d.py
 ```
