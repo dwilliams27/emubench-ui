@@ -1,8 +1,11 @@
+import { RequestCard } from "@/components/playground/request-card";
+import { ResponseCard } from "@/components/playground/response-card";
+
 export default function ApiPlayground() {
   return (
-    <div>
-      <h1>API Playground</h1>
-      <p>Welcome to the API Playground!</p>
+    <div className="flex flex-col md:flex-row gap-4">
+      <RequestCard />
+      <ResponseCard />
     </div>
   )
 }
