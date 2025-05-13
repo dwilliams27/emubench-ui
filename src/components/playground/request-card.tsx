@@ -46,7 +46,7 @@ export function RequestCard({ setResponse, setLoading }: RequestCardProps) {
           <CardTitle>Request</CardTitle>
           <div className="flex flex-col space-y-1.5">
             <Select value={selectedEndpoint} onValueChange={handleEndpointChange}>
-              <SelectTrigger id="framework">
+              <SelectTrigger id="endpoint">
                 <SelectValue placeholder="Select" />
               </SelectTrigger>
               <SelectContent position="popper">
