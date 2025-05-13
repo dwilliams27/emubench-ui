@@ -5,17 +5,23 @@ import 'highlight.js/styles/devibeans.css';
 
 hljs.registerLanguage('json', json);
 
-export function JsonEditor({ value, onChange }: any) {
+export function JsonEditor({ value, onChange, readOnly }: { value: string; onChange?: (value: string) => void; readOnly?: boolean }) {
   const highlightWithHljs = (code: string) => {
-    return hljs.highlight(code, { language: 'json' }).value;
+    try {
+      const highlight = hljs.highlight(code, { language: 'json' }).value;
+      return highlight;
+    } catch {
+      return `<span></span>`;
+    }
   };
 
   return (
     <Editor
       className="rounded-md bg-gray-200"
       value={value}
-      onValueChange={onChange}
+      onValueChange={onChange || (() => {})}
       highlight={highlightWithHljs}
+      readOnly={readOnly || false}
       padding={10}
       style={{
         fontFamily: '"Fira code", "Fira Mono", monospace',
