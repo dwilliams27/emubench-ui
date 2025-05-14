@@ -7,45 +7,32 @@ export interface TabItem {
   icon: React.ComponentType<React.SVGProps<SVGSVGElement>>;
 }
 
-export const TEST_TAB_ID = {
-  TEST_ACTIVE: 'test-active',
-  TEST_CONFIG: 'test-config',
-  TEST_HISTORY: 'test-history',
-  API_PLAYGROUND: 'api-playground',
-} as const;
-export type TestTabId = typeof TEST_TAB_ID[keyof typeof TEST_TAB_ID];
-
 export const TEST_TABS: Record<string, TabItem> = {
-  [TEST_TAB_ID.TEST_ACTIVE]: {
+  TEST_ACTIVE: {
     label: 'Active',
     title: 'Active Tests',
-    url: '/test-active',
+    url: '/dashboard/test-active',
     icon: MonitorPlay,
   },
-  [TEST_TAB_ID.TEST_CONFIG]: {
+  TEST_CONFIG: {
     label: 'Config',
     title: 'Test Config',
-    url: '/test-config',
+    url: '/dashboard/test-config',
     icon: Cog,
   },
-  [TEST_TAB_ID.TEST_HISTORY]: {
+  TEST_HISTORY: {
     label: 'History',
     title: 'Test History',
-    url: '/test-history',
+    url: '/dashboard/test-history',
     icon: Scroll,
   }
 };
 
-export const DEV_TAB_ID = {
-  API_PLAYGROUND: 'api-playground',
-} as const;
-export type DevTabId = typeof DEV_TAB_ID[keyof typeof DEV_TAB_ID];
-
 export const DEV_TABS: Record<string, TabItem> = {
-  [TEST_TAB_ID.API_PLAYGROUND]: {
+  API_PLAYGROUND: {
     label: 'API Playground',
     title: 'API Playground',
-    url: '/api-playground',
+    url: '/dashboard/api-playground',
     icon: FlaskConical,
   },
 };

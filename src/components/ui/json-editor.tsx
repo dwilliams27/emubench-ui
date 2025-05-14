@@ -1,7 +1,7 @@
 import Editor from 'react-simple-code-editor';
 import hljs from 'highlight.js/lib/core';
 import json from 'highlight.js/lib/languages/json';
-import 'highlight.js/styles/devibeans.css';
+import 'highlight.js/styles/a11y-dark.css';
 
 hljs.registerLanguage('json', json);
 
@@ -17,7 +17,7 @@ export function JsonEditor({ value, onChange, readOnly }: { value: string; onCha
 
   return (
     <Editor
-      className="rounded-md bg-gray-200"
+      className="rounded-md bg-secondary"
       value={value}
       onValueChange={onChange || (() => {})}
       highlight={highlightWithHljs}

@@ -1,4 +1,4 @@
-import { TEST_TAB_ID, TEST_TABS, type TabItem, DEV_TABS } from '@/constants/tabs';
+import { TEST_TABS, type TabItem, DEV_TABS } from '@/constants/tabs';
 import React, { createContext, useContext, useState } from 'react';
 
 interface UIStateContextProps {
@@ -9,7 +9,7 @@ interface UIStateContextProps {
 const UIStateContext = createContext<UIStateContextProps | undefined>(undefined);
 
 export function UIStateProvider({ children }: { children: React.ReactNode }) {
-  const [_activeTab, _setActiveTab] = useState(TEST_TABS[TEST_TAB_ID.TEST_ACTIVE]);
+  const [_activeTab, _setActiveTab] = useState(TEST_TABS.TEST_ACTIVE);
 
   const handleSetActiveTab = (tabId: string | null) => {
     if (!tabId) {

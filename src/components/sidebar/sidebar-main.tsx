@@ -17,7 +17,7 @@ function renderSidebarTab(tab: TabItem, activeTabUrl: string) {
   const IconComponent = tab.icon;
   return (
     <SidebarMenuItem key={tab.url}>
-      <SidebarMenuButton asChild className={`${tab.url === activeTabUrl ? 'bg-gray-200 hover:bg-gray-200' : ''}`}>
+      <SidebarMenuButton asChild className={`${tab.url === activeTabUrl ? 'bg-secondary hover:bg-secondary' : ''}`}>
         <Link to={tab.url}>
           {IconComponent && <IconComponent className="mr-2 h-4 w-4" />}
           <span>{tab.label}</span>

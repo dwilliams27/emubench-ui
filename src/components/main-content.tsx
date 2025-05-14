@@ -10,8 +10,7 @@ export function MainContent() {
   const { activeTab, setActiveTab } = useUIState();
   
   React.useEffect(() => {
-    const pathSegments = location.pathname.split('/');
-    const currentPage = pathSegments[pathSegments.length - 1];
+    const currentPage = location.pathname;
     
     setActiveTab(getTestTabIdForPath(currentPage));
   }, [location.pathname]);

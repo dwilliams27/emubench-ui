@@ -1,37 +1,26 @@
 import { createBrowserRouter, Navigate, RouterProvider } from "react-router-dom";
 
-import ApiPlayground from "@/pages/api-playground";
-import Layout from "@/layouts/main-layout";
-import TestConfig from "@/pages/test-config";
-import TestActive from "@/pages/test-active";
-import { TEST_TAB_ID, TEST_TABS } from "@/constants/tabs";
-import TestHistory from "@/pages/test-history";
+import { RootLayout } from "@/layouts/root-layout";
+import { DashboardRouter } from "@/routers/dashboard-router";
+import { LoginRouter } from "@/routers/login-router";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Layout />,
+    element: <RootLayout />,
     children: [
       {
         path: "/",
-        element: <Navigate to="/test-active" replace />,
+        element: <Navigate to="/login" replace />
       },
       {
-        path: TEST_TABS[TEST_TAB_ID.TEST_ACTIVE].url,
-        element: <TestActive />,
+        path: "/login/*",
+        element: <LoginRouter />,
       },
       {
-        path: TEST_TABS[TEST_TAB_ID.TEST_CONFIG].url,
-        element: <TestConfig />,
+        path: "/dashboard/*",
+        element: <DashboardRouter />,
       },
-      {
-        path: TEST_TABS[TEST_TAB_ID.TEST_HISTORY].url,
-        element: <TestHistory />,
-      },
-      {
-        path: "api-playground",
-        element: <ApiPlayground />,
-      }
     ],
   },
 ]);
