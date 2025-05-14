@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useRef } from 'react';
 import { createClient, SupabaseClient } from '@supabase/supabase-js';
 
 interface SupabaseContextProps {
@@ -8,10 +8,17 @@ interface SupabaseContextProps {
 const SupabaseContext = createContext<SupabaseContextProps | undefined>(undefined);
 
 export function SupabaseProvider({ children }: { children: React.ReactNode }) {
-  const [client, _] = useState(createClient(import.meta.env.VITE_SUPABASE_URL, import.meta.env.VITE_SUPABASE_PUBLIC_KEY));
+  const clientRef = useRef<SupabaseClient | null>(null);
+
+  if (!clientRef.current) {
+    clientRef.current = createClient(
+      import.meta.env.VITE_SUPABASE_URL, 
+      import.meta.env.VITE_SUPABASE_PUBLIC_KEY
+    );
+  }
 
   return (
-    <SupabaseContext.Provider value={{ client }}>
+    <SupabaseContext.Provider value={{ client: clientRef.current }}>
       {children}
     </SupabaseContext.Provider>
   );

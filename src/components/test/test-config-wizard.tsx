@@ -1,7 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { GAMES, PLATFORMS } from "@/constants/games";
-import { Label } from "@radix-ui/react-select";
 import React from "react";
 
 export function TestConfigWizard() {

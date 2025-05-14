@@ -3,6 +3,13 @@ import { createBrowserRouter, Navigate, RouterProvider } from "react-router-dom"
 import { RootLayout } from "@/layouts/root-layout";
 import { DashboardRouter } from "@/routers/dashboard-router";
 import { LoginRouter } from "@/routers/login-router";
+import { ProtectedRoute } from "./components/auth/protected-route";
+import { useAuth } from "./contexts/auth-context";
+
+function HomeRedirect() {
+  const { session } = useAuth();
+  return <Navigate to={session ? "/dashboard" : "/login"} replace />;
+}
 
 const router = createBrowserRouter([
   {
@@ -11,7 +18,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <Navigate to="/login" replace />
+        element: <HomeRedirect />
       },
       {
         path: "/login/*",
@@ -19,7 +26,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/dashboard/*",
-        element: <DashboardRouter />,
+        element: (
+          <ProtectedRoute>
+            <DashboardRouter />
+          </ProtectedRoute>
+        ),
       },
     ],
   },

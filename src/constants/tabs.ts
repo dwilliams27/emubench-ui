@@ -1,4 +1,4 @@
-import { Cog, FlaskConical, MonitorPlay, Scroll, ServerCog } from "lucide-react";
+import { Cog, FlaskConical, MonitorPlay, Scroll } from "lucide-react";
 
 export interface TabItem {
   label: string;

@@ -1,5 +1,6 @@
 import { EmuBenchServ } from '@/services/emubench-serv';
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useEffect, useRef } from 'react';
+import { useAuth } from './auth-context';
 
 interface ApiContextProps {
   api: EmuBenchServ;
@@ -8,10 +9,15 @@ interface ApiContextProps {
 const ApiContext = createContext<ApiContextProps | undefined>(undefined);
 
 export function ApiProvider({ children }: { children: React.ReactNode }) {
-  const [api, _] = useState(new EmuBenchServ());
+  const { session } = useAuth();
+  const apiRef = useRef<EmuBenchServ>(new EmuBenchServ(session));
+
+  useEffect(() => {
+    apiRef.current.updateAuthToken(session);
+  }, [session]);
 
   return (
-    <ApiContext.Provider value={{ api }}>
+    <ApiContext.Provider value={{ api: apiRef.current }}>
       {children}
     </ApiContext.Provider>
   );

@@ -1,3 +1,5 @@
-# 🔬 EmuBench
+# ![emubench logo](public/emubench.svg) EmuBench
 
-UI + MCP Client for running tests in `dolphin-mcp` + `dolphin-mcp-serv`
+[emubench.com](emubench.com)
+
+Experimentation tool for benchmarking AI models against video games.
