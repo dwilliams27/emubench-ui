@@ -1,16 +1,19 @@
-import { EmuBenchServ } from '@/services/emubench-serv';
+import { EmuBenchServ, type Api } from '@/services/emubench-serv';
 import React, { createContext, useContext, useEffect, useRef } from 'react';
 import { useAuth } from './auth-context';
+import { EmuBenchServMock } from '@/services/emubench-serv-mock';
 
 interface ApiContextProps {
-  api: EmuBenchServ;
+  api: Api;
 }
 
 const ApiContext = createContext<ApiContextProps | undefined>(undefined);
 
 export function ApiProvider({ children }: { children: React.ReactNode }) {
   const { session } = useAuth();
-  const apiRef = useRef<EmuBenchServ>(new EmuBenchServ(session));
+  const apiRef = useRef<Api>(
+    import.meta.env.VITE_MOCK_API ? new EmuBenchServMock(session) : new EmuBenchServ(session)
+  );
 
   useEffect(() => {
     apiRef.current.updateAuthToken(session);

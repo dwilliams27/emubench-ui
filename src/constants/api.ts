@@ -1,3 +1,5 @@
+import type { Test } from "@/constants/games";
+
 export interface ApiEndpoint {
   path: string;
   name: string;
@@ -35,3 +37,7 @@ export const DSERV_ENDPOINTS = {
     method: "POST"
   }
 };
+
+export interface GetActiveTestConfigResponse {
+  tests: Test[];
+}

@@ -1,8 +1,15 @@
 import axios, { type AxiosInstance } from 'axios';
 import { config } from '@/config';
 import type { Session } from '@supabase/supabase-js';
+import type { GetActiveTestConfigResponse } from '@/constants/api';
 
-export class EmuBenchServ {
+export interface Api {
+  updateAuthToken: (session: Session | null) => void;
+  makeApiCall: (endpoint: string, method: string, data?: any) => Promise<any>;
+  fetchActiveTestConfigs: () => Promise<GetActiveTestConfigResponse>;
+}
+
+export class EmuBenchServ implements Api {
   axiosInstance: AxiosInstance;
   private sessionId: string;
   
@@ -45,7 +52,19 @@ export class EmuBenchServ {
       });
       return response;
     } catch (error) {
-      console.error('Error making API call:', error);
+      console.error('[API] Error making API call:', error);
+      throw error;
+    }
+  }
+
+  fetchActiveTestConfigs = async (): Promise<GetActiveTestConfigResponse> => {
+    try {
+      const response = await this.axiosInstance.get(
+        '/test-orx/active'
+      );
+      return response.data;
+    } catch (error) {
+      console.error('[API] Unabled to fetch test configs:', error);
       throw error;
     }
   }

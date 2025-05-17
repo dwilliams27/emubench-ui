@@ -1,7 +1,9 @@
+import { UserProfile } from "@/components/auth/user-profile";
 import { SidebarHeader } from "@/components/sidebar/sidebar-header";
 import {
   Sidebar,
   SidebarContent,
+  SidebarFooter,
   SidebarGroup,
   SidebarGroupContent,
   SidebarGroupLabel,
@@ -51,6 +53,9 @@ export function AppSidebar() {
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
+        <SidebarFooter>
+          <UserProfile />
+        </SidebarFooter>
       </SidebarContent>
     </Sidebar>
   )

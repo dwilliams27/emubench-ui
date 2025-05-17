@@ -30,6 +30,7 @@ export interface Condition {
 }
 
 export interface Test {
+  id: string;
   gameId: string;
   setup: boolean;
   started: boolean;
@@ -70,6 +71,7 @@ export const TEST_SUITES: TestSuite[] = [
     name: "(Worms 3D) Aimfire Test",
     tests: [
       {
+        id: "tst_123",
         gameId: "GWMP8P",
         setup: false,
         started: false,

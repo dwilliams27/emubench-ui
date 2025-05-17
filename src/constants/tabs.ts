@@ -11,7 +11,7 @@ export const TEST_TABS: Record<string, TabItem> = {
   TEST_ACTIVE: {
     label: 'Active',
     title: 'Active Tests',
-    url: '/dashboard/test-active',
+    url: '/dashboard/active-tests',
     icon: MonitorPlay,
   },
   TEST_CONFIG: {

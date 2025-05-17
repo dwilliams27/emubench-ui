@@ -18,7 +18,7 @@ export function ProtectedRoute({ children }: ProtectedRouteProps) {
     );
   }
 
-  if (!session) {
+  if (!session && !import.meta.env.VITE_MOCK_API) {
     return <Navigate to="/login" state={{ from: location }} replace />;
   }
 
