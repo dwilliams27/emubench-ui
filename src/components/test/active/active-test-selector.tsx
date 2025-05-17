@@ -13,7 +13,6 @@ export function ActiveTestSelector({ selectedTest, activeTests, handleTestSelect
     <Card className="w-full">
       <CardHeader>
         <div className="flex flex-row items-center justify-between space-x-2">
-          <CardTitle>Active Tests</CardTitle>
           <div className="flex flex-col space-y-1.5">
             <Select value={selectedTest?.id} onValueChange={handleTestSelected}>
               <SelectTrigger id="endpoint">
