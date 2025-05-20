@@ -53,7 +53,7 @@ export function AppSidebar() {
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
-        <SidebarFooter>
+        <SidebarFooter className="mt-auto">
           <UserProfile />
         </SidebarFooter>
       </SidebarContent>
