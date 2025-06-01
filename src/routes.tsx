@@ -5,6 +5,7 @@ import { DashboardRouter } from "@/routers/dashboard-router";
 import { LoginRouter } from "@/routers/login-router";
 import { ProtectedRoute } from "./components/auth/protected-route";
 import { useAuth } from "./contexts/auth-context";
+import AuthCallback from "./pages/auth-callback";
 
 function HomeRedirect() {
   const { session } = useAuth();
@@ -23,6 +24,10 @@ const router = createBrowserRouter([
       {
         path: "/login/*",
         element: <LoginRouter />,
+      },
+      {
+        path: "/auth/callback",
+        element: <AuthCallback />,
       },
       {
         path: "/dashboard/*",
