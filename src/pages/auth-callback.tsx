@@ -18,14 +18,6 @@ export default function AuthCallback() {
         }
 
         if (data?.session) {
-          console.log('Successfully authenticated via OAuth');
-          console.log('Session:', data.session);
-          
-          // Check if we have the Google provider token
-          if (data.session.provider_token) {
-            console.log('Google access token available:', data.session.provider_token);
-          }
-          
           navigate('/dashboard');
         } else {
           navigate('/login?error=no_session');

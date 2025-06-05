@@ -15,6 +15,17 @@ export function ActiveTestWidget({ test }: ActiveTestWidgetProps) {
           { test && testToBadge(test)}
         </div>
       </CardHeader>
+
+      <div className="flex flex-col space-y-6 px-6">
+        <div className="flex flex-col space-x-6 md:flex-row">
+          <Card className="w-full md:w-1/2 h-72">
+          </Card>
+          <Card className="w-full md:w-1/2">
+          </Card>
+        </div>
+        <Card className="w-full">
+        </Card>
+      </div>
     </Card>
   )
 }

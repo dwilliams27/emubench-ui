@@ -18,15 +18,13 @@ export function EmuGoogleLogin() {
       setIsLoading(true);
       setLoginError(null);
       
-      const { data, error } = await client.auth.signInWithOAuth({
+      const { error } = await client.auth.signInWithOAuth({
         provider: 'google',
         options: {
           scopes: 'openid email profile https://www.googleapis.com/auth/cloud-platform',
           redirectTo: `${window.location.origin}/auth/callback`
         }
       });
-
-      console.log("Google OAuth response:", data);
       
       if (error) {
         console.error("Google OAuth error:", error);

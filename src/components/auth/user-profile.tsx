@@ -18,7 +18,7 @@ export function UserProfile() {
           <AvatarImage src={user.user_metadata?.avatar_url} alt={user.user_metadata?.full_name || "User"} />
           <AvatarFallback>{fallbackText}</AvatarFallback>
         </Avatar>
-        <div className="flex flex-col ml-2">
+        <div className="flex flex-col ml-2 justify-center">
           <span className="font-medium text-sm">
             {user.user_metadata?.full_name || user.email}
           </span>
