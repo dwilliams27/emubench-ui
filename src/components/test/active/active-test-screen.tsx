@@ -1,13 +1,14 @@
 export interface ActiveTestScreenProps {
-  currentImage: string;
+  images: string[];
 }
 
-export function ActiveTestScreen({ currentImage }: ActiveTestScreenProps) {
+export function ActiveTestScreen({ images }: ActiveTestScreenProps) {
+  console.log(images);
   return (
-    <div>
+    <div className="w-full h-full">
       {
-        currentImage ? (
-          <img src={currentImage} alt="current-emu-image" />
+        images.length > 0 ? (
+          <img className="w-full h-full object-contain" src={images[images.length - 1]} alt="current-emu-image" />
         ) : (
           <div>
             <h2>Loading...</h2>

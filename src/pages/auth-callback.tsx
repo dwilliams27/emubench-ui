@@ -18,6 +18,10 @@ export default function AuthCallback() {
         }
 
         if (data?.session) {
+          if (data.session.access_token) {
+            console.log('Access token available:', data.session.access_token);
+          }
+          
           navigate('/dashboard');
         } else {
           navigate('/login?error=no_session');

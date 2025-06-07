@@ -2,11 +2,13 @@ import axios, { type AxiosInstance } from 'axios';
 import { config } from '@/config';
 import type { Session } from '@supabase/supabase-js';
 import type { GetActiveTestConfigResponse } from '@/constants/api';
+import type { TestState } from '@/constants/games';
 
 export interface Api {
   updateAuthToken: (session: Session | null) => void;
   makeApiCall: (endpoint: string, method: string, data?: any) => Promise<any>;
   fetchActiveTestConfigs: () => Promise<GetActiveTestConfigResponse>;
+  getTestState: (id: string) => Promise<TestState>;
 }
 
 export class EmuBenchServ implements Api {
@@ -14,7 +16,7 @@ export class EmuBenchServ implements Api {
   private sessionId: string;
   
   constructor(initialSession?: Session | null) {
-    this.sessionId = 'test-session-id'; // Default session ID
+    this.sessionId = 'test-session-id';
     
     this.axiosInstance = axios.create({
       baseURL: config.API_URL,
@@ -57,7 +59,7 @@ export class EmuBenchServ implements Api {
     }
   }
 
-  fetchActiveTestConfigs = async (): Promise<GetActiveTestConfigResponse> => {
+  fetchActiveTestConfigs = async () => {
     try {
       const response = await this.axiosInstance.get(
         '/test-orx/active'
@@ -65,6 +67,18 @@ export class EmuBenchServ implements Api {
       return response.data;
     } catch (error) {
       console.error('[API] Unabled to fetch test configs:', error);
+      throw error;
+    }
+  }
+
+  getTestState = async(id: string) => {
+    try {
+      const response = await this.axiosInstance.get(
+        `/test-orx/active/${id}`
+      );
+      return response.data;
+    } catch (error) {
+      console.error(`[API] Unabled to fetch test state for ${id}:`, error);
       throw error;
     }
   }

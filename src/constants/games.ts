@@ -29,6 +29,17 @@ export interface Condition {
   expectedValue: string;
 }
 
+export interface TestChatSegment {
+  text: string;
+  type: "toolCall" | "message";
+  author: string;
+};
+
+export interface TestState {
+  images: string[];
+  messages: TestChatSegment[];
+}
+
 export interface Test {
   id: string;
   gameId: string;
@@ -39,6 +50,7 @@ export interface Test {
   contextMemWatches: Record<string, MemoryWatch>;
   endStateMemWatches: Record<string, MemoryWatch>;
   endStateConditions: Condition[];
+  state?: TestState;
 }
 
 export interface TestSuite {
