@@ -32,3 +32,26 @@ export function testToBadge(test: Test) {
     );
   }
 }
+
+export function testResultToBadge(test: Test) {
+  if (!test.result) {
+    return (
+      <Badge variant="outline">
+        In progress
+      </Badge>
+    );
+  }
+
+  if (test.result.outcome === "pass") {
+    return (
+      <Badge variant="default">
+        Pass
+      </Badge>
+    );
+  }
+  return (
+    <Badge variant="destructive">
+      Fail
+    </Badge>
+  );
+}

@@ -38,6 +38,8 @@ export interface TestChatSegment {
 export interface TestState {
   images: string[];
   messages: TestChatSegment[];
+  contextMemWatches: Record<string, MemoryWatch>;
+  endStateMemWatches: Record<string, MemoryWatch>;
 }
 
 export interface Test {
