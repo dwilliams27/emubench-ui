@@ -10,7 +10,7 @@ export class EmuBenchServMock implements Api {
 
   updateAuthToken(_session: Session | null) {};
   async makeApiCall(_endpoint: string, _method: string, _data?: any) { return null };
-  async fetchActiveTestConfigs() { return MockGetActiveTestConfigResponse };
+  async fetchTestConfigs() { return MockGetActiveTestConfigResponse };
   async getTestState(id: string): Promise<TestState> {
     return MockActiveTestResponses[id];
   }

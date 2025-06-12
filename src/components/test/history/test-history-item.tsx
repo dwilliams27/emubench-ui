@@ -16,8 +16,8 @@ export function TestHistoryItem({ test }: TestHistoryItemProps) {
         </div>
       </CardHeader>
 
-      <div className="flex flex-col space-y-6 px-6">
-        
+      <div className="flex flex-row px-6">
+        <h3>GameID: {test.gameId}</h3>
       </div>
     </Card>
   );

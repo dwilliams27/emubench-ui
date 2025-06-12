@@ -7,7 +7,7 @@ import type { TestState } from '@/constants/games';
 export interface Api {
   updateAuthToken: (session: Session | null) => void;
   makeApiCall: (endpoint: string, method: string, data?: any) => Promise<any>;
-  fetchActiveTestConfigs: () => Promise<GetActiveTestConfigResponse>;
+  fetchTestConfigs: () => Promise<GetActiveTestConfigResponse>;
   getTestState: (id: string) => Promise<TestState>;
 }
 
@@ -59,10 +59,10 @@ export class EmuBenchServ implements Api {
     }
   }
 
-  fetchActiveTestConfigs = async () => {
+  fetchTestConfigs = async () => {
     try {
       const response = await this.axiosInstance.get(
-        '/test-orx/active'
+        '/test-orx/tests'
       );
       return response.data;
     } catch (error) {
@@ -74,7 +74,7 @@ export class EmuBenchServ implements Api {
   getTestState = async(id: string) => {
     try {
       const response = await this.axiosInstance.get(
-        `/test-orx/active/${id}`
+        `/test-orx/tests/${id}`
       );
       return response.data;
     } catch (error) {

@@ -10,7 +10,7 @@ export function TestHistoryList({ tests }: TestHistoryListProps) {
     <div className="space-y-2">
       {
         tests.map((test) => (
-          <TestHistoryItem test={test} />
+          <TestHistoryItem test={test} key={test.id} />
         ))
       }
     </div>

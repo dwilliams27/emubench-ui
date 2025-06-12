@@ -20,7 +20,7 @@ export default function ActiveTests() {
 
   useEffect(() => {
     (async () => {  
-      const { tests } = await api.fetchActiveTestConfigs();
+      const { tests } = await api.fetchTestConfigs();
       setActiveTests(tests);
       setSelectedTest(tests[0]);
     })();

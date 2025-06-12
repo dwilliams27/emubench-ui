@@ -9,7 +9,7 @@ export default function TestHistory() {
 
   useEffect(() => {
     (async () => {  
-      const { tests } = await api.fetchActiveTestConfigs();
+      const { tests } = await api.fetchTestConfigs();
       setTests(tests);
     })();
   }, [api]);
