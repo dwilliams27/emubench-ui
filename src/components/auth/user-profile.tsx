@@ -7,7 +7,7 @@ export function UserProfile() {
   
   if (!user) return null;
 
-  const fallbackText = user.user_metadata?.full_name?.[0] || 
+  const fallbackText = user.displayName || 
     user.email?.[0] || 
     'U';
   
@@ -15,12 +15,12 @@ export function UserProfile() {
     <div className="flex flex-col gap-4">
       <div className="flex flex-row ml-2">
         <Avatar className="h-8 w-8">
-          <AvatarImage src={user.user_metadata?.avatar_url} alt={user.user_metadata?.full_name || "User"} />
+          { user.photoURL && <AvatarImage src={user.photoURL} alt={user.displayName || "User"} />}
           <AvatarFallback>{fallbackText}</AvatarFallback>
         </Avatar>
         <div className="flex flex-col ml-2 justify-center">
           <span className="font-medium text-sm">
-            {user.user_metadata?.full_name || user.email}
+            {user.displayName || user.email}
           </span>
           <span className="text-xs text-muted-foreground">
             {user.email}

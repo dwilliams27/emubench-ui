@@ -4,7 +4,7 @@ export interface ActiveTestMemoryTableProps {
   memoryWatches: MemoryWatch;
 }
 
-export function ActiveTestMemoryTable({ memoryWatches }: ActiveTestMemoryTableProps) {
+export function ActiveTestMemoryTable({}: ActiveTestMemoryTableProps) {
   return (
     <div>
       {/* TODO: Table */}

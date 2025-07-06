@@ -1,5 +1,4 @@
 import type { GetActiveTestConfigResponse } from "@/constants/api";
-import * as screenshot from "./emu-screenshot-b64.json";
 import type { TestState } from "@/constants/games";
 
 export const MockGetActiveTestConfigResponse: GetActiveTestConfigResponse = {
@@ -55,35 +54,4 @@ export const MockGetActiveTestConfigResponse: GetActiveTestConfigResponse = {
 };
 
 export const MockActiveTestResponses: Record<string, TestState> = {
-  tst_123: {
-    images: [],
-    messages: []
-  },
-  tst_555: {
-    images: [screenshot.content],
-    messages: []
-  },
-  tst_777: {
-    images: [screenshot.content],
-    messages: [{
-      text: `Mock testing message`,
-      type: "message",
-      author: "claude"
-    }]
-  },
-  tst_999: {
-    images: [screenshot.content],
-    messages: [
-      {
-        text: `Mock testing message`,
-        type: "message",
-        author: "claude"
-      },
-      {
-        text: `Another mock testing message`,
-        type: "message",
-        author: "claude"
-      }
-    ]
-  }
 };

@@ -7,7 +7,7 @@ interface ProtectedRouteProps {
 }
 
 export function ProtectedRoute({ children }: ProtectedRouteProps) {
-  const { session, isLoading } = useAuth();
+  const { user, isLoading } = useAuth();
   const location = useLocation();
 
   if (isLoading) {
@@ -18,7 +18,7 @@ export function ProtectedRoute({ children }: ProtectedRouteProps) {
     );
   }
 
-  if (!session && !import.meta.env.VITE_MOCK_API) {
+  if (!user && !import.meta.env.VITE_MOCK_API) {
     return <Navigate to="/login" state={{ from: location }} replace />;
   }
 

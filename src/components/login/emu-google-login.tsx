@@ -1,6 +1,9 @@
 import { Button } from "@/components/ui/button";
-import { useSupabase } from "@/contexts/supabase-context";
 import { useState } from "react";
+import { signInWithPopup, GoogleAuthProvider, getIdToken } from 'firebase/auth';
+import { useFirebase } from "@/contexts/firebase-context";
+import { auth } from "@/constants/firebase";
+import { useNavigate } from "react-router-dom";
 
 declare global {
   interface Window {
@@ -9,7 +12,8 @@ declare global {
 }
 
 export function EmuGoogleLogin() {
-  const { client } = useSupabase();
+  const { user } = useFirebase();
+  const navigate = useNavigate();
   const [loginError, setLoginError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -18,18 +22,21 @@ export function EmuGoogleLogin() {
       setIsLoading(true);
       setLoginError(null);
       
-      const { error } = await client.auth.signInWithOAuth({
-        provider: 'google',
-        options: {
-          scopes: 'openid email profile https://www.googleapis.com/auth/cloud-platform',
-          redirectTo: `${window.location.origin}/auth/callback`
-        }
-      });
+      const provider = new GoogleAuthProvider();
+
+      provider.addScope('openid');
+      provider.addScope('email');
+      provider.addScope('profile');
+      provider.addScope('https://www.googleapis.com/auth/cloud-platform');
       
-      if (error) {
-        console.error("Google OAuth error:", error);
-        setLoginError(error.message);
-      }
+      const result = await signInWithPopup(auth, provider);
+      
+      console.log('User signed in:', result.user);
+
+      const idToken = await getIdToken(result.user);
+      
+      localStorage.setItem('firebase_token', idToken);
+      navigate('/dashboard');
     } catch (err) {
       console.error("OAuth error:", err);
       setLoginError("An unexpected error occurred during login");
@@ -37,6 +44,10 @@ export function EmuGoogleLogin() {
       setIsLoading(false);
     }
   };
+
+  if (user) {
+    // TODO: redirect
+  }
 
   return (
     <div className="flex flex-col gap-4 items-center">

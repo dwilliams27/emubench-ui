@@ -5,11 +5,10 @@ import { DashboardRouter } from "@/routers/dashboard-router";
 import { LoginRouter } from "@/routers/login-router";
 import { ProtectedRoute } from "./components/auth/protected-route";
 import { useAuth } from "./contexts/auth-context";
-import AuthCallback from "./pages/auth-callback";
 
 function HomeRedirect() {
-  const { session } = useAuth();
-  return <Navigate to={session ? "/dashboard" : "/login"} replace />;
+  const { user } = useAuth();
+  return <Navigate to={user ? "/dashboard" : "/login"} replace />;
 }
 
 const router = createBrowserRouter([
@@ -24,10 +23,6 @@ const router = createBrowserRouter([
       {
         path: "/login/*",
         element: <LoginRouter />,
-      },
-      {
-        path: "/auth/callback",
-        element: <AuthCallback />,
       },
       {
         path: "/dashboard/*",

@@ -1,11 +1,12 @@
 import axios, { type AxiosInstance } from 'axios';
 import { config } from '@/config';
-import type { Session } from '@supabase/supabase-js';
 import type { GetActiveTestConfigResponse } from '@/constants/api';
 import type { TestState } from '@/constants/games';
+import { getIdToken } from 'firebase/auth';
+import { auth } from '@/constants/firebase';
 
 export interface Api {
-  updateAuthToken: (session: Session | null) => void;
+  getAuthToken: () => Promise<string>;
   makeApiCall: (endpoint: string, method: string, data?: any) => Promise<any>;
   fetchTestConfigs: () => Promise<GetActiveTestConfigResponse>;
   getTestState: (id: string) => Promise<TestState>;
@@ -13,44 +14,38 @@ export interface Api {
 
 export class EmuBenchServ implements Api {
   axiosInstance: AxiosInstance;
-  private sessionId: string;
   
-  constructor(initialSession?: Session | null) {
-    this.sessionId = 'test-session-id';
-    
+  constructor() {
     this.axiosInstance = axios.create({
       baseURL: config.API_URL,
       timeout: 10000,
       headers: {
         'Content-Type': 'application/json',
-        'x-dmcp-session-id': this.sessionId,
       },
     });
-
-    if (initialSession?.access_token) {
-      this.updateAuthToken(initialSession);
-    }
   }
 
-  updateAuthToken(session: Session | null) {
-    if (session?.access_token) {
-      this.axiosInstance.defaults.headers.common['Authorization'] = `Bearer ${session.access_token}`;
-
-      if (session.user?.id) {
-        this.sessionId = session.user.id;
-        this.axiosInstance.defaults.headers['x-dmcp-session-id'] = this.sessionId;
-      }
-    } else {
-      delete this.axiosInstance.defaults.headers.common['Authorization'];
+  async getAuthToken() {
+    const user = auth.currentUser;
+  
+    if (!user) {
+      throw new Error('User not authenticated');
     }
+
+    const token = await getIdToken(user);
+    return token;
   }
 
   makeApiCall = async (endpoint: string, method: string, data?: any) => {
+    const authToken = await this.getAuthToken();
     try {
       const response = await this.axiosInstance({
         url: endpoint,
         method: method,
         data: data,
+        headers: {
+          'Authorization': `Bearer ${authToken}`
+        }
       });
       return response;
     } catch (error) {
@@ -60,9 +55,15 @@ export class EmuBenchServ implements Api {
   }
 
   fetchTestConfigs = async () => {
+    const authToken = await this.getAuthToken();
     try {
       const response = await this.axiosInstance.get(
-        '/test-orx/tests'
+        '/test-orx/tests',
+        {
+          headers: {
+            'Authorization': `Bearer ${authToken}`
+          }
+        }
       );
       return response.data;
     } catch (error) {
@@ -72,9 +73,15 @@ export class EmuBenchServ implements Api {
   }
 
   getTestState = async(id: string) => {
+    const authToken = await this.getAuthToken();
     try {
       const response = await this.axiosInstance.get(
-        `/test-orx/tests/${id}`
+        `/test-orx/tests/${id}`,
+        {
+          headers: {
+            'Authorization': `Bearer ${authToken}`
+          }
+        }
       );
       return response.data;
     } catch (error) {
