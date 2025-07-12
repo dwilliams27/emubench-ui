@@ -31,8 +31,29 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       return;
     }
 
-    const unsubscribe = onAuthStateChanged(auth, (firebaseUser) => {
-      setUser(firebaseUser);
+    const checkAndSetUser = async (user: User | null) => {
+      try {
+        await user?.getIdToken(true);
+        setUser(user);
+      } catch (error) {
+        console.error("Initial token validation failed:", error);
+        await auth.signOut();
+      }
+    }
+
+    const checkCurrentUser = async () => {
+      const currentUser = auth.currentUser;
+      if (currentUser) {
+        checkAndSetUser(currentUser);
+      }
+      setIsLoading(false);
+    };
+    checkCurrentUser();
+
+    const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
+      if (firebaseUser) {
+        checkAndSetUser(user);
+      }
       setIsLoading(false);
     });
 
