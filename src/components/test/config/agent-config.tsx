@@ -89,8 +89,8 @@ export function AgentConfig({ form }: { form: UseFormReturn<z.infer<typeof SETUP
                     <SelectValue placeholder="Select a max number of iterations" />
                   </SelectTrigger>
                   <SelectContent>
-                    { ["10", "15", "20"].map((iterations) => (
-                    <SelectItem key={`it-${iterations}`} value={iterations}>
+                    { ["10", "15", "20", "30"].map((iterations) => (
+                    <SelectItem key={`it-${iterations}`} value={iterations} defaultValue={field.value}>
                       {iterations}
                     </SelectItem>
                   )) }

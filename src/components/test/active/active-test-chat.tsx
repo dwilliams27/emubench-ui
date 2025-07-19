@@ -27,7 +27,7 @@ export function ActiveTestChat({ messages }: ActiveTestChatProps) {
             ? (
               recentMessages.map((message, index) => (
                 message.logs.map((log, logIndex) => (
-                  <h3 key={`${index}:${logIndex}`} className="text-gray-100 break-words">{log.text}</h3>
+                  <h3 key={`${index}:${logIndex}`} className="break-words">{log.text}</h3>
                 ))
             ))) : (
               <h3>No messages yet</h3>

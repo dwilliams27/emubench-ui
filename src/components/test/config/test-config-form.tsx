@@ -31,7 +31,7 @@ export function TestConfigForm() {
       agentConfig: {
         modelProvider: MODEL_PROVIDERS.GOOGLE.name,
         model: MODELS[MODEL_PROVIDERS.GOOGLE.name][0].name,
-        maxIterations: "10",
+        maxIterations: "20",
         temperature: 1.0,
         taskName: "Start a new game",
         taskDescription: "Navigate through the main menu and start a new game.",
