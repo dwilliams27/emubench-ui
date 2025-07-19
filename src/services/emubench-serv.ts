@@ -6,6 +6,7 @@ import { getIdToken } from 'firebase/auth';
 import { auth } from '@/constants/firebase';
 import { REQ_SETUP_TEST } from '@/components/test/config/types';
 import type z from 'zod';
+import type { EmuActiveTestReponse } from '@/constants/shared';
 
 export interface Api {
   getAuthToken: () => Promise<string>;
@@ -13,6 +14,7 @@ export interface Api {
   fetchTestConfigs: () => Promise<GetActiveTestConfigResponse>;
   getTestState: (id: string) => Promise<TestState>;
   setupTest: (config: z.infer<typeof REQ_SETUP_TEST>) => Promise<{ testId: string }>;
+  getActiveTestState: (testId: string) => Promise<EmuActiveTestReponse>;
 }
 
 export class EmuBenchServ implements Api {
@@ -21,7 +23,7 @@ export class EmuBenchServ implements Api {
   constructor() {
     this.axiosInstance = axios.create({
       baseURL: config.API_URL,
-      timeout: 10000,
+      timeout: 120000,
       headers: {
         'Content-Type': 'application/json',
       },
@@ -72,6 +74,24 @@ export class EmuBenchServ implements Api {
       return response.data;
     } catch (error) {
       console.error('[API] Unabled to setup test:', error);
+      throw error;
+    }
+  }
+
+  getActiveTestState = async (testId: string) => {
+    const authToken = await this.getAuthToken();
+    try {
+      const response = await this.axiosInstance.get(
+        `/test-orx/tests/${testId}`,
+        {
+          headers: {
+            'Authorization': `Bearer ${authToken}`
+          }
+        }
+      );
+      return response.data;
+    } catch (error) {
+      console.error('[API] Unabled to get active test:', error);
       throw error;
     }
   }

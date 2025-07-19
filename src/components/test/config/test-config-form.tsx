@@ -1,11 +1,13 @@
 import { AgentConfig } from "@/components/test/config/agent-config";
 import { GameConfig } from "@/components/test/config/game-config";
-import { MODEL_PROVIDERS, MODELS, PLATFORMS, GAMES, SETUP_TEST_CONFIG_SCHEMA, AVAILABLE_SAVE_STATES, REQ_SETUP_TEST } from "@/components/test/config/types";
+import { MODEL_PROVIDERS, MODELS, PLATFORMS, GAMES, SETUP_TEST_CONFIG_SCHEMA, AVAILABLE_SAVE_STATES } from "@/components/test/config/types";
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
 import { useApi } from "@/contexts/api-context";
 import { zodResolver } from "@hookform/resolvers/zod"
+import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 import { z } from "zod";
 
 const DEBUG_GAME_MAP = {
@@ -14,20 +16,22 @@ const DEBUG_GAME_MAP = {
 
 export function TestConfigForm() {
   const { api } = useApi();
+  const navigate = useNavigate();
+  const [isSubmitting, setIsSubmitting] = useState(false);
   
   const form = useForm<z.infer<typeof SETUP_TEST_CONFIG_SCHEMA>>({
     resolver: zodResolver(SETUP_TEST_CONFIG_SCHEMA),
     defaultValues: {
       gameConfig: {
-        platform: PLATFORMS.GAMECUBE,
+        platform: PLATFORMS.GAMECUBE.name,
         game: GAMES.ZELDA_WIND_WAKER,
-        saveState: AVAILABLE_SAVE_STATES[PLATFORMS.GAMECUBE][GAMES.ZELDA_WIND_WAKER][0],
+        saveState: AVAILABLE_SAVE_STATES[PLATFORMS.GAMECUBE.name][GAMES.ZELDA_WIND_WAKER][0],
         gameMode: "turn-based"
       },
       agentConfig: {
-        modelProvider: MODEL_PROVIDERS.GOOGLE,
-        model: MODELS[MODEL_PROVIDERS.GOOGLE][0].name,
-        maxIterations: 10,
+        modelProvider: MODEL_PROVIDERS.GOOGLE.name,
+        model: MODELS[MODEL_PROVIDERS.GOOGLE.name][0].name,
+        maxIterations: "10",
         temperature: 1.0,
         taskName: "Start a new game",
         taskDescription: "Navigate through the main menu and start a new game.",
@@ -37,6 +41,7 @@ export function TestConfigForm() {
   });
 
   const onSubmit = async (formData: z.infer<typeof SETUP_TEST_CONFIG_SCHEMA>) => {
+    setIsSubmitting(true);
     console.log("Form submitted:", formData);
     const transformedData = {
       testConfig: {
@@ -59,7 +64,7 @@ export function TestConfigForm() {
         gameContext: "",
         llmProvider: formData.agentConfig.modelProvider,
         model: formData.agentConfig.model,
-        maxIterations: formData.agentConfig.maxIterations,
+        maxIterations: parseInt(formData.agentConfig.maxIterations),
         temperature: formData.agentConfig.temperature,
         task: {
           name: formData.agentConfig.taskName,
@@ -69,23 +74,26 @@ export function TestConfigForm() {
     };
 
     try {
-      const testId = await api.setupTest(transformedData);
-      console.log('[Test Config Form] Test setup!', testId);
+      const result = await api.setupTest(transformedData);
+      console.log('[Test Config Form] Test setup!', result.testId);
+      navigate(`/dashboard/active-tests?testId=${result.testId}`);
     } catch (error) {
       console.log('[Test Config Form]: Unable to setup test: ', error);
+    } finally {
+      setIsSubmitting(false);
     }
   }
 
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-        <div className="flex flex-row space-x-4">
+        <div className="flex flex-col space-y-4 md:flex-row md:space-y-0 space-x-4">
           <GameConfig form={form} />
           <AgentConfig form={form} />
         </div>
         <div className="flex">
-          <Button type="submit" className="mx-auto" size="lg">
-            Submit
+          <Button type="submit" className="mx-auto" size="lg" disabled={isSubmitting}>
+            {isSubmitting ? "Submitting..." : "Submit"}
           </Button>
         </div>
       </form>

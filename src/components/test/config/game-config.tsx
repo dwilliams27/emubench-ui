@@ -47,8 +47,8 @@ export function GameConfig({ form }: { form: UseFormReturn<z.infer<typeof SETUP_
                   </SelectTrigger>
                   <SelectContent>
                     { Object.entries(PLATFORMS).map(([key, platform]) => (
-                    <SelectItem key={key} value={platform}>
-                      {platform}
+                    <SelectItem key={key} value={platform.name}>
+                      {platform.displayName}
                     </SelectItem>
                   )) }
                   </SelectContent>
@@ -110,7 +110,7 @@ export function GameConfig({ form }: { form: UseFormReturn<z.infer<typeof SETUP_
         <FormField
           control={form.control}
           name="gameConfig.gameMode"
-          render={({ field }) => (
+          render={(_) => (
             <FormItem>
               <FormLabel>Game Mode</FormLabel>
               <RadioGroup defaultValue="turn-based" className="flex justify-around">

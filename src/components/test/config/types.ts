@@ -13,7 +13,10 @@ export interface GameConfig {
 }
 
 export const PLATFORMS = {
-  GAMECUBE: "Gamecube"
+  GAMECUBE: {
+    name: "gamecube",
+    displayName: "Gamecube"
+  }
 };
 
 export const GAMES = {
@@ -21,7 +24,7 @@ export const GAMES = {
 };
 
 export const AVAILABLE_SAVE_STATES = {
-  [PLATFORMS.GAMECUBE]: {
+  [PLATFORMS.GAMECUBE.name]: {
     [GAMES.ZELDA_WIND_WAKER]: [{
       filename: "ww_main_menu.sav",
       displayName: "Main Menu"
@@ -30,14 +33,25 @@ export const AVAILABLE_SAVE_STATES = {
 }
 
 export const MODEL_PROVIDERS = {
-  GOOGLE: "google"
+  GOOGLE: {
+    name: "google",
+    displayName: "Google"
+  },
+  OPEN_AI: {
+    name: "openai",
+    displayName: "OpenAI"
+  }
 };
 
 export const MODELS = {
-  [MODEL_PROVIDERS.GOOGLE]: [{
+  [MODEL_PROVIDERS.GOOGLE.name]: [{
     name: "gemini-2.5-pro",
     displayName: "Gemini 2.5 Pro"
-  }]
+  }],
+  [MODEL_PROVIDERS.OPEN_AI.name]: [{
+    name: "gpt-4o",
+    displayName: "GPT-4o"
+  }],
 };
 
 export const SETUP_TEST_CONFIG_SCHEMA = z.object({
@@ -50,7 +64,7 @@ export const SETUP_TEST_CONFIG_SCHEMA = z.object({
   agentConfig: z.object({
     modelProvider: z.string(),
     model: z.string(),
-    maxIterations: z.number().min(1),
+    maxIterations: z.string(),
     temperature: z.number().min(0).max(2),
     taskName: z.string(),
     taskDescription: z.string(),

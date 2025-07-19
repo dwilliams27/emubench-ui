@@ -1,13 +1,11 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { AVAILABLE_SAVE_STATES, SETUP_TEST_CONFIG_SCHEMA, GAMES, MODEL_PROVIDERS, MODELS, PLATFORMS } from "@/components/test/config/types"
+import { SETUP_TEST_CONFIG_SCHEMA, MODEL_PROVIDERS, MODELS } from "@/components/test/config/types"
 import { useWatch, type UseFormReturn } from "react-hook-form";
 import { FormField, FormItem, FormLabel } from "@/components/ui/form";
 import { useMemo } from "react";
 import type z from "zod";
 import { Separator } from "@/components/ui/separator";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Slider } from "@/components/ui/slider";
 import { Textarea } from "@/components/ui/textarea";
@@ -45,8 +43,8 @@ export function AgentConfig({ form }: { form: UseFormReturn<z.infer<typeof SETUP
                   </SelectTrigger>
                   <SelectContent>
                     { Object.entries(MODEL_PROVIDERS).map(([key, provider]) => (
-                    <SelectItem key={key} value={provider}>
-                      {provider}
+                    <SelectItem key={key} value={provider.name}>
+                      {provider.displayName}
                     </SelectItem>
                   )) }
                   </SelectContent>
@@ -120,7 +118,7 @@ export function AgentConfig({ form }: { form: UseFormReturn<z.infer<typeof SETUP
         </div>
         <Separator className="my-4"/>
 
-        <div className="flex flex-row space-x-3 p-3">
+        <div className="flex flex-row space-x-3">
           <div className="flex flex-col space-y-4 w-1/2">
             <FormField
               control={form.control}
@@ -128,7 +126,7 @@ export function AgentConfig({ form }: { form: UseFormReturn<z.infer<typeof SETUP
               render={({ field }) => (
                 <div className="space-y-2">
                   <FormLabel>Task Name</FormLabel>
-                  <Input onChange={field.onChange} />
+                  <Input onChange={field.onChange} defaultValue={field.value} />
                 </div>
               )}
             />
@@ -138,7 +136,7 @@ export function AgentConfig({ form }: { form: UseFormReturn<z.infer<typeof SETUP
               render={({ field }) => (
                 <div className="space-y-2 w-full">
                   <FormLabel>Task Description</FormLabel>
-                  <Input onChange={field.onChange} />
+                  <Input onChange={field.onChange} defaultValue={field.value} />
                 </div>
               )}
             />
@@ -151,8 +149,9 @@ export function AgentConfig({ form }: { form: UseFormReturn<z.infer<typeof SETUP
                 <FormLabel>System Prompt</FormLabel>
                 <Textarea 
                   onChange={field.onChange} 
-                  className="flex-1 resize-none"
+                  className="flex-1 resize-none max-h-28 overflow-y-auto"
                   placeholder="Enter system prompt..."
+                  defaultValue={field.value}
                 />
               </div>
             )}

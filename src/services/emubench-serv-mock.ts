@@ -13,9 +13,14 @@ export class EmuBenchServMock implements Api {
   async getTestState(id: string): Promise<TestState> {
     return MockActiveTestResponses[id];
   }
-  async setupTest(config: z.infer<typeof REQ_SETUP_TEST>) {
+  async setupTest(_: z.infer<typeof REQ_SETUP_TEST>) {
     await new Promise(resolve => setTimeout(resolve, 1000));
 
     return { testId: "tst-123456" };
+  }
+  async getActiveTestState(_: string) {
+    await new Promise(resolve => setTimeout(resolve, 500));
+
+    return {} as any;
   }
 }

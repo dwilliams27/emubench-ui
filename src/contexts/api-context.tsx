@@ -10,7 +10,7 @@ const ApiContext = createContext<ApiContextProps | undefined>(undefined);
 
 export function ApiProvider({ children }: { children: React.ReactNode }) {
   const apiRef = useRef<Api>(
-    import.meta.env.VITE_MOCK_API ? new EmuBenchServMock() : new EmuBenchServ()
+    import.meta.env.VITE_MOCK_API === "true" ? new EmuBenchServMock() : new EmuBenchServ()
   );
 
   return (
