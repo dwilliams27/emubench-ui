@@ -1,9 +1,9 @@
-import { TestConfigWizard } from "@/components/test/config/test-config-wizard";
+import { TestConfigForm } from "@/components/test/config/test-config-form";
 
 export default function TestConfig() {
   return (
     <div>
-      <TestConfigWizard />
+      <TestConfigForm />
     </div>
   )
 }

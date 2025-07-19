@@ -4,12 +4,15 @@ import type { GetActiveTestConfigResponse } from '@/constants/api';
 import type { TestState } from '@/constants/games';
 import { getIdToken } from 'firebase/auth';
 import { auth } from '@/constants/firebase';
+import { REQ_SETUP_TEST } from '@/components/test/config/types';
+import type z from 'zod';
 
 export interface Api {
   getAuthToken: () => Promise<string>;
   makeApiCall: (endpoint: string, method: string, data?: any) => Promise<any>;
   fetchTestConfigs: () => Promise<GetActiveTestConfigResponse>;
   getTestState: (id: string) => Promise<TestState>;
+  setupTest: (config: z.infer<typeof REQ_SETUP_TEST>) => Promise<{ testId: string }>;
 }
 
 export class EmuBenchServ implements Api {
@@ -50,6 +53,25 @@ export class EmuBenchServ implements Api {
       return response;
     } catch (error) {
       console.error('[API] Error making API call:', error);
+      throw error;
+    }
+  }
+
+  setupTest = async (config: z.infer<typeof REQ_SETUP_TEST>) => {
+    const authToken = await this.getAuthToken();
+    try {
+      const response = await this.axiosInstance.post(
+        '/test-orx/setup',
+        config,
+        {
+          headers: {
+            'Authorization': `Bearer ${authToken}`
+          }
+        }
+      );
+      return response.data;
+    } catch (error) {
+      console.error('[API] Unabled to setup test:', error);
       throw error;
     }
   }
