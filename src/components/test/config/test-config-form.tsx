@@ -18,6 +18,8 @@ export function TestConfigForm() {
   const { api } = useApi();
   const navigate = useNavigate();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [testId, setTestId] = useState('');
+  const [error, setError] = useState('');
   
   const form = useForm<z.infer<typeof SETUP_TEST_CONFIG_SCHEMA>>({
     resolver: zodResolver(SETUP_TEST_CONFIG_SCHEMA),
@@ -75,13 +77,22 @@ export function TestConfigForm() {
 
     try {
       const result = await api.setupTest(transformedData);
+      
       console.log('[Test Config Form] Test setup!', result.testId);
-      navigate(`/dashboard/active-tests?testId=${result.testId}`);
+
+      // Stupid safari
+      setTestId(result.testId);
+      // navigateToTest(result.testId);
     } catch (error) {
       console.log('[Test Config Form]: Unable to setup test: ', error);
+      setError(JSON.stringify(error));
     } finally {
       setIsSubmitting(false);
     }
+  }
+
+  const navigateToTest = (testId: string) => {
+    navigate(`/dashboard/active-tests?testId=${testId}`);
   }
 
   return (
@@ -91,10 +102,16 @@ export function TestConfigForm() {
           <GameConfig form={form} />
           <AgentConfig form={form} />
         </div>
-        <div className="flex">
+        <div className="flex flex-col space-y-4">
           <Button type="submit" className="mx-auto" size="lg" disabled={isSubmitting}>
             {isSubmitting ? "Submitting..." : "Submit"}
           </Button>
+          { testId && (
+            <Button className="mx-auto" size="sm" disabled={isSubmitting} onClick={() => navigateToTest(testId)}>
+              {`Navigate to ${testId}`}
+            </Button>
+          ) }
+          { error && <p className="text-destructive">{error}</p> }
         </div>
       </form>
     </Form>

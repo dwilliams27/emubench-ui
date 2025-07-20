@@ -30,7 +30,14 @@ export function ActiveTestView() {
       return;
     }
 
-    setCurrentState(response);
+    if (!currentState) {
+      setCurrentState(response);
+      return;
+    }
+
+    if (response.agentLogs.length > currentState?.agentLogs.length || response.screenshots.length > currentState.screenshots.length || response.testState.length > currentState.testState.length) {
+      setCurrentState(response);
+    }
   }
 
   useEffect(() => {
@@ -43,9 +50,9 @@ export function ActiveTestView() {
   }, [testId]);
 
   return (
-    <div className="flex flex-row space-x-4">
+    <div className="flex flex-col space-y-4 md:flex-row space-x-4">
       <ActiveTestScreen screenshots={currentState?.screenshots} />
-      <ActiveTestChat messages={currentState?.agentLogs || [{ title: "", logs: [{ text: "No messages yet" }] }]} />
+      <ActiveTestChat messages={currentState?.agentLogs} />
     </div>
   )
 }

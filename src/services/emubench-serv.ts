@@ -27,6 +27,7 @@ export class EmuBenchServ implements Api {
       headers: {
         'Content-Type': 'application/json',
       },
+      adapter: 'xhr'
     });
   }
 

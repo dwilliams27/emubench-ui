@@ -1,8 +1,9 @@
 import type { Api } from "@/services/emubench-serv";
 import type { TestChatSegment, TestState } from "@/constants/games";
-import { MockActiveTestResponses, MockGetActiveTestConfigResponse } from "@/services/mock-data/responses";
+import { MockActiveTestResponses, MockGetActiveTestConfigResponse, MockGetActiveTestStateResponse } from "@/services/mock-data/responses";
 import type { REQ_SETUP_TEST } from "@/components/test/config/types";
 import type z from "zod";
+import type { EmuActiveTestReponse } from "@/constants/shared";
 
 export class EmuBenchServMock implements Api {
   messages: TestChatSegment[] = [];
@@ -21,6 +22,6 @@ export class EmuBenchServMock implements Api {
   async getActiveTestState(_: string) {
     await new Promise(resolve => setTimeout(resolve, 500));
 
-    return {} as any;
+    return MockGetActiveTestStateResponse as unknown as EmuActiveTestReponse;
   }
 }

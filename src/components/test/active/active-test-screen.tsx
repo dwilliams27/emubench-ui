@@ -13,7 +13,7 @@ export function ActiveTestScreen({ screenshots }: { screenshots: Record<string, 
   }
 
   return (
-    <Card className="w-2/3">
+    <Card className="w-full md:w-2/3">
       <CardHeader>
         <CardTitle>Game View</CardTitle>
       </CardHeader>
