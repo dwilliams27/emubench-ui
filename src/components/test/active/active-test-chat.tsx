@@ -45,7 +45,7 @@ export function ActiveTestChat({ messages }: ActiveTestChatProps) {
         <CardTitle>Agent Logs</CardTitle>
       </CardHeader>
       <CardContent className="space-y-2">
-        <div ref={chatContainerRef} className="max-h-[500px] w-full flex flex-col overflow-y-scroll">
+        <div ref={chatContainerRef} className="w-full flex flex-col overflow-y-scroll">
           {messages?.length && messages.length > 0
             ? (
               messages.map((message) => (
