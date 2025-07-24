@@ -14,6 +14,7 @@ export interface ActiveTestViewProps {
 export function ActiveTestView() {
   const { api } = useApi();
   const [currentState, setCurrentState] = useState<EmuActiveTestReponse | null>(null);
+  const [activeInterval, setActiveInterval] = useState<NodeJS.Timeout | null>(null);
   const [searchParams] = useSearchParams();
   const testId = searchParams.get('testId');
 
@@ -30,6 +31,10 @@ export function ActiveTestView() {
       return;
     }
 
+    if (response.finished && activeInterval) {
+      clearInterval(activeInterval);
+    }
+
     if (!currentState) {
       setCurrentState(response);
       return;
@@ -44,7 +49,8 @@ export function ActiveTestView() {
     if (!testId) return;
 
     getActiveTestState();
-    const interval = setInterval(getActiveTestState, 1000);
+    const interval = setInterval(getActiveTestState, 5000);
+    setActiveInterval(interval);
     
     return () => clearInterval(interval);
   }, [testId]);
