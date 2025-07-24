@@ -11,6 +11,7 @@ import { useNavigate } from "react-router-dom";
 import { z } from "zod";
 
 const DEBUG_GAME_MAP = {
+  [GAMES.HARVEST_MOOON]: "G4AEE9",
   [GAMES.ZELDA_WIND_WAKER]: "GZLE01"
 };
 
@@ -82,7 +83,8 @@ export function TestConfigForm() {
 
       // Stupid safari
       setTestId(result.testId);
-      // navigateToTest(result.testId);
+
+      navigateToTest(result.testId);
     } catch (error) {
       console.log('[Test Config Form]: Unable to setup test: ', error);
       setError(JSON.stringify(error));

@@ -1,57 +1,41 @@
 import { Badge } from "@/components/ui/badge";
-import type { Test } from "@/constants/games";
 
-export function testToBadge(test: Test) {
-  if (!test.setup && !test.started) {
+export function testStatusToBadge(testStatus?: string) {
+  if (testStatus === 'starting') {
     return (
       <Badge variant="outline">
-        Initializing
+        Starting
       </Badge>
     );
   }
 
-  if (test.setup && !test.started) {
-    return (
-      <Badge variant="default">
-        Queued
-      </Badge>
-    );
-  }
-
-  if (!test.result) {
+  if (testStatus === 'running') {
     return (
       <Badge variant="default">
         Running
       </Badge>
     );
-  } else {
+  }
+
+  if (testStatus === 'finished') {
     return (
-      <Badge variant="secondary">
+      <Badge variant="default">
         Finished
       </Badge>
     );
   }
-}
 
-export function testResultToBadge(test: Test) {
-  if (!test.result) {
+  if (testStatus === 'error') {
     return (
-      <Badge variant="outline">
-        In progress
+      <Badge variant="destructive">
+        Error
       </Badge>
     );
   }
 
-  if (test.result.outcome === "pass") {
-    return (
-      <Badge variant="default">
-        Pass
-      </Badge>
-    );
-  }
   return (
-    <Badge variant="destructive">
-      Fail
+    <Badge variant="outline">
+      -
     </Badge>
   );
 }

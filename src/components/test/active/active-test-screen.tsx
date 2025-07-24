@@ -15,10 +15,12 @@ export function ActiveTestScreen({ screenshots }: { screenshots: Record<string, 
   return (
     <Card className="w-full md:w-2/3">
       <CardHeader>
-        <CardTitle>Game View</CardTitle>
+        <CardTitle>View</CardTitle>
       </CardHeader>
-      <CardContent className="space-y-2">
-        { screenshots && <img src={getLatestScreenshot()} alt="Game screenshot" className="w-full h-auto rounded-md" /> }
+      <CardContent>
+        <div className="max-h-[600px]">
+          { screenshots && <img src={getLatestScreenshot()} alt="Game screenshot" className="w-full h-auto max-h-[600px] rounded-md" /> }
+        </div>
       </CardContent>
     </Card>
   );

@@ -1,4 +1,5 @@
 import { ActiveTestChat } from "@/components/test/active/active-test-chat";
+import { ActiveTestHeader } from "@/components/test/active/active-test-header";
 import { ActiveTestScreen } from "@/components/test/active/active-test-screen";
 import type { Test, TestState } from "@/constants/games";
 import type { EmuActiveTestReponse } from "@/constants/shared";
@@ -31,7 +32,7 @@ export function ActiveTestView() {
       return;
     }
 
-    if (response.finished && activeInterval) {
+    if ((response.status === 'error' || response.status === 'finished') && activeInterval) {
       clearInterval(activeInterval);
     }
 
@@ -56,9 +57,12 @@ export function ActiveTestView() {
   }, [testId]);
 
   return (
-    <div className="flex flex-col space-y-4 md:flex-row space-x-4">
-      <ActiveTestScreen screenshots={currentState?.screenshots} />
-      <ActiveTestChat messages={currentState?.agentLogs} />
+    <div className="flex flex-col space-y-1">
+      <ActiveTestHeader status={currentState?.status} testId={testId} />
+      <div className="flex flex-col space-y-1 md:flex-row space-x-1">
+        <ActiveTestScreen screenshots={currentState?.screenshots} />
+        <ActiveTestChat messages={currentState?.agentLogs} />
+      </div>
     </div>
   )
 }

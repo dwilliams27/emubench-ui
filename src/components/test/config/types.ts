@@ -20,11 +20,22 @@ export const PLATFORMS = {
 };
 
 export const GAMES = {
+  HARVEST_MOOON: "Harvest Moon: Magical Melody",
   ZELDA_WIND_WAKER: "The Legend of Zelda: Wind Waker"
 };
 
 export const AVAILABLE_SAVE_STATES = {
   [PLATFORMS.GAMECUBE.name]: {
+    [GAMES.HARVEST_MOOON]: [
+      {
+        filename: "main_menu.sav",
+        displayName: "Main Menu"
+      },
+      {
+        filename: "new_game_beginning.sav",
+        displayName: "Start of New Game"
+      },
+    ],
     [GAMES.ZELDA_WIND_WAKER]: [{
       filename: "ww_main_menu.sav",
       displayName: "Main Menu"

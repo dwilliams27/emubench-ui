@@ -19,7 +19,7 @@ export function toolToLog(toolName?: string, toolPayload?: any) {
     return controllerInputToLog(toolPayload);
   }
   if (toolName === "wait") {
-    return `Wait ${toolPayload.duration} frames`
+    return `Wait ${toolPayload.frames} frames`
   }
   console.log('couldnt do it boss')
   return JSON.stringify(toolPayload);
