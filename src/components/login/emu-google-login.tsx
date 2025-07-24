@@ -30,9 +30,6 @@ export function EmuGoogleLogin() {
       provider.addScope('https://www.googleapis.com/auth/cloud-platform');
       
       const result = await signInWithPopup(auth, provider);
-      
-      console.log('User signed in:', result.user);
-
       const idToken = await getIdToken(result.user);
       
       localStorage.setItem('firebase_token', idToken);
