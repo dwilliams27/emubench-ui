@@ -1,5 +1,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Separator } from "@/components/ui/separator";
 import type { EmuLogBlock } from "@/constants/shared";
+import { toolToLog } from "@/utils/tools";
 import { useEffect, useRef } from "react";
 
 export interface ActiveTestChatProps {
@@ -11,25 +13,27 @@ export function ActiveTestChat({ messages }: ActiveTestChatProps) {
 
   const renderLogBlock = (block: EmuLogBlock) => {
     return (
-      <div key={block.title} className="break-words">
+      <div key={block.title} className="break-words border-2 rounded-2xl p-2">
         <p>{block.title}</p>
-        { block.logs.map((log) => {
-          switch (log.metadata.type) {
-            case ('message'): {
-              return (
-                <p key={log.metadata.timestamp}>{log.text}</p>
-              );
+        <Separator className="my-1"/>
+        <div className="space-y-2">
+          { block.logs.map((log) => {
+            switch (log.metadata.type) {
+              case ('message'): {
+                return (
+                  <p key={log.metadata.timestamp}>{log.text}</p>
+                );
+              }
+              case ('tool-call'): {
+                return (
+                  <div key={log.metadata.timestamp}>
+                    <p className="whitespace-pre-line">{toolToLog(log.metadata.toolName, log.metadata.toolPayload)}</p>
+                  </div>
+                )
+              }
             }
-            case ('tool-call'): {
-              return (
-                <div key={log.metadata.timestamp}>
-                  <p>Tool: {log.metadata.toolName}</p>
-                  <p>{JSON.stringify(log.metadata.toolPayload)}</p>
-                </div>
-              )
-            }
-          }
-        }) }
+          }) }
+        </div>
       </div>
     )
   };

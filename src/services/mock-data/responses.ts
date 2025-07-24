@@ -98,6 +98,7 @@ export const MockGetActiveTestStateResponse = {
                     "metadata": {
                         "type": "tool-call",
                         "timestamp": "2025-07-20T22:31:07.041Z",
+                        "toolName": "sendControllerInput",
                         "toolPayload": {
                             "actions": {
                                 "buttons": {
