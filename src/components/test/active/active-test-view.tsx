@@ -32,7 +32,7 @@ export function ActiveTestView() {
       return;
     }
 
-    if ((response.status === 'error' || response.status === 'finished') && activeInterval) {
+    if ((response.emulatorStatus === 'error' || response.agentStatus === 'error' || (response.emulatorStatus === 'finished' && response.agentStatus === 'finished')) && activeInterval) {
       clearInterval(activeInterval);
     }
 
@@ -41,7 +41,7 @@ export function ActiveTestView() {
       return;
     }
 
-    if (response.agentLogs.length > currentState?.agentLogs.length || response.screenshots.length > currentState.screenshots.length || response.testState.length > currentState.testState.length) {
+    if (response.agentLogs.length > currentState?.agentLogs.length || response.screenshots.length > currentState.screenshots.length) {
       setCurrentState(response);
     }
   }
@@ -58,7 +58,7 @@ export function ActiveTestView() {
 
   return (
     <div className="flex flex-col space-y-1">
-      <ActiveTestHeader status={currentState?.status} testId={testId} />
+      <ActiveTestHeader status={currentState?.agentStatus} testId={testId} />
       <div className="flex flex-col space-y-1 md:flex-row space-x-1">
         <ActiveTestScreen screenshots={currentState?.screenshots} />
         <ActiveTestChat messages={currentState?.agentLogs} />
