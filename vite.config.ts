@@ -16,6 +16,10 @@ export default defineConfig(({ mode }) => {
     },
     define: {
       'process.env': JSON.stringify(env)
+    },
+    test: {
+      environment: 'jsdom',
+      globals: true,
     }
   }
 })

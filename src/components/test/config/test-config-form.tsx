@@ -39,6 +39,20 @@ export function TestConfigForm() {
         taskName: "Start a new game",
         taskDescription: "Navigate through the main menu and start a new game.",
         systemPrompt: `You are an extremely competent video game playing agent. You will be given a task and tools to interact with a game. The game will pause while you are thinking, and only play during actions you take. Tools will be executed sequentially. Sometimes you may want to take an action, and then wait. Each response you give should be a very concise summary (1 sentance) of the action you are taking and why. You MUST give a text response every single time, even if calling tools. These responses will be fed back in as context for subsequent prompts. You will be given a history of your recent actions and related screenshots. Look extremely closely at the menus to see what option is selected. Complete the objective.`
+      },
+      memoryConfig; {
+        context: {
+          "test_game_id": {
+            "address": "80000000",
+            "size": 6
+          }
+        },
+        goals: {
+          "test_game_id": {
+            "address": "80000000",
+            "size": 6
+          }
+        }
       }
     }
   });
