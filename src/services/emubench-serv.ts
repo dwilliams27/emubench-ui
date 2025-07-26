@@ -6,7 +6,7 @@ import { getIdToken } from 'firebase/auth';
 import { auth } from '@/constants/firebase';
 import { REQ_SETUP_TEST } from '@/components/test/config/types';
 import type z from 'zod';
-import type { EmuActiveTestReponse } from '@/constants/shared';
+import type { EmuActiveTestReponse } from '@/shared/types';
 
 export interface Api {
   getAuthToken: () => Promise<string>;

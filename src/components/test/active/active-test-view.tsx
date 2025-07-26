@@ -2,8 +2,8 @@ import { ActiveTestChat } from "@/components/test/active/active-test-chat";
 import { ActiveTestHeader } from "@/components/test/active/active-test-header";
 import { ActiveTestScreen } from "@/components/test/active/active-test-screen";
 import type { Test, TestState } from "@/constants/games";
-import type { EmuActiveTestReponse } from "@/constants/shared";
 import { useApi } from "@/contexts/api-context";
+import type { EmuActiveTestReponse } from "@/shared/types";
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 

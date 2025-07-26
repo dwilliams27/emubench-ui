@@ -1,5 +1,5 @@
-import { emuEvaluateOperand } from "@/utils/conditions/evaluate";
-import { type EmuConditionOperation } from "@/utils/conditions/types";
+import { emuEvaluateOperand } from "@/shared/conditions/evaluate";
+import { type EmuConditionOperation } from "@/shared/conditions/types";
 
 export function emuAddOperation(): EmuConditionOperation {
   return (inputs, lhs, rhs) => {
@@ -39,10 +39,7 @@ export function emuEqualsOperation(): EmuConditionOperation {
     }
     const lhsResult = emuEvaluateOperand(inputs, lhs);
     const rhsResult = emuEvaluateOperand(inputs, rhs);
-    if (typeof lhsResult === 'boolean' && typeof rhsResult === 'boolean') {
-      return lhsResult === rhsResult;
-    }
-    throw new Error('Invalid operands for &&');
+    return lhsResult === rhsResult;
   };
 }
 

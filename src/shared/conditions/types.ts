@@ -13,7 +13,7 @@ export interface EmuCondition {
 
 export interface EmuConditionPart {
   lhs: EmuConditionOperand;
-  rhs: EmuConditionOperand;
+  rhs?: EmuConditionOperand;
   operation: EmuConditionOperation;
 }
 

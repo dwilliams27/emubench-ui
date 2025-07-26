@@ -3,7 +3,7 @@ import type { TestChatSegment, TestState } from "@/constants/games";
 import { MockActiveTestResponses, MockGetActiveTestConfigResponse, MockGetActiveTestStateResponse } from "@/services/mock-data/responses";
 import type { REQ_SETUP_TEST } from "@/components/test/config/types";
 import type z from "zod";
-import type { EmuActiveTestReponse } from "@/constants/shared";
+import type { EmuActiveTestReponse } from "@/shared/types";
 
 export class EmuBenchServMock implements Api {
   messages: TestChatSegment[] = [];

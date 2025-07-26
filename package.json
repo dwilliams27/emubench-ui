@@ -9,7 +9,7 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "test": "vitest",
-    "typesync": "./scripts/typesync.sh"
+    "shared-sync": "./scripts/sharedsync.sh"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.1.1",

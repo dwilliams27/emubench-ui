@@ -1,5 +1,5 @@
-import { hexToAscii, hexToFloat, hexToInt, hexToUint } from "@/utils/conditions/helpers";
-import type { EmuCondition, EmuConditionPrimitiveResult, EmuConditionInputSet, EmuConditionOperand, EmuConditionInput } from "@/utils/conditions/types";
+import { hexToAscii, hexToFloat, hexToInt, hexToUint } from "@/shared/conditions/helpers";
+import type { EmuCondition, EmuConditionPrimitiveResult, EmuConditionInputSet, EmuConditionOperand, EmuConditionInput } from "@/shared/conditions/types";
 
 export function emuEvaluateCondition(condition?: EmuCondition): EmuConditionPrimitiveResult {
   if (!condition?.logic) {
@@ -21,10 +21,10 @@ export function emuEvaluateCondition(condition?: EmuCondition): EmuConditionPrim
 }
 
 export function emuEvaluateOperand(inputs: EmuConditionInputSet, operand: EmuConditionOperand): EmuConditionPrimitiveResult {
-   if (typeof operand === 'object' && 'lhs' in operand && 'rhs' in operand && 'operation' in operand) {
+   if (typeof operand === 'object' && 'lhs' in operand && 'operation' in operand) {
     // If part
     const lhsResult = emuEvaluateOperand(inputs, operand.lhs);
-    const rhsResult = emuEvaluateOperand(inputs, operand.rhs);
+    const rhsResult = operand.rhs ? emuEvaluateOperand(inputs, operand.rhs) : undefined;
     return operand.operation(inputs, lhsResult, rhsResult);
   } else if (typeof operand === 'number' || typeof operand === 'string' || typeof operand === 'boolean') {
     // If primitive

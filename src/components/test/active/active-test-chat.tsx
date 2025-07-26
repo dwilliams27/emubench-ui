@@ -1,6 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
-import type { EmuLogBlock } from "@/constants/shared";
+import type { EmuLogBlock } from "@/shared/types";
 import { toolToLog } from "@/utils/tools";
 
 export interface ActiveTestChatProps {

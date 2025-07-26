@@ -94,7 +94,7 @@ export function hexToAscii(hexString: string): string {
   
   // Process each pair of hex characters as one byte
   for (let i = 0; i < cleanHex.length; i += 2) {
-    const hexPair = cleanHex.substring(i, 2);
+    const hexPair = cleanHex.substring(i, i + 2);
     const charCode = parseInt(hexPair, 16);
     
     // Convert to character (handle non-printable characters)
