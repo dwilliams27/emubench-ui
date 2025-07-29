@@ -47,7 +47,7 @@ export function ActiveTestChat({ messages }: ActiveTestChatProps) {
               messages.map((message) => (
                 renderLogBlock(message))
             )) : (
-              <h3>No messages yet</h3>
+              <h3>-</h3>
             )
           }
         </div>

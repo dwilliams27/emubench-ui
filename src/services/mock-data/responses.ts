@@ -435,5 +435,6 @@ export const MockGetActiveTestStateResponse = {
             }
         }
     ],
-    "status": "starting"
+    "emulatorStatus": "running",
+    "agentStatus": "running",
 }

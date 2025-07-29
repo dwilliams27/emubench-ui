@@ -81,19 +81,19 @@ export const SETUP_TEST_CONFIG_SCHEMA = z.object({
     taskDescription: z.string(),
     systemPrompt: z.string()
   }),
-  memoryConfig: z.object({
-    context: z.record(z.string(), z.object({
-      address: z.string(),
-      size: z.number()
-    })),
-    goals: z.object({
-      condition: z.object({
-        
-        inputs: z.record(z.string(), z.string()),
+  // memoryConfig: z.object({
+  //   context: z.record(z.string(), z.object({
+  //     address: z.string(),
+  //     size: z.number()
+  //   })),
+  //   goals: z.object({
+  //     condition: z.object({
 
-      })
-    })
-  })
+  //       inputs: z.record(z.string(), z.string()),
+
+  //     })
+  //   })
+  // })
 });
 
 export const REQ_SETUP_TEST = z.object({

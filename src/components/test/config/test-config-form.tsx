@@ -57,6 +57,25 @@ export function TestConfigForm() {
     }
   });
 
+  const getFormErrors = () => {
+    const errors = form.formState.errors;
+    const errorMessages: string[] = [];
+    
+    const collectErrors = (obj: any, prefix = '') => {
+      Object.keys(obj).forEach(key => {
+        const value = obj[key];
+        if (value?.message) {
+          errorMessages.push(`${prefix}${key}: ${value.message}`);
+        } else if (typeof value === 'object' && value !== null) {
+          collectErrors(value, `${prefix}${key}.`);
+        }
+      });
+    };
+    
+    collectErrors(errors);
+    return errorMessages;
+  };
+
   const onSubmit = async (formData: z.infer<typeof SETUP_TEST_CONFIG_SCHEMA>) => {
     setIsSubmitting(true);
     console.log("Form submitted:", formData);
@@ -128,6 +147,16 @@ export function TestConfigForm() {
             </Button>
           ) }
           { error && <p className="text-destructive">{error}</p> }
+          {getFormErrors().length > 0 && (
+            <div className="bg-red-50 border border-red-200 rounded-md p-4">
+              <h3 className="text-red-800 font-medium mb-2">Error</h3>
+              <ul className="text-red-700 text-sm space-y-1">
+                {getFormErrors().map((error, index) => (
+                  <li key={index}>• {error}</li>
+                ))}
+              </ul>
+            </div>
+          )}
         </div>
       </form>
     </Form>

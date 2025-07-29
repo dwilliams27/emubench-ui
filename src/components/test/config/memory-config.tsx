@@ -7,6 +7,7 @@ export function MemoryConfig() {
         <CardTitle>Memory</CardTitle>
       </CardHeader>
       <CardContent className="space-y-2">
+        
       </CardContent>
     </Card>
   );

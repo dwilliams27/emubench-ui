@@ -58,7 +58,7 @@ export function ActiveTestView() {
 
   return (
     <div className="flex flex-col space-y-1">
-      <ActiveTestHeader status={currentState?.agentStatus} testId={testId} />
+      <ActiveTestHeader agentStatus={currentState?.agentStatus} emulatorStatus={currentState?.emulatorStatus} testId={testId} />
       <div className="flex flex-col space-y-1 md:flex-row space-x-1">
         <ActiveTestScreen screenshots={currentState?.screenshots} />
         <ActiveTestChat messages={currentState?.agentLogs} />

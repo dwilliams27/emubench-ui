@@ -19,7 +19,11 @@ export function ActiveTestScreen({ screenshots }: { screenshots: Record<string, 
       </CardHeader>
       <CardContent>
         <div className="max-h-[600px]">
-          { screenshots && <img src={getLatestScreenshot()} alt="Game screenshot" className="w-full h-auto max-h-[600px] rounded-md" /> }
+          { screenshots ? (
+            <img src={getLatestScreenshot()} alt="Game screenshot" className="w-full h-auto max-h-[600px] rounded-md" />
+          ) : (
+            <h3>-</h3>
+          ) }
         </div>
       </CardContent>
     </Card>
