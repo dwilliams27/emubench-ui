@@ -1,5 +1,7 @@
+export type EmuConditionInputType = 'int' | 'uint' | 'float' | 'hex' | 'chars';
+
 export interface EmuConditionInput {
-  type: 'int' | 'uint' | 'float' | 'hex' | 'chars';
+  type: EmuConditionInputType;
   pointerDepth: number;
 
   rawValue: string; // Hex string

@@ -31,7 +31,7 @@ export function GameConfig({ form }: { form: UseFormReturn<z.infer<typeof SETUP_
   return (
     <Card className="w-full">
       <CardHeader>
-        <CardTitle>Game Config</CardTitle>
+        <CardTitle>Game</CardTitle>
       </CardHeader>
       <CardContent className="space-y-2">
         <FormField

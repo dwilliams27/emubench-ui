@@ -1,5 +1,6 @@
 import { AgentConfig } from "@/components/test/config/agent-config";
 import { GameConfig } from "@/components/test/config/game-config";
+import { MemoryConfig } from "@/components/test/config/memory/memory-config";
 import { MODEL_PROVIDERS, MODELS, PLATFORMS, GAMES, SETUP_TEST_CONFIG_SCHEMA, AVAILABLE_SAVE_STATES } from "@/components/test/config/types";
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
@@ -137,6 +138,7 @@ export function TestConfigForm() {
           <GameConfig form={form} />
           <AgentConfig form={form} />
         </div>
+        <MemoryConfig form={form} />
         <div className="flex flex-col space-y-4">
           <Button type="submit" className="mx-auto" size="lg" disabled={isSubmitting}>
             {isSubmitting ? "Submitting..." : "Submit"}

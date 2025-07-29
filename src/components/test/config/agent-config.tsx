@@ -27,7 +27,7 @@ export function AgentConfig({ form }: { form: UseFormReturn<z.infer<typeof SETUP
   return (
     <Card className="w-full">
       <CardHeader>
-        <CardTitle>Agent Config</CardTitle>
+        <CardTitle>Agent</CardTitle>
       </CardHeader>
       <CardContent className="space-y-2">
         <FormField
