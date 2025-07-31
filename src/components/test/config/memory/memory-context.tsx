@@ -5,9 +5,9 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { EmuConditionInputType } from "@/shared/conditions/types";
 import { ColumnDef, flexRender, getCoreRowModel, getFilteredRowModel, getPaginationRowModel, getSortedRowModel, useReactTable } from "@tanstack/react-table";
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { UseFormReturn, useWatch } from "react-hook-form";
-import z, { set } from "zod";
+import z from "zod";
 
 export interface ContextMemoryItem {
   address: string;
@@ -105,7 +105,12 @@ export function MemoryContext({ form }: { form: UseFormReturn<z.infer<typeof SET
   });
 
   const [rowSelection, setRowSelection] = useState({});
-  const tableData = ContextMemoryWatches[selectedGameId] || [];
+  
+  const tableData = useMemo(() => [
+    ...(ContextMemoryWatches[selectedGameId] || []),
+    ...customMemoryWatches
+  ], [selectedGameId, customMemoryWatches]);
+  
   const table = useReactTable({
     data: tableData,
     columns,
@@ -191,26 +196,6 @@ export function MemoryContext({ form }: { form: UseFormReturn<z.infer<typeof SET
             )}
           </TableBody>
         </Table>
-      </div>
-      <div className="flex items-center justify-end space-x-2 py-4">
-        <div className="space-x-2">
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => table.previousPage()}
-            disabled={!table.getCanPreviousPage()}
-          >
-            Previous
-          </Button>
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => table.nextPage()}
-            disabled={!table.getCanNextPage()}
-          >
-            Next
-          </Button>
-        </div>
       </div>
     </div>
   );

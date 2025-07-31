@@ -9,12 +9,10 @@ describe("EmuConditionInput", () => {
       inputs: {
         a: {
           type: "int",
-          pointerDepth: 0,
           rawValue: "00000001",
         },
         b: {
           type: "int",
-          pointerDepth: 0,
           rawValue: "00000001",
         }
       },
@@ -32,12 +30,10 @@ describe("EmuConditionInput", () => {
       inputs: {
         one: {
           type: "int",
-          pointerDepth: 0,
           rawValue: "00000001",
         },
         two: {
           type: "int",
-          pointerDepth: 0,
           rawValue: "00000002",
         }
       },
@@ -63,12 +59,10 @@ describe("EmuConditionInput", () => {
       inputs: {
         five: {
           type: "int",
-          pointerDepth: 0,
           rawValue: "00000005",
         },
         six: {
           type: "int",
-          pointerDepth: 0,
           rawValue: "00000006",
         }
       },
@@ -92,7 +86,6 @@ describe("EmuConditionInput", () => {
       inputs: {
         maxUint: {
           type: "uint",
-          pointerDepth: 0,
           rawValue: "FFFFFFFF",
         },
       },
@@ -110,7 +103,6 @@ describe("EmuConditionInput", () => {
       inputs: {
         GAME_ID: {
           type: "chars",
-          pointerDepth: 0,
           rawValue: "475A4C453031",
         },
       },
@@ -128,7 +120,6 @@ describe("EmuConditionInput", () => {
       inputs: {
         FLOAT: {
           type: "float",
-          pointerDepth: 0,
           rawValue: "BF800000",
         },
       },
@@ -146,12 +137,10 @@ describe("EmuConditionInput", () => {
       inputs: {
         FLOAT: {
           type: "float",
-          pointerDepth: 0,
           rawValue: "BF800000",
         },
         INT: {
           type: "int",
-          pointerDepth: 0,
           rawValue: "FFFFFFFF",
         }
       },

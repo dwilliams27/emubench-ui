@@ -2,8 +2,6 @@ export type EmuConditionInputType = 'int' | 'uint' | 'float' | 'hex' | 'chars';
 
 export interface EmuConditionInput {
   type: EmuConditionInputType;
-  pointerDepth: number;
-
   rawValue: string; // Hex string
   parsedValue?: EmuConditionPrimitiveResult;
 }
