@@ -6,15 +6,20 @@ import { SETUP_TEST_CONFIG_SCHEMA } from "@/components/test/config/types";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { emuAddOperationFactory, emuAndOperationFactory, emuEqualsOperationFactory, emuGreaterThanOperationFactory, emuLessThanOperationFactory, emuMultiplyOperationFactory, emuNotOperationFactory, emuOrOperationFactory } from "@/shared/conditions/operations";
 import { EmuConditionInput, EmuConditionInputSet, EmuConditionOperation } from "@/shared/conditions/types";
-import { CANVAS_ITEM_ID, genId } from "@/shared/utils/id";
-import { DndContext, DragEndEvent, DragOverlay, DragStartEvent } from "@dnd-kit/core";
+import { CANVAS_ITEM_ID, EMU_OPERATION_ID, genId } from "@/shared/utils/id";
+import { DndContext, DragEndEvent, DragOverlay, DragStartEvent, DragCancelEvent, rectIntersection } from "@dnd-kit/core";
 import { useMemo, useState } from "react";
 import { UseFormReturn, useWatch } from "react-hook-form";
 import z from "zod";
+import { GoalPreview } from "@/components/test/config/goal/goal-preview";
+import { ADD_PRIMITIVE_GOAL_INPUT_SCHEMA, AddPrimitiveGoalInputModal } from "@/components/test/config/goal/add-primitive-goal-input";
+import { Button } from "@/components/ui/button";
 
 export interface ItemData {
   label: string;
   fromBank: boolean;
+  type: string;
+  primitiveValue?: string | number | boolean;
   input?: EmuConditionInput;
   operator?: EmuConditionOperation;
 }
@@ -64,6 +69,7 @@ export function GoalConfig({ form }: { form: UseFormReturn<z.infer<typeof SETUP_
 
   const [canvasItems, setCanvasItems] = useState<CanvasItem[]>([]);
   const [activeId, setActiveId] = useState<string | number | null>(null);
+  const [addFormOpen, setAddFormOpen] = useState(false);
 
   const operatorBankItems = useMemo(() => {
     return baseOperators.map((operation) => ({
@@ -71,7 +77,8 @@ export function GoalConfig({ form }: { form: UseFormReturn<z.infer<typeof SETUP_
       data: {
         label: operation.name,
         fromBank: true,
-        operation
+        operator: operation,
+        type: 'operator'
       }
     }));
   }, [baseOperators]);
@@ -80,20 +87,37 @@ export function GoalConfig({ form }: { form: UseFormReturn<z.infer<typeof SETUP_
     return Object.entries(contextInputs).map(([key, input]) => ({
       id: key,
       data: {
-        label: String(input.parsedValue),
+        label: String(input.name),
         fromBank: true,
-        input
+        input,
+        type: 'input'
       }
     }));
   }, [contextInputs]);
+
+  const parenthesesBankItems = useMemo(() => {
+    return ["(", ")"].map((str) => ({
+      id: genId(EMU_OPERATION_ID),
+      data: {
+        label: str,
+        fromBank: true,
+        type: 'parentheses'
+      }
+    }));
+  }, []);
 
   const activeItem = useMemo(() => {
     if (!activeId) return null;
     const item = canvasItems.find(i => i.id === activeId)
       || operatorBankItems.find(i => i.id === activeId)
-      || contextInputBankItems.find(i => i.id === activeId);
+      || contextInputBankItems.find(i => i.id === activeId)
+      || parenthesesBankItems.find(i => i.id === activeId);
     return item;
-  }, [activeId, canvasItems, operatorBankItems, contextInputBankItems]);
+  }, [activeId, canvasItems, operatorBankItems, contextInputBankItems, parenthesesBankItems]);
+
+  function handleDragCancel(event: DragCancelEvent) {
+    setActiveId(null);
+  }
 
   function handleDragStart(event: DragStartEvent) {
     setActiveId(event.active.id);
@@ -104,35 +128,90 @@ export function GoalConfig({ form }: { form: UseFormReturn<z.infer<typeof SETUP_
     
     if (over && over.id === 'canvas') {
       const activeData: ItemData | undefined = active.data.current as any;
+      const canvasRect = over.rect;
+      const activeRect = active.rect.current.translated;
+      const verticalCenter = canvasRect.height / 2 - (activeRect?.height || 0) / 2;
       
-      if (activeData?.fromBank) {
+      if (activeData?.fromBank && activeRect && canvasRect) {
+        const x = activeRect.left - canvasRect.left;
+        const y = activeRect.top - canvasRect.top;
+        
         const newItem = {
           id: genId(CANVAS_ITEM_ID),
-          data: activeData,
-          x: event.delta.x,
-          y: event.delta.y
+          data: { ...activeData, fromBank: false },
+          x: Math.max(0, x),
+          y: verticalCenter,
         };
         
         setCanvasItems([...canvasItems, newItem]);
+      } else {
+        const updatedItems = canvasItems.map(item => {
+          if (item.id === active.id) {
+            return {
+              ...item,
+              x: item.x + event.delta.x,
+              y: verticalCenter
+            };
+          }
+          return item;
+        });
+        setCanvasItems(updatedItems);
+      }
+    } else {
+      const activeData: ItemData | undefined = active.data.current as any;
+      if (!activeData?.fromBank) {
+        setCanvasItems(canvasItems.filter(item => item.id !== active.id));
       }
     }
-    
+
     setActiveId(null);
+  }
+
+  const onAddNewItem = async (formData: z.infer<typeof ADD_PRIMITIVE_GOAL_INPUT_SCHEMA>) => {
+    setAddFormOpen(false);
+
+    const newItem = {
+      id: genId(CANVAS_ITEM_ID),
+      data: {
+        label: formData.value,
+        type: formData.type,
+        primitiveValue: formData.value,
+        fromBank: false
+      },
+      x: 0,
+      y: 0,
+    };
+    
+    setCanvasItems([...canvasItems, newItem]);
   }
 
   return (
     <Card className="w-full">
       <CardHeader>
-        <CardTitle>Goals</CardTitle>
+        <CardTitle>Goal</CardTitle>
       </CardHeader>
       <CardContent className="space-y-2">
-        <DndContext onDragEnd={handleDragEnd} onDragStart={handleDragStart}>
-          <div className="flex">
-            <GoalBank items={contextInputBankItems} />
-            <GoalBank items={operatorBankItems} />
+        <DndContext
+          onDragEnd={handleDragEnd} 
+          onDragStart={handleDragStart}
+          onDragCancel={handleDragCancel}
+        >
+          <div className="flex flex-col space-y-4">
+            <div className="flex flex-col space-y-4 md:flex-row md:space-y-0 justify-between items-center">
+              <GoalBank items={contextInputBankItems} />
+              <div className="flex items-center">
+                <AddPrimitiveGoalInputModal onSubmit={onAddNewItem} open={addFormOpen} close={() => setAddFormOpen(false)}>
+                  <Button variant="outline" onClick={() => setAddFormOpen(true)}>+ Add Primitive</Button>
+                </AddPrimitiveGoalInputModal>
+              </div>
+            </div>
+            <div className="flex flex-col space-y-4 md:flex-row md:space-y-0 justify-between">
+              <GoalBank items={operatorBankItems} />
+              <GoalBank items={parenthesesBankItems} />
+            </div>
             <GoalCanvas items={canvasItems} />
           </div>
-          <DragOverlay>
+          <DragOverlay dropAnimation={null}>
             {activeItem ? (
               <div className="opacity-80 cursor-grabbing">
                 <GoalItem item={activeItem} />
@@ -140,6 +219,7 @@ export function GoalConfig({ form }: { form: UseFormReturn<z.infer<typeof SETUP_
             ) : null}
           </DragOverlay>
         </DndContext>
+        <GoalPreview items={canvasItems} />
       </CardContent>
     </Card>
   );

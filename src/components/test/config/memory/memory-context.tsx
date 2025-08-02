@@ -5,7 +5,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { EmuConditionInputType } from "@/shared/conditions/types";
 import { ColumnDef, flexRender, getCoreRowModel, getFilteredRowModel, getPaginationRowModel, getSortedRowModel, useReactTable } from "@tanstack/react-table";
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { UseFormReturn, useWatch } from "react-hook-form";
 import z from "zod";
 
@@ -77,7 +77,7 @@ export const columns: ColumnDef<ContextMemoryItem>[] = [
   {
     accessorKey: "address",
     header: "Address",
-    cell: ({ row }) => <div className="lowercase">{row.getValue("address")}</div>,
+    cell: ({ row }) => <div className="lowercase">0x{row.getValue("address")}</div>,
   },
   {
     accessorKey: "type",
@@ -124,6 +124,19 @@ export function MemoryContext({ form }: { form: UseFormReturn<z.infer<typeof SET
     },
   });
 
+  useEffect(() => {
+    const selectedRows = table.getSelectedRowModel().rows;
+    const contextRecord: Record<string, ContextMemoryItem> = {};
+    
+    selectedRows.forEach((row) => {
+      const memoryItem = row.original;
+      const key = memoryItem.name;
+      contextRecord[key] = memoryItem;
+    });
+    
+    form.setValue("memoryConfig.context", contextRecord);
+  }, [rowSelection, table, form]);
+
   const onAddNewItem = async (formData: z.infer<typeof ADD_MEMORY_CONTEXT_SCHEMA>) => {
     setAddFormOpen(false);
 
@@ -142,6 +155,7 @@ export function MemoryContext({ form }: { form: UseFormReturn<z.infer<typeof SET
   
   return (
     <div className="w-full">
+      {/* TODO: Move button into Card Title */}
       <div className="flex items-center py-4">
         <AddMemoryContextModal onSubmit={onAddNewItem} open={addFormOpen} close={() => setAddFormOpen(false)}>
           <Button variant="outline" onClick={() => setAddFormOpen(true)}>+ Add Memory Watch</Button>

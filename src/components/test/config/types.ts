@@ -90,32 +90,32 @@ export const SETUP_TEST_CONFIG_SCHEMA = z.object({
       name: z.string(),
       description: z.string(),
     })),
-    goals: z.object({
-      condition: z.object({
-        inputs: z.record(z.string(), z.object({
-          name: z.string(),
-          type: z.enum(['int', 'uint', 'float', 'hex', 'chars']),
-          pointerDepth: z.number(),
-          rawValue: z.string()
-        })),
-        logic: z.object({
-          lhs: z.union([
-            z.object({ inputName: z.string() }),
-            z.string(),
-            z.number(),
-            z.boolean()
-          ]),
-          rhs: z.union([
-            z.object({ inputName: z.string() }),
-            z.string(),
-            z.number(),
-            z.boolean()
-          ]).optional(),
-          operation: z.any()
-        })
+  }),
+  goal: z.object({
+    condition: z.object({
+      inputs: z.record(z.string(), z.object({
+        name: z.string(),
+        type: z.enum(['int', 'uint', 'float', 'hex', 'chars']),
+        pointerDepth: z.number(),
+        rawValue: z.string()
+      })),
+      logic: z.object({
+        lhs: z.union([
+          z.object({ inputName: z.string() }),
+          z.string(),
+          z.number(),
+          z.boolean()
+        ]),
+        rhs: z.union([
+          z.object({ inputName: z.string() }),
+          z.string(),
+          z.number(),
+          z.boolean()
+        ]).optional(),
+        operation: z.any()
       })
     })
-  })
+  }).optional()
 });
 
 export const REQ_SETUP_TEST = z.object({
