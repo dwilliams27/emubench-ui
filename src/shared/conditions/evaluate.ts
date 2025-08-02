@@ -25,7 +25,7 @@ export function emuEvaluateOperand(inputs: EmuConditionInputSet, operand: EmuCon
     // If part
     const lhsResult = emuEvaluateOperand(inputs, operand.lhs);
     const rhsResult = operand.rhs ? emuEvaluateOperand(inputs, operand.rhs) : undefined;
-    return operand.operation(inputs, lhsResult, rhsResult);
+    return operand.operation.func(inputs, lhsResult, rhsResult);
   } else if (typeof operand === 'number' || typeof operand === 'string' || typeof operand === 'boolean') {
     // If primitive
     return operand;

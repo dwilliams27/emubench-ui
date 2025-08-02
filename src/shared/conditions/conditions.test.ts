@@ -1,5 +1,5 @@
 import { emuEvaluateCondition } from '@/shared/conditions/evaluate';
-import { emuAddOperation, emuEqualsOperation, emuLessThanOperation, emuSquareOperation } from '@/shared/conditions/operations';
+import { emuAddOperationFactory, emuEqualsOperationFactory, emuLessThanOperationFactory, emuSquareOperationFactory } from '@/shared/conditions/operations';
 import type { EmuCondition } from '@/shared/conditions/types';
 import { describe, it, expect } from 'vitest';
 
@@ -19,7 +19,7 @@ describe("EmuConditionInput", () => {
       logic: {
         lhs: { inputName: "a" },
         rhs: { inputName: "b" },
-        operation: emuAddOperation(),
+        operation: emuAddOperationFactory(),
       }
     }
     expect(emuEvaluateCondition(condition)).toBe(2);
@@ -41,14 +41,14 @@ describe("EmuConditionInput", () => {
         lhs: {
           lhs: { inputName: "one" },
           rhs: { inputName: "one" },
-          operation: emuAddOperation(),
+          operation: emuAddOperationFactory(),
         },
         rhs: {
           lhs: { inputName: "two" },
           rhs: { inputName: "two" },
-          operation: emuAddOperation(),
+          operation: emuAddOperationFactory(),
         },
-        operation: emuLessThanOperation(),
+        operation: emuLessThanOperationFactory(),
       }
     }
     expect(emuEvaluateCondition(condition)).toBe(true);
@@ -69,13 +69,13 @@ describe("EmuConditionInput", () => {
       logic: {
         lhs: {
           lhs: { inputName: "five" },
-          operation: emuSquareOperation(),
+          operation: emuSquareOperationFactory(),
         },
         rhs: {
           lhs: { inputName: "six" },
-          operation: emuSquareOperation(),
+          operation: emuSquareOperationFactory(),
         },
-        operation: emuLessThanOperation(),
+        operation: emuLessThanOperationFactory(),
       }
     }
     expect(emuEvaluateCondition(condition)).toBe(true);
@@ -92,7 +92,7 @@ describe("EmuConditionInput", () => {
       logic: {
         lhs: { inputName: "maxUint" },
         rhs: 4294967295,
-        operation: emuEqualsOperation(),
+        operation: emuEqualsOperationFactory(),
       }
     }
     expect(emuEvaluateCondition(condition)).toBe(true);
@@ -109,7 +109,7 @@ describe("EmuConditionInput", () => {
       logic: {
         lhs: { inputName: "GAME_ID" },
         rhs: "GZLE01",
-        operation: emuEqualsOperation(),
+        operation: emuEqualsOperationFactory(),
       }
     }
     expect(emuEvaluateCondition(condition)).toBe(true);
@@ -126,7 +126,7 @@ describe("EmuConditionInput", () => {
       logic: {
         lhs: { inputName: "FLOAT" },
         rhs: -1,
-        operation: emuEqualsOperation(),
+        operation: emuEqualsOperationFactory(),
       }
     }
     expect(emuEvaluateCondition(condition)).toBe(true);
@@ -147,7 +147,7 @@ describe("EmuConditionInput", () => {
       logic: {
         lhs: { inputName: "FLOAT" },
         rhs: { inputName: "INT" },
-        operation: emuEqualsOperation(),
+        operation: emuEqualsOperationFactory(),
       }
     }
     expect(emuEvaluateCondition(condition)).toBe(true);
