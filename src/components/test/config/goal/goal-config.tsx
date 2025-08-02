@@ -7,12 +7,12 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { emuAddOperationFactory, emuAndOperationFactory, emuEqualsOperationFactory, emuGreaterThanOperationFactory, emuLessThanOperationFactory, emuMultiplyOperationFactory, emuNotOperationFactory, emuOrOperationFactory } from "@/shared/conditions/operations";
 import { EmuConditionInput, EmuConditionInputSet, EmuConditionOperation } from "@/shared/conditions/types";
 import { CANVAS_ITEM_ID, EMU_OPERATION_ID, genId } from "@/shared/utils/id";
-import { DndContext, DragEndEvent, DragOverlay, DragStartEvent, DragCancelEvent, rectIntersection } from "@dnd-kit/core";
+import { DndContext, DragEndEvent, DragOverlay, DragStartEvent, DragCancelEvent, rectIntersection, TouchSensor, MouseSensor, useSensor, useSensors } from "@dnd-kit/core";
 import { useMemo, useState } from "react";
 import { UseFormReturn, useWatch } from "react-hook-form";
 import z from "zod";
 import { GoalPreview } from "@/components/test/config/goal/goal-preview";
-import { ADD_PRIMITIVE_GOAL_INPUT_SCHEMA, AddPrimitiveGoalInputModal } from "@/components/test/config/goal/add-primitive-goal-input";
+import { ADD_PRIMITIVE_GOAL_INPUT_SCHEMA, AddPrimitiveGoalInputModal } from "@/components/test/config/goal/add-primitive-goal-input-modal";
 import { Button } from "@/components/ui/button";
 
 export interface ItemData {
@@ -70,6 +70,21 @@ export function GoalConfig({ form }: { form: UseFormReturn<z.infer<typeof SETUP_
   const [canvasItems, setCanvasItems] = useState<CanvasItem[]>([]);
   const [activeId, setActiveId] = useState<string | number | null>(null);
   const [addFormOpen, setAddFormOpen] = useState(false);
+
+  const mouseSensor = useSensor(MouseSensor, {
+    activationConstraint: {
+      distance: 10,
+    },
+  });
+
+  const touchSensor = useSensor(TouchSensor, {
+    activationConstraint: {
+      delay: 20,
+      tolerance: 5,
+    },
+  });
+
+  const sensors = useSensors(mouseSensor, touchSensor);
 
   const operatorBankItems = useMemo(() => {
     return baseOperators.map((operation) => ({
@@ -192,6 +207,7 @@ export function GoalConfig({ form }: { form: UseFormReturn<z.infer<typeof SETUP_
       </CardHeader>
       <CardContent className="space-y-2">
         <DndContext
+          sensors={sensors}
           onDragEnd={handleDragEnd} 
           onDragStart={handleDragStart}
           onDragCancel={handleDragCancel}

@@ -28,7 +28,7 @@ export function GoalCanvasItem({ canvasItem, onSelect }: { canvasItem: CanvasIte
       {...listeners}
       {...attributes}
       onClick={() => onSelect?.(canvasItem.id)}
-      className={`p-2 border ${!canvasItem.data.input && !canvasItem.data.primitiveValue ? 'w-10 rounded-full aspect-square flex items-center justify-center' : 'rounded'} bg-white shadow cursor-grab active:cursor-grabbing`}
+      className={`p-2 border ${!canvasItem.data.input && !canvasItem.data.primitiveValue ? 'w-10 rounded-full aspect-square flex items-center justify-center' : 'rounded'} bg-white shadow cursor-grab active:cursor-grabbing touch-none`}
     >
       {canvasItem.data.label}
     </div>

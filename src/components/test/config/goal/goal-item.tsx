@@ -12,7 +12,7 @@ export function GoalItem({ item }: { item: BankItem }) {
       ref={setNodeRef} 
       {...listeners} 
       {...attributes}
-      className={`p-2 border ${!item.data.input && !item.data.primitiveValue ? 'w-10 rounded-full aspect-square flex items-center justify-center' : 'rounded'} bg-white shadow cursor-grab active:cursor-grabbing`}
+      className={`p-2 border ${!item.data.input && !item.data.primitiveValue ? 'w-10 rounded-full aspect-square flex items-center justify-center' : 'rounded'} bg-white shadow cursor-grab active:cursor-grabbing touch-none`}
     >
       {item.data.label}
     </div>
