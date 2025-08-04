@@ -1,5 +1,5 @@
 import { BankItem } from '@/components/test/config/goal/goal-config';
-import { useDraggable, useDroppable } from '@dnd-kit/core';
+import { useDraggable } from '@dnd-kit/core';
 
 export function GoalItem({ item }: { item: BankItem }) {
   const { attributes, listeners, setNodeRef } = useDraggable({
@@ -18,3 +18,4 @@ export function GoalItem({ item }: { item: BankItem }) {
     </div>
   );
 }
+ 

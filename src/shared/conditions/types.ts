@@ -29,3 +29,16 @@ export interface EmuConditionOperation {
   name: string;
   func: EmuConditionOperationFunction;
 }
+
+export interface EmuLinkedExpressionPart {
+  prev?: EmuLinkedExpressionPart;
+  next?: EmuLinkedExpressionPart;
+  value: EmuRawExpressionPart | EmuConditionPart;
+}
+
+export interface EmuRawExpressionPart {
+  type: 'primitive' | 'input' | 'operator' | 'parentheses';
+  primitiveValue?: string | number | boolean;
+  input?: EmuConditionInput;
+  operator?: EmuConditionOperation;
+}

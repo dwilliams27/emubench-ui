@@ -22,6 +22,10 @@ export interface ItemData {
   primitiveValue?: string | number | boolean;
   input?: EmuConditionInput;
   operator?: EmuConditionOperation;
+  parentheses?: {
+    open: boolean;
+    close: boolean;
+  };
 }
 export interface BankItem {
   id: string;
@@ -111,14 +115,26 @@ export function GoalConfig({ form }: { form: UseFormReturn<z.infer<typeof SETUP_
   }, [contextInputs]);
 
   const parenthesesBankItems = useMemo(() => {
-    return ["(", ")"].map((str) => ({
-      id: genId(EMU_OPERATION_ID),
-      data: {
-        label: str,
-        fromBank: true,
-        type: 'parentheses'
+    return [
+      {
+        id: genId(EMU_OPERATION_ID),
+        data: {
+          label: "(",
+          fromBank: true,
+          type: 'parentheses',
+          parentheses: { open: true, close: false }
+        }
+      },
+      {
+        id: genId(EMU_OPERATION_ID),
+        data: {
+          label: ")",
+          fromBank: true,
+          type: 'parentheses',
+          parentheses: { open: false, close: true }
+        }
       }
-    }));
+    ];
   }, []);
 
   const activeItem = useMemo(() => {

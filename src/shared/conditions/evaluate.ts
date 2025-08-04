@@ -1,5 +1,5 @@
 import { hexToAscii, hexToFloat, hexToInt, hexToUint } from "@/shared/conditions/helpers";
-import type { EmuCondition, EmuConditionPrimitiveResult, EmuConditionInputSet, EmuConditionOperand, EmuConditionInput } from "@/shared/conditions/types";
+import type { EmuCondition, EmuConditionPrimitiveResult, EmuConditionInputSet, EmuConditionOperand, EmuConditionInput, EmuConditionOperation, EmuConditionExpressionPart, EmuLinkedExpressionPart, EmuRawExpressionPart } from "@/shared/conditions/types";
 
 export function emuEvaluateCondition(condition?: EmuCondition): EmuConditionPrimitiveResult {
   if (!condition?.logic) {
@@ -62,5 +62,33 @@ export function emuParseAndPopulateConditionInput(input: EmuConditionInput): Emu
     }
     default:
       throw new Error(`Unknown type: ${input.type}`);
+  }
+}
+
+export function convertEmuExpressionToCondition(expression: EmuRawExpressionPart[]): EmuCondition {
+  if (expression.length === 0) {
+    throw new Error('Expression cannot be empty');
+  }
+  
+  const headNode: EmuLinkedExpressionPart = {
+    next: undefined,
+    value: expression[0],
+  };
+  let curNode = headNode;
+  for (let i = 1; i < expression.length; i++) {
+    const newNode: EmuLinkedExpressionPart = {
+      prev: curNode,
+      next: undefined,
+      value: expression[i],
+    };
+    curNode.next = newNode;
+    curNode = newNode;
+  }
+
+  curNode = headNode;
+  while (curNode) {
+    if (curNode.value instanceof EmuRawExpressionPart) {
+      
+    }
   }
 }
