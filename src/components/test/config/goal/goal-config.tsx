@@ -21,7 +21,7 @@ export interface ItemData {
   type: string;
   primitiveValue?: string | number | boolean;
   input?: EmuConditionInput;
-  operator?: EmuConditionOperation;
+  operation?: EmuConditionOperation;
   parentheses?: {
     open: boolean;
     close: boolean;
@@ -54,7 +54,7 @@ function contextMemoryToInputs(context?: Record<string, ContextMemoryItem>): Emu
   return inputs;
 }
 
-const baseOperators = [
+const baseOperations = [
   emuAddOperationFactory(),
   emuMultiplyOperationFactory(),
   emuEqualsOperationFactory(),
@@ -90,17 +90,17 @@ export function GoalConfig({ form }: { form: UseFormReturn<z.infer<typeof SETUP_
 
   const sensors = useSensors(mouseSensor, touchSensor);
 
-  const operatorBankItems = useMemo(() => {
-    return baseOperators.map((operation) => ({
+  const operationBankItems = useMemo(() => {
+    return baseOperations.map((operation) => ({
       id: operation.id,
       data: {
         label: operation.name,
         fromBank: true,
-        operator: operation,
-        type: 'operator'
+        operation,
+        type: 'operation'
       }
     }));
-  }, [baseOperators]);
+  }, [baseOperations]);
 
   const contextInputBankItems = useMemo(() => {
     return Object.entries(contextInputs).map(([key, input]) => ({
@@ -140,11 +140,11 @@ export function GoalConfig({ form }: { form: UseFormReturn<z.infer<typeof SETUP_
   const activeItem = useMemo(() => {
     if (!activeId) return null;
     const item = canvasItems.find(i => i.id === activeId)
-      || operatorBankItems.find(i => i.id === activeId)
+      || operationBankItems.find(i => i.id === activeId)
       || contextInputBankItems.find(i => i.id === activeId)
       || parenthesesBankItems.find(i => i.id === activeId);
     return item;
-  }, [activeId, canvasItems, operatorBankItems, contextInputBankItems, parenthesesBankItems]);
+  }, [activeId, canvasItems, operationBankItems, contextInputBankItems, parenthesesBankItems]);
 
   function handleDragCancel(event: DragCancelEvent) {
     setActiveId(null);
@@ -238,7 +238,7 @@ export function GoalConfig({ form }: { form: UseFormReturn<z.infer<typeof SETUP_
               </div>
             </div>
             <div className="flex flex-col space-y-4 md:flex-row md:space-y-0 justify-between">
-              <GoalBank items={operatorBankItems} />
+              <GoalBank items={operationBankItems} />
               <GoalBank items={parenthesesBankItems} />
             </div>
             <GoalCanvas items={canvasItems} />
