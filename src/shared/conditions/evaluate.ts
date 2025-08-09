@@ -170,11 +170,11 @@ export function validateEmuExpression(expression: EmuRawExpressionPart[]): { err
 // 2. Backtrack every closed paren to collapse group
 export function convertEmuExpressionToCondition(expression: EmuRawExpressionPart[]): { result?: EmuCondition, error?: string } {
   console.log("Converting expression to condition:", expression);
-  // TODO: Fix auto-wrap
-  // if (!expression[0].parentheses?.open || expression[expression.length - 1].parentheses?.open === undefined) {
-  //   expression.unshift({ parentheses: { open: true } });
-  //   expression.push({ parentheses: { open: false } });
-  // }
+  if (!expression[0].parentheses?.open || expression[expression.length - 1].parentheses?.open === undefined) {
+    expression.unshift({ parentheses: { open: true } });
+    expression.push({ parentheses: { open: false } });
+  }
+
   const validationResult = validateEmuExpression(expression);
   if (validationResult.error) {
    console.log(`Invalid expression: ${validationResult.error}`);

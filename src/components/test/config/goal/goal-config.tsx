@@ -5,15 +5,15 @@ import { ContextMemoryItem } from "@/components/test/config/memory/memory-contex
 import { SETUP_TEST_CONFIG_SCHEMA } from "@/components/test/config/types";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { emuAddOperationFactory, emuAndOperationFactory, emuEqualsOperationFactory, emuGreaterThanOperationFactory, emuLessThanOperationFactory, emuMultiplyOperationFactory, emuNotOperationFactory, emuOrOperationFactory } from "@/shared/conditions/operations";
-import { EmuConditionInput, EmuConditionInputSet, EmuConditionOperation } from "@/shared/conditions/types";
+import { EmuConditionInput, EmuConditionInputSet, EmuConditionOperation, EmuRawExpressionPart } from "@/shared/conditions/types";
 import { CANVAS_ITEM_ID, EMU_OPERATION_ID, genId } from "@/shared/utils/id";
-import { DndContext, DragEndEvent, DragOverlay, DragStartEvent, DragCancelEvent, rectIntersection, TouchSensor, MouseSensor, useSensor, useSensors } from "@dnd-kit/core";
+import { DndContext, DragEndEvent, DragOverlay, DragStartEvent, DragCancelEvent, TouchSensor, MouseSensor, useSensor, useSensors } from "@dnd-kit/core";
 import { useMemo, useState } from "react";
 import { UseFormReturn, useWatch } from "react-hook-form";
 import z from "zod";
-import { GoalPreview } from "@/components/test/config/goal/goal-preview";
 import { ADD_PRIMITIVE_GOAL_INPUT_SCHEMA, AddPrimitiveGoalInputModal } from "@/components/test/config/goal/add-primitive-goal-input-modal";
 import { Button } from "@/components/ui/button";
+import { convertEmuExpressionToCondition } from "@/shared/conditions/evaluate";
 
 export interface ItemData {
   label: string;
@@ -52,6 +52,20 @@ function contextMemoryToInputs(context?: Record<string, ContextMemoryItem>): Emu
     };
   });
   return inputs;
+}
+
+function canvasItemsToEmuCondition(items: CanvasItem[]) {
+  const expression = items.map(item => {
+    const { data } = item;
+    const part: EmuRawExpressionPart = {
+      primitiveValue: data.primitiveValue,
+      input: data.input,
+      operation: data.operation,
+      parentheses: data.parentheses ? { open: data.parentheses.open } : undefined,
+    };
+    return part;
+  });
+  return convertEmuExpressionToCondition(expression);
 }
 
 const baseOperations = [
@@ -216,6 +230,15 @@ export function GoalConfig({ form }: { form: UseFormReturn<z.infer<typeof SETUP_
     setCanvasItems([...canvasItems, newItem]);
   }
 
+  // Result
+  const { result: expressionResult, error: expressionError } = useMemo(() => {
+    if (!canvasItems || canvasItems.length === 0) {
+      return {};
+    }
+    const sorted = canvasItems.slice().sort((a, b) => a.x - b.x);
+    return canvasItemsToEmuCondition(sorted);
+  }, [canvasItems]);
+
   return (
     <Card className="w-full">
       <CardHeader>
@@ -241,7 +264,7 @@ export function GoalConfig({ form }: { form: UseFormReturn<z.infer<typeof SETUP_
               <GoalBank items={operationBankItems} />
               <GoalBank items={parenthesesBankItems} />
             </div>
-            <GoalCanvas items={canvasItems} />
+            <GoalCanvas items={canvasItems} error={expressionError} result={expressionResult} />
           </div>
           <DragOverlay dropAnimation={null}>
             {activeItem ? (
@@ -251,7 +274,9 @@ export function GoalConfig({ form }: { form: UseFormReturn<z.infer<typeof SETUP_
             ) : null}
           </DragOverlay>
         </DndContext>
-        <GoalPreview items={canvasItems} />
+        <div className="goal-preview">
+          {expressionError && <div className="error">{expressionError}</div>}
+        </div>
       </CardContent>
     </Card>
   );
