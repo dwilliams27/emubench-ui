@@ -11,7 +11,7 @@ import { useMemo } from "react";
 //     close: boolean;
 //   };
 
-export function canvasItemsToEmuCondition(items: CanvasItem[]): EmuCondition {
+export function canvasItemsToEmuCondition(items: CanvasItem[]) {
   const expression = items.map(item => {
     const { data } = item;
     const part: EmuRawExpressionPart = {
@@ -22,8 +22,9 @@ export function canvasItemsToEmuCondition(items: CanvasItem[]): EmuCondition {
     };
     return part;
   });
-  console.log("$$$$$");
+  console.log("---- Converting canvas items to EMU condition ----");
   console.log(convertEmuExpressionToCondition(expression));
+  console.log("---- End of conversion ----");
 }
 
 export function GoalPreview({ items }: { items: CanvasItem[] }) {

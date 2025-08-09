@@ -82,20 +82,24 @@ function rawExpressionPartToOperand(part: EmuRawExpressionPart): EmuConditionOpe
 }
 
 // ( 5 + 10 > 20 ) => ((5)+(10))>(20)
-function collapseGroup(head: EmuLinkedExpressionPart) {
+function collapseGroup(head: EmuLinkedExpressionPart): { result?: EmuLinkedExpressionPart, error?: string } {
+  if (!head.next) {
+    return { result: head };
+  }
+
   let curNode: EmuLinkedExpressionPart | undefined = head;
   let collapsedGroup;
-  while (curNode && (typeof curNode.value !== 'object' || (typeof curNode.value === 'object' && !('open' in curNode.value)))) {
-    if (typeof curNode.value === 'object' && 'operation' in curNode.value) {
-      if (curNode.value.operation.hasLeftOperand) {
+  while (curNode && (typeof curNode.value !== 'object' || (typeof curNode.value === 'object' && !('open' in curNode.value && !curNode.value.open)))) {
+    if (typeof curNode.value === 'object' && 'operation' in curNode.value && !isFilledOperation(curNode)) {
+      if (curNode.value.operation.hasLeftOperand && !curNode.value.lhs) {
         if (!curNode.prev || (typeof curNode.prev.value === 'object' && 'open' in curNode.prev.value)) {
-          throw new Error('Left operand required for operation');
+          return { error: 'Left operand required for operation' };
         }
         curNode.value.lhs = curNode.prev.value;
       }
-      if (curNode.value.operation.hasRightOperand) {
+      if (curNode.value.operation.hasRightOperand && !curNode.value.rhs) {
         if (!curNode.next || (typeof curNode.next.value === 'object' && 'open' in curNode.next.value)) {
-          throw new Error('Left operand required for operation');
+          return { error: 'Right operand required for operation' };
         }
         curNode.value.rhs = curNode.next.value;
       }
@@ -103,12 +107,18 @@ function collapseGroup(head: EmuLinkedExpressionPart) {
     }
     curNode = curNode.next;
   }
-  return collapsedGroup!;
+  if (!collapsedGroup) {
+    return { error: 'No operation found in group' };
+  }
+  return { result: collapsedGroup };
 }
 
 export function validateEmuExpression(expression: EmuRawExpressionPart[]): { error?: string } {
   if (expression.length === 0) {
     return { error: 'Expression cannot be empty' };
+  }
+  if (expression.length === 1 && (!expression[0].primitiveValue || (expression[0].primitiveValue && typeof expression[0].primitiveValue !== 'boolean'))) {
+    return { error: 'Expression must have at least one valid part' };
   }
   let openParenCount = 0;
   for (const part of expression) {
@@ -118,7 +128,7 @@ export function validateEmuExpression(expression: EmuRawExpressionPart[]): { err
       } else {
         openParenCount--;
         if (openParenCount < 0) {
-          return { error: 'Unmatched closing parenthesis' };
+          return { error: 'Too many closing parenthesis' };
         }
       }
     }
@@ -160,6 +170,11 @@ export function validateEmuExpression(expression: EmuRawExpressionPart[]): { err
 // 2. Backtrack every closed paren to collapse group
 export function convertEmuExpressionToCondition(expression: EmuRawExpressionPart[]): { result?: EmuCondition, error?: string } {
   console.log("Converting expression to condition:", expression);
+  // TODO: Fix auto-wrap
+  // if (!expression[0].parentheses?.open || expression[expression.length - 1].parentheses?.open === undefined) {
+  //   expression.unshift({ parentheses: { open: true } });
+  //   expression.push({ parentheses: { open: false } });
+  // }
   const validationResult = validateEmuExpression(expression);
   if (validationResult.error) {
    console.log(`Invalid expression: ${validationResult.error}`);
@@ -181,22 +196,33 @@ export function convertEmuExpressionToCondition(expression: EmuRawExpressionPart
     curNode = newNode;
   }
 
-  let lastOpenParen = null;
+  let lastOpenParenStack: EmuLinkedExpressionPart[] = [];
   let lastCollapsedGroup;
   curNode = headNode;
   while (curNode) {
-    console.log(`Processing node: ${JSON.stringify(curNode.value)}`);
-    if (typeof curNode.value === 'object' && 'open' in curNode.value) {
-      lastOpenParen = curNode;
-    } else if (typeof curNode.value === 'object' && 'close' in curNode.value) {
-      if (lastOpenParen === null) {
-        throw new Error('Unmatched closing parenthesis');
+    if (typeof curNode.value === 'object' && 'open' in curNode.value && curNode.value.open) {
+      lastOpenParenStack.push(curNode);
+    } else if (typeof curNode.value === 'object' && 'open' in curNode.value && curNode.value.open === false) {
+      if (lastOpenParenStack.length === 0) {
+        return { error: 'Parsing error on close parenthesis' };
       }
+      const lastOpenParen = lastOpenParenStack.pop()!;
       const collapsedGroup = collapseGroup(lastOpenParen);
-      collapsedGroup.prev = lastOpenParen.prev;
-      collapsedGroup.next = curNode.next;
+      if (collapsedGroup.error) {
+        return { error: collapsedGroup.error };
+      }
+      if (!collapsedGroup.result) {
+        return { error: 'Collapsed group is undefined' };
+      }
+      collapsedGroup.result.prev = lastOpenParen.prev;
       lastCollapsedGroup = collapsedGroup;
-      lastOpenParen = null;
+      if (lastOpenParen.prev) {
+        lastOpenParen.prev.next = collapsedGroup.result;
+      }
+      collapsedGroup.result.next = curNode.next;
+      if (curNode.next) {
+        curNode.next.prev = collapsedGroup.result;
+      }
     }
 
     curNode = curNode.next;
@@ -217,14 +243,37 @@ export function convertEmuExpressionToCondition(expression: EmuRawExpressionPart
       }
     };
   }
-  if (typeof lastCollapsedGroup.value !== 'object' || !('operation' in lastCollapsedGroup.value)) {
-    throw new Error('Expression must have an operation');
+  if (typeof lastCollapsedGroup.result?.value !== 'object' || !('operation' in lastCollapsedGroup.result?.value)) {
+    return { error: 'Expression must have an operation' };
   }
 
   return {
     result: {
       inputs,
-      logic: lastCollapsedGroup!.value
+      logic: lastCollapsedGroup.result?.value
     }
   };
+}
+
+function logLinkedList(head: EmuLinkedExpressionPart): void {
+  let curNode: EmuLinkedExpressionPart | undefined = head;
+  let vals = '';
+  while (curNode) {
+    vals += JSON.stringify(curNode.value) + ' ';
+    curNode = curNode.next;
+  }
+  console.log("Linked list values:", vals);
+}
+
+function isFilledOperation(part: EmuLinkedExpressionPart): boolean {
+  if (typeof part.value !== 'object' || !('operation' in part.value)) {
+    return false;
+  }
+  if (part.value.operation.hasLeftOperand && !part.value.lhs) {
+    return false;
+  }
+  if (part.value.operation.hasRightOperand && !part.value.rhs) {
+    return false;
+  }
+  return true;
 }
