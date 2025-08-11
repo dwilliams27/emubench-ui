@@ -99,6 +99,18 @@ export function TestConfigForm() {
           name: formData.agentConfig.taskName,
           description: formData.agentConfig.taskDescription
         }
+      },
+      goalConfig: {
+        condition: {
+          inputs: Object.entries(formData.memoryConfig.context || {}).reduce((acc: Record<string, any>, [key, value]) => {
+            acc[key] = {
+              name: value.name,
+              type: value.type,
+            };
+            return acc;
+          }, {}),
+          logic: formData.goal?.condition?.logic || {}
+        }
       }
     };
 

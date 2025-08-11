@@ -144,5 +144,7 @@ export const REQ_SETUP_TEST = z.object({
       name: z.string(),
       description: z.string()
     })
-  })
+  }),
+  // TODO: lazy
+  goalConfig: z.any()
 });
