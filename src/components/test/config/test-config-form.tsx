@@ -76,13 +76,15 @@ export function TestConfigForm() {
         platform: formData.gameConfig.platform,
         mode: formData.gameConfig.gameMode,
         startStateFilename: formData.gameConfig.saveState.filename,
-        // TODO: Implement
-        contextMemWatches: {
-          "test_game_id": {
-            "address": "80000000",
-            "size": 6
-          }
-        },
+        contextMemWatches: formData.memoryConfig.context ? Object.entries(formData.memoryConfig.context).reduce((acc: Record<string, any>, [key, value]) => {
+          // TODO: Pointer depth implementation
+          acc[key] = {
+            address: value.address,
+            size: value.size,
+          };
+          return acc;
+        }, {}) : {},
+        // TODO: Remove
         endStateMemWatches: []
       },
       agentConfig: {

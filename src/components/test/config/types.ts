@@ -36,10 +36,16 @@ export const AVAILABLE_SAVE_STATES = {
         displayName: "Start of New Game"
       },
     ],
-    [GAMES.ZELDA_WIND_WAKER]: [{
-      filename: "ww_main_menu.sav",
-      displayName: "Main Menu"
-    }]
+    [GAMES.ZELDA_WIND_WAKER]: [
+      {
+        filename: "ww_main_menu.sav",
+        displayName: "Main Menu"
+      },
+      {
+        filename: "ww_game_play_start.sav",
+        displayName: "Start of New Game"
+      }
+    ]
   }
 }
 
