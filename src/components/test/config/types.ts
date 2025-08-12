@@ -21,7 +21,8 @@ export const PLATFORMS = {
 
 export const GAMES = {
   HARVEST_MOOON: "Harvest Moon: Magical Melody",
-  ZELDA_WIND_WAKER: "The Legend of Zelda: Wind Waker"
+  ZELDA_WIND_WAKER: "The Legend of Zelda: Wind Waker",
+  KIRBY_AIR_RIDE: "Kirby Air Ride"
 };
 
 export const AVAILABLE_SAVE_STATES = {
@@ -45,6 +46,20 @@ export const AVAILABLE_SAVE_STATES = {
         filename: "ww_game_play_start.sav",
         displayName: "Start of New Game"
       }
+    ],
+    [GAMES.KIRBY_AIR_RIDE]: [
+      {
+        filename: "blue_box.sav",
+        displayName: "City Trial - In front of Blue Box"
+      },
+      {
+        filename: "hunt_down_cpu.sav",
+        displayName: "City Trial - Facing CPU"
+      },
+      {
+        filename: "three_level_structure.sav",
+        displayName: "City Trial - Facing Tower"
+      }
     ]
   }
 }
@@ -65,10 +80,16 @@ export const MODELS = {
     name: "gemini-2.5-pro",
     displayName: "Gemini 2.5 Pro"
   }],
-  [MODEL_PROVIDERS.OPEN_AI.name]: [{
-    name: "gpt-4o",
-    displayName: "GPT-4o"
-  }],
+  [MODEL_PROVIDERS.OPEN_AI.name]: [
+    {
+      name: "gpt-4o",
+      displayName: "GPT-4o"
+    },
+    {
+      name: "gpt-5",
+      displayName: "GPT-5"
+    },
+  ],
 };
 
 export const SETUP_TEST_CONFIG_SCHEMA = z.object({
@@ -97,30 +118,9 @@ export const SETUP_TEST_CONFIG_SCHEMA = z.object({
       description: z.string(),
     })),
   }),
-  goal: z.object({
-    condition: z.object({
-      inputs: z.record(z.string(), z.object({
-        name: z.string(),
-        type: z.enum(['int', 'uint', 'float', 'hex', 'chars']),
-        pointerDepth: z.number(),
-        rawValue: z.string()
-      })),
-      logic: z.object({
-        lhs: z.union([
-          z.object({ inputName: z.string() }),
-          z.string(),
-          z.number(),
-          z.boolean()
-        ]),
-        rhs: z.union([
-          z.object({ inputName: z.string() }),
-          z.string(),
-          z.number(),
-          z.boolean()
-        ]).optional(),
-        operation: z.any()
-      })
-    })
+  goalConfig: z.object({
+    // TODO: lazy
+    condition: z.any()
   }).optional()
 });
 

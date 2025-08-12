@@ -14,7 +14,8 @@ import { z } from "zod";
 
 const DEBUG_GAME_MAP = {
   [GAMES.HARVEST_MOOON]: "G4AEE9",
-  [GAMES.ZELDA_WIND_WAKER]: "GZLE01"
+  [GAMES.ZELDA_WIND_WAKER]: "GZLE01",
+  [GAMES.KIRBY_AIR_RIDE]: "GKYE01"
 };
 
 export function TestConfigForm() {
@@ -76,14 +77,21 @@ export function TestConfigForm() {
         platform: formData.gameConfig.platform,
         mode: formData.gameConfig.gameMode,
         startStateFilename: formData.gameConfig.saveState.filename,
-        contextMemWatches: formData.memoryConfig.context ? Object.entries(formData.memoryConfig.context).reduce((acc: Record<string, any>, [key, value]) => {
-          // TODO: Pointer depth implementation
-          acc[key] = {
-            address: value.address,
-            size: value.size,
-          };
-          return acc;
-        }, {}) : {},
+        // TODO: Debug and fix
+        // contextMemWatches: formData.memoryConfig.context ? Object.entries(formData.memoryConfig.context).reduce((acc: Record<string, any>, [key, value]) => {
+        //   // TODO: Pointer depth implementation
+        //   acc[key] = {
+        //     address: value.address,
+        //     size: value.size,
+        //   };
+        //   return acc;
+        // }, {}) : {},
+        contextMemWatches: {
+          test_game_id: {
+              "address": "80000000",
+              "size": 6
+          }
+        },
         // TODO: Remove
         endStateMemWatches: []
       },
@@ -109,7 +117,7 @@ export function TestConfigForm() {
             };
             return acc;
           }, {}),
-          logic: formData.goal?.condition?.logic || {}
+          logic: formData.goalConfig?.condition?.logic || {}
         }
       }
     };

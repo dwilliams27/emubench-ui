@@ -236,7 +236,9 @@ export function GoalConfig({ form }: { form: UseFormReturn<z.infer<typeof SETUP_
       return {};
     }
     const sorted = canvasItems.slice().sort((a, b) => a.x - b.x);
-    return canvasItemsToEmuCondition(sorted);
+    const result = canvasItemsToEmuCondition(sorted);
+    form.setValue("goalConfig.condition", result.result || { inputs: {}, logic: {} });
+    return result;
   }, [canvasItems]);
 
   return (
