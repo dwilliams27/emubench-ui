@@ -65,6 +65,10 @@ export const AVAILABLE_SAVE_STATES = {
 }
 
 export const MODEL_PROVIDERS = {
+  ANTHROPIC: {
+    name: "anthropic",
+    displayName: "Anthropic"
+  },
   GOOGLE: {
     name: "google",
     displayName: "Google"
@@ -76,6 +80,10 @@ export const MODEL_PROVIDERS = {
 };
 
 export const MODELS = {
+  [MODEL_PROVIDERS.ANTHROPIC.name]: [{
+    name: "claude-opus-4-1-20250805",
+    displayName: "Claude Opus 4.1"
+  }],
   [MODEL_PROVIDERS.GOOGLE.name]: [{
     name: "gemini-2.5-pro",
     displayName: "Gemini 2.5 Pro"
