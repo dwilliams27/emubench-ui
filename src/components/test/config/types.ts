@@ -22,7 +22,8 @@ export const PLATFORMS = {
 export const GAMES = {
   HARVEST_MOOON: "Harvest Moon: Magical Melody",
   ZELDA_WIND_WAKER: "The Legend of Zelda: Wind Waker",
-  KIRBY_AIR_RIDE: "Kirby Air Ride"
+  KIRBY_AIR_RIDE: "Kirby Air Ride",
+  SIMPSONS_HIT_AND_RUN: "The Simpsons: Hit & Run"
 };
 
 export const AVAILABLE_SAVE_STATES = {
@@ -59,6 +60,16 @@ export const AVAILABLE_SAVE_STATES = {
       {
         filename: "three_level_structure.sav",
         displayName: "City Trial - Facing Tower"
+      }
+    ],
+    [GAMES.SIMPSONS_HIT_AND_RUN]: [
+      {
+        filename: "beginning_homer.sav",
+        displayName: "Game Start - Homer"
+      },
+      {
+        filename: "in_car_before_ramp.sav",
+        displayName: "Homer Driving"
       }
     ]
   }

@@ -4,7 +4,7 @@ import { ActiveTestScreen } from "@/components/test/active/active-test-screen";
 import type { Test, TestState } from "@/constants/games";
 import { useApi } from "@/contexts/api-context";
 import type { EmuActiveTestReponse } from "@/shared/types";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useSearchParams } from "react-router-dom";
 
 export interface ActiveTestViewProps {
@@ -15,7 +15,7 @@ export interface ActiveTestViewProps {
 export function ActiveTestView() {
   const { api } = useApi();
   const [currentState, setCurrentState] = useState<EmuActiveTestReponse | null>(null);
-  const [activeInterval, setActiveInterval] = useState<NodeJS.Timeout | null>(null);
+  const activeIntervalRef = useRef<NodeJS.Timeout | null>(null);
   const [searchParams] = useSearchParams();
   const testId = searchParams.get('testId');
 
@@ -32,8 +32,11 @@ export function ActiveTestView() {
       return;
     }
 
-    if ((response.emulatorStatus === 'error' || response.agentStatus === 'error' || (response.emulatorStatus === 'finished' && response.agentStatus === 'finished')) && activeInterval) {
-      clearInterval(activeInterval);
+    if (response.emulatorStatus === 'error' || response.agentStatus === 'error' || (response.emulatorStatus === 'finished' && response.agentStatus === 'finished')) {
+      if (activeIntervalRef.current) {
+        clearInterval(activeIntervalRef.current);
+        activeIntervalRef.current = null;
+      }
     }
 
     if (!currentState) {
@@ -51,9 +54,14 @@ export function ActiveTestView() {
 
     getActiveTestState();
     const interval = setInterval(getActiveTestState, 5000);
-    setActiveInterval(interval);
+    activeIntervalRef.current = interval;
     
-    return () => clearInterval(interval);
+    return () => {
+      if (activeIntervalRef.current) {
+        clearInterval(activeIntervalRef.current);
+        activeIntervalRef.current = null;
+      }
+    };
   }, [testId]);
 
   return (
