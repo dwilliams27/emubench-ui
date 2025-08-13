@@ -1,6 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { AVAILABLE_SAVE_STATES, SETUP_TEST_CONFIG_SCHEMA, GAMES, PLATFORMS } from "@/components/test/config/types"
+import { AVAILABLE_SAVE_STATES, SETUP_TEST_CONFIG_SCHEMA, GAMES, PLATFORMS, GAME_CONTEXT } from "@/components/test/config/types"
 import { useWatch, type UseFormReturn } from "react-hook-form";
 import { FormField, FormItem, FormLabel } from "@/components/ui/form";
 import { useMemo } from "react";
@@ -8,6 +8,7 @@ import type z from "zod";
 import { Separator } from "@/components/ui/separator";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
 
 export function GameConfig({ form }: { form: UseFormReturn<z.infer<typeof SETUP_TEST_CONFIG_SCHEMA>> }) {
   const selectedPlatform = useWatch({
@@ -19,6 +20,12 @@ export function GameConfig({ form }: { form: UseFormReturn<z.infer<typeof SETUP_
     control: form.control,
     name: "gameConfig.game"
   });
+
+  const onSetGame = (game: string) => {
+    if (GAME_CONTEXT[game]) {
+      form.setValue("agentConfig.gameContext", GAME_CONTEXT[game]);
+    }
+  }
 
   const availableSaveStates = useMemo(() => {
     if (!selectedPlatform || !selectedGame) {
@@ -64,7 +71,7 @@ export function GameConfig({ form }: { form: UseFormReturn<z.infer<typeof SETUP_
             <FormItem>
               <div className="flex items-center justify-between">
                 <FormLabel>Game</FormLabel>
-                <Select onValueChange={field.onChange} defaultValue={field.value}>
+                <Select onValueChange={(value) => { field.onChange(value); onSetGame(value); }} defaultValue={field.value}>
                   <SelectTrigger className="w-1/2">
                     <SelectValue placeholder="Select a Game" />
                   </SelectTrigger>
@@ -102,6 +109,22 @@ export function GameConfig({ form }: { form: UseFormReturn<z.infer<typeof SETUP_
                 </Select>
               </div>
             </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="agentConfig.gameContext"
+          render={({ field }) => (
+            <div className="space-y-2 pt-2">
+              <FormLabel>Game Context</FormLabel>
+              <Textarea 
+                onChange={field.onChange} 
+                className="flex-1 resize-none max-h-28 overflow-y-auto"
+                placeholder="Enter game context (controls, info)..."
+                defaultValue={field.value}
+              />
+            </div>
           )}
         />
 

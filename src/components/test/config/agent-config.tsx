@@ -136,7 +136,11 @@ export function AgentConfig({ form }: { form: UseFormReturn<z.infer<typeof SETUP
               render={({ field }) => (
                 <div className="space-y-2 w-full">
                   <FormLabel>Task Description</FormLabel>
-                  <Input onChange={field.onChange} defaultValue={field.value} />
+                  <Textarea 
+                    onChange={field.onChange} 
+                    className="flex-1 resize-none h-30 overflow-y-auto"
+                    defaultValue={field.value}
+                  />
                 </div>
               )}
             />
@@ -149,7 +153,7 @@ export function AgentConfig({ form }: { form: UseFormReturn<z.infer<typeof SETUP
                 <FormLabel>System Prompt</FormLabel>
                 <Textarea 
                   onChange={field.onChange} 
-                  className="flex-1 resize-none max-h-28 overflow-y-auto"
+                  className="flex-1 resize-none max-h-48 overflow-y-auto"
                   placeholder="Enter system prompt..."
                   defaultValue={field.value}
                 />

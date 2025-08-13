@@ -2,7 +2,7 @@ import { AgentConfig } from "@/components/test/config/agent-config";
 import { GameConfig } from "@/components/test/config/game-config";
 import { GoalConfig } from "@/components/test/config/goal/goal-config";
 import { MemoryConfig } from "@/components/test/config/memory/memory-config";
-import { MODEL_PROVIDERS, MODELS, PLATFORMS, GAMES, SETUP_TEST_CONFIG_SCHEMA, AVAILABLE_SAVE_STATES } from "@/components/test/config/types";
+import { MODEL_PROVIDERS, MODELS, PLATFORMS, GAMES, SETUP_TEST_CONFIG_SCHEMA, AVAILABLE_SAVE_STATES, GAME_CONTEXT } from "@/components/test/config/types";
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
 import { useApi } from "@/contexts/api-context";
@@ -38,6 +38,7 @@ export function TestConfigForm() {
       agentConfig: {
         modelProvider: MODEL_PROVIDERS.GOOGLE.name,
         model: MODELS[MODEL_PROVIDERS.GOOGLE.name][0].name,
+        gameContext: GAME_CONTEXT[GAMES.ZELDA_WIND_WAKER],
         maxIterations: "20",
         temperature: 1.0,
         taskName: "Start a new game",
@@ -99,7 +100,7 @@ export function TestConfigForm() {
       agentConfig: {
         systemPrompt: formData.agentConfig.systemPrompt,
         // TODO: Implement
-        gameContext: "",
+        gameContext: formData.agentConfig.gameContext,
         llmProvider: formData.agentConfig.modelProvider,
         model: formData.agentConfig.model,
         maxIterations: parseInt(formData.agentConfig.maxIterations),

@@ -73,6 +73,42 @@ export const AVAILABLE_SAVE_STATES = {
       }
     ]
   }
+};
+
+export const GAME_CONTEXT = {
+  [GAMES.ZELDA_WIND_WAKER]: `Controls:
+Left stick: Move Link/Navigate menus
+A: Context-sensitive action (talk, grab, climb, roll attack)
+B: Sword attack
+X/Y: Assigned items/tools
+Start: Pause menu
+Z: Z-target enemies/objects`,
+  [GAMES.SIMPSONS_HIT_AND_RUN]: `Controls:
+On Foot:
+
+Left stick: Move character
+C stick: Camera control
+A: Jump
+B: Kick/attack
+X: Action button (talk, enter vehicles, collect items)
+Y: Run (hold)
+L: Look behind
+
+Driving:
+Left stick: Steer
+A: Accelerate
+B: Brake/reverse
+X: Exit vehicle
+Y: Horn
+L: Handbrake
+R: Rear view`,
+  [GAMES.KIRBY_AIR_RIDE]: `Controls:
+Left stick: Move/steer
+A: Brake/boost charge
+B: Copy ability/attack
+X: Get off Air Ride machine (on foot)
+L/R: Quick turns
+C-stick: Camera control`
 }
 
 export const MODEL_PROVIDERS = {
@@ -125,7 +161,8 @@ export const SETUP_TEST_CONFIG_SCHEMA = z.object({
     temperature: z.number().min(0).max(2),
     taskName: z.string(),
     taskDescription: z.string(),
-    systemPrompt: z.string()
+    systemPrompt: z.string(),
+    gameContext: z.string(),
   }),
   memoryConfig: z.object({
     context: z.record(z.string(), z.object({
