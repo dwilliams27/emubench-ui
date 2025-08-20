@@ -85,7 +85,6 @@ Start: Pause menu
 Z: Z-target enemies/objects`,
   [GAMES.SIMPSONS_HIT_AND_RUN]: `Controls:
 On Foot:
-
 Left stick: Move character
 C stick: Camera control
 A: Jump
