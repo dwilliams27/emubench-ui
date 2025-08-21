@@ -5,7 +5,7 @@ import { ContextMemoryItem } from "@/components/test/config/memory/memory-contex
 import { SETUP_TEST_CONFIG_SCHEMA } from "@/components/test/config/types";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { emuAddOperationFactory, emuAndOperationFactory, emuEqualsOperationFactory, emuGreaterThanOperationFactory, emuLessThanOperationFactory, emuMultiplyOperationFactory, emuNotOperationFactory, emuOrOperationFactory } from "@/shared/conditions/operations";
-import { EmuConditionInput, EmuConditionInputSet, EmuConditionOperation, EmuRawExpressionPart } from "@/shared/conditions/types";
+import { EmuConditionInput, EmuConditionInputSet, EmuConditionOperand, EmuConditionOperation } from "@/shared/conditions/types";
 import { CANVAS_ITEM_ID, EMU_OPERATION_ID, genId } from "@/shared/utils/id";
 import { DndContext, DragEndEvent, DragOverlay, DragStartEvent, DragCancelEvent, TouchSensor, MouseSensor, useSensor, useSensors } from "@dnd-kit/core";
 import { useMemo, useState } from "react";
@@ -57,11 +57,11 @@ function contextMemoryToInputs(context?: Record<string, ContextMemoryItem>): Emu
 function canvasItemsToEmuCondition(items: CanvasItem[]) {
   const expression = items.map(item => {
     const { data } = item;
-    const part: EmuRawExpressionPart = {
-      primitiveValue: data.primitiveValue,
+    const part: EmuConditionOperand = {
+      primitive: data.primitiveValue,
       input: data.input,
-      operation: data.operation,
-      parentheses: data.parentheses ? { open: data.parentheses.open } : undefined,
+      conditionPart: data.operation && { operation: data.operation },
+      parentheses: data.parentheses && { open: data.parentheses.open },
     };
     return part;
   });
