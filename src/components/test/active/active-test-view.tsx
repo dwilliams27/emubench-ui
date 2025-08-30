@@ -71,6 +71,7 @@ export function ActiveTestView() {
         <ActiveTestScreen screenshots={currentState?.screenshots} />
         <ActiveTestChat messages={currentState?.agentLogs} />
       </div>
+      {/* <ActiveTestGoal flatCondition={currentState?.agentLogs} /> */}
     </div>
   )
 }

@@ -1,6 +1,6 @@
 import { emuEvaluateCondition, emuFlattenCondition } from '@/shared/conditions/evaluate';
 import { emuAddOperationFactory, emuEqualsOperationFactory, emuLessThanOperationFactory, emuSquareOperationFactory } from '@/shared/conditions/operations';
-import type { EmuCondition, EmuConditionInput } from '@/shared/conditions/types';
+import type { EmuCondition, EmuConditionInput, EmuConditionOperand, EmuLinkedExpressionPart } from '@/shared/conditions/types';
 import { describe, it, expect } from 'vitest';
 
 describe("EmuCondition", () => {
@@ -266,5 +266,43 @@ describe("EmuCondition", () => {
         },
       ])
     })
-  })
+  });
+
+  // describe("Expression -> Condition", () => {
+  //   it("GAME_ID == GAME_ID", () => {
+  //     const rawExpression: EmuConditionOperand[] = [
+  //       {
+  //         parentheses: {
+  //           open: true
+  //         }
+  //       },
+  //       {
+  //         input: {
+  //           name: "GAME_ID",
+  //           type: "chars",
+  //           pointerDepth: 0,
+  //           rawValue: "-1"
+  //         }
+  //       },
+  //       {
+  //         conditionPart: {
+  //           operation: emuEqualsOperationFactory()
+  //         }
+  //       },
+  //       {
+  //         input: {
+  //           name: "GAME_ID",
+  //           type: "chars",
+  //           pointerDepth: 0,
+  //           rawValue: -1
+  //         }
+  //       },
+  //       {
+  //         parentheses: {
+  //           open: false
+  //         }
+  //       }
+  //     ]
+  //   });
+  // })
 });

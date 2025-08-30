@@ -167,7 +167,7 @@ export const SETUP_TEST_CONFIG_SCHEMA = z.object({
     context: z.record(z.string(), z.object({
       address: z.string(),
       size: z.number(),
-      pointerDepth: z.number(),
+      pointerOffsets: z.array(z.number()),
       type: z.enum(['int', 'uint', 'float', 'hex', 'chars']),
       name: z.string(),
       description: z.string(),

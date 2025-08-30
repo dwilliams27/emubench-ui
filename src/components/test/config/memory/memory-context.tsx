@@ -12,7 +12,7 @@ import z from "zod";
 export interface ContextMemoryItem {
   address: string;
   size: number;
-  pointerDepth: number;
+  pointerOffsets: number[];
   type: EmuConditionInputType;
   name: string;
   description: string;
@@ -24,7 +24,7 @@ export const ContextMemoryWatches: Record<string, ContextMemoryItem[]> = {
       address: "80000000",
       type: "chars",
       size: 6,
-      pointerDepth: 0,
+      pointerOffsets: [],
       name: "GAME_ID",
       description: "Game ID, used for testing"
     },
@@ -34,7 +34,7 @@ export const ContextMemoryWatches: Record<string, ContextMemoryItem[]> = {
       address: "80000000",
       type: "chars",
       size: 6,
-      pointerDepth: 0,
+      pointerOffsets: [],
       name: "GAME_ID",
       description: "Game ID, used for testing"
     },
@@ -90,9 +90,9 @@ export const columns: ColumnDef<ContextMemoryItem>[] = [
     cell: ({ row }) => <div className="lowercase">{row.getValue("size")}</div>,
   },
   {
-    accessorKey: "pointerDepth",
-    header: "Pointer Depth",
-    cell: ({ row }) => <div className="lowercase">{row.getValue("pointerDepth")}</div>,
+    accessorKey: "pointerOffsets",
+    header: "Pointer Offsets",
+    cell: ({ row }) => <div className="lowercase">{row.getValue("pointerOffsets")}</div>,
   },
 ]
 
@@ -145,7 +145,7 @@ export function MemoryContext({ form }: { form: UseFormReturn<z.infer<typeof SET
       {
         address: formData.address,
         size: parseInt(formData.size),
-        pointerDepth: 0,
+        pointerOffsets: [],
         type: formData.type as EmuConditionInputType,
         name: formData.name,
         description: formData.description || ""

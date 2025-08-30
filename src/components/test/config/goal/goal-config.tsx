@@ -47,7 +47,7 @@ function contextMemoryToInputs(context?: Record<string, ContextMemoryItem>): Emu
     inputs[key] = {
       name: value.name,
       type: value.type,
-      pointerDepth: value.pointerDepth,
+      pointerOffsets: value.pointerOffsets,
       rawValue: -1,
     };
   });
