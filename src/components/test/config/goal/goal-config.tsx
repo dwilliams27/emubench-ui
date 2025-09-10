@@ -48,7 +48,7 @@ function contextMemoryToInputs(context?: Record<string, ContextMemoryItem>): Emu
       name: value.name,
       type: value.type,
       pointerOffsets: value.pointerOffsets,
-      rawValue: -1,
+      rawValue: value.type === "chars" ? "x" : -1,
     };
   });
   return inputs;

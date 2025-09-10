@@ -1,10 +1,12 @@
 import { ActiveTestChat } from "@/components/test/active/active-test-chat";
+import { ActiveTestGoal } from "@/components/test/active/active-test-goal";
 import { ActiveTestHeader } from "@/components/test/active/active-test-header";
 import { ActiveTestScreen } from "@/components/test/active/active-test-screen";
 import type { Test, TestState } from "@/constants/games";
 import { useApi } from "@/contexts/api-context";
+import { emuFlattenCondition } from "@/shared/conditions/evaluate";
 import type { EmuActiveTestReponse } from "@/shared/types";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, useMemo } from "react";
 import { useSearchParams } from "react-router-dom";
 
 export interface ActiveTestViewProps {
@@ -18,6 +20,18 @@ export function ActiveTestView() {
   const activeIntervalRef = useRef<NodeJS.Timeout | null>(null);
   const [searchParams] = useSearchParams();
   const testId = searchParams.get('testId');
+
+  const flatCondition = useMemo(() => {
+    if (!currentState?.goalConfig?.condition || !currentState.testState?.contextMemWatchValues) {
+      return [];
+    }
+
+    const conditionCopy = { ...currentState.goalConfig.condition };
+    Object.keys(currentState.testState.contextMemWatchValues).forEach((key) => {
+      conditionCopy.inputs[key].rawValue = currentState.testState.contextMemWatchValues[key];
+    })
+    return emuFlattenCondition(conditionCopy);
+  }, [currentState]);
 
   const getActiveTestState = async () => {
     if (!testId) {
@@ -71,7 +85,7 @@ export function ActiveTestView() {
         <ActiveTestScreen screenshots={currentState?.screenshots} />
         <ActiveTestChat messages={currentState?.agentLogs} />
       </div>
-      {/* <ActiveTestGoal flatCondition={currentState?.agentLogs} /> */}
+      <ActiveTestGoal flatCondition={flatCondition} />
     </div>
   )
 }

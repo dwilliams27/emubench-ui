@@ -57,74 +57,74 @@ export const MockActiveTestResponses: Record<string, TestState> = {
 };
 
 export const MockGetActiveTestStateResponse = {
-    "testState": [
-        {
+    "testState": {
+        "stateHistory": {
             "1": {
                 "contextMemWatchValues": {
-                    "test_game_id": "475A4C453031"
+                    "GAME_ID": "475A4C453031"
                 },
                 "endStateMemWatchValues": {}
             },
             "2": {
                 "contextMemWatchValues": {
-                    "test_game_id": "475A4C453031"
+                    "GAME_ID": "475A4C453031"
                 },
                 "endStateMemWatchValues": {}
             },
             "3": {
                 "contextMemWatchValues": {
-                    "test_game_id": "475A4C453031"
+                    "GAME_ID": "475A4C453031"
                 },
                 "endStateMemWatchValues": {}
             },
             "4": {
                 "contextMemWatchValues": {
-                    "test_game_id": "475A4C453031"
+                    "GAME_ID": "475A4C453031"
                 },
                 "endStateMemWatchValues": {}
             },
             "5": {
                 "contextMemWatchValues": {
-                    "test_game_id": "475A4C453031"
+                    "GAME_ID": "475A4C453031"
                 },
                 "endStateMemWatchValues": {}
             },
             "6": {
                 "contextMemWatchValues": {
-                    "test_game_id": "475A4C453031"
+                    "GAME_ID": "475A4C453031"
                 },
                 "endStateMemWatchValues": {}
             },
             "7": {
                 "contextMemWatchValues": {
-                    "test_game_id": "475A4C453031"
+                    "GAME_ID": "475A4C453031"
                 },
                 "endStateMemWatchValues": {}
             },
             "8": {
                 "contextMemWatchValues": {
-                    "test_game_id": "475A4C453031"
+                    "GAME_ID": "475A4C453031"
                 },
                 "endStateMemWatchValues": {}
             },
             "9": {
                 "contextMemWatchValues": {
-                    "test_game_id": "475A4C453031"
+                    "GAME_ID": "475A4C453031"
                 },
                 "endStateMemWatchValues": {}
             },
-            "id": "TEST_STATE",
-            "contextMemWatchValues": {
-                "test_game_id": "475A4C453031"
-            },
-            "endStateMemWatchValues": {},
-            "status": "emulator-ready",
-            "createdAt": {
-                "_seconds": 1753327197,
-                "_nanoseconds": 407000000
-            }
+        },
+        "id": "TEST_STATE",
+        "contextMemWatchValues": {
+            "GAME_ID": "475A4C453031"
+        },
+        "endStateMemWatchValues": {},
+        "status": "emulator-ready",
+        "createdAt": {
+            "_seconds": 1753327197,
+            "_nanoseconds": 407000000
         }
-    ],
+    },
     "screenshots": {
         "0.png": "https://storage.googleapis.com/emubench-sessions/tst-4c0c84515a864e53/ScreenShots/0.png?X-Goog-Algorithm=GOOG4-RSA-SHA256&X-Goog-Credential=emubench-cloud-run-sa%40emubench-459802.iam.gserviceaccount.com%2F20250724%2Fauto%2Fstorage%2Fgoog4_request&X-Goog-Date=20250724T031749Z&X-Goog-Expires=86400&X-Goog-SignedHeaders=host&X-Goog-Signature=5ad167b84e970e3372a4eb7302cddedd06f44034fc14dc233c9beac3b450386c3f942cb2d22786e0a3de292d755fd53fd703098645f890f8c7e03c85c6ca1af7bf8923699080767754151ec5440b7cd13e5aabf90b838c88cc942931256601df71ea3378fe04459b57432f60273e2173b954d4818e34f57ac8f990609447971bdd16ce9df6744262f03f93d69cc8b94185d1b39abb6846472b684b4db63ed9ee05967a71f7879499e65ac676fb52125d5c30d8158eb048fb704997db601e009c0796f064f5bb418b6bd17e14a72422a052ce19edee2674dbf6681335bd41c922a26f0f4ccc2a9c16bf218c1710b610849174594825a7c2e8a00a0129763ef3d3",
         "1.png": "https://storage.googleapis.com/emubench-sessions/tst-4c0c84515a864e53/ScreenShots/1.png?X-Goog-Algorithm=GOOG4-RSA-SHA256&X-Goog-Credential=emubench-cloud-run-sa%40emubench-459802.iam.gserviceaccount.com%2F20250724%2Fauto%2Fstorage%2Fgoog4_request&X-Goog-Date=20250724T031908Z&X-Goog-Expires=86400&X-Goog-SignedHeaders=host&X-Goog-Signature=af7f0e252e9d01743ef6d64cf07b67f4fdbcb041b7bed1bf923e652e567417fe9b10ed08bf20dd9f347d0803ae1476e4da6f0208c5a1e02e55ebadd22be82db2096da6efe55c871192ba3597e270a8b89c0647584c186f95198cb5760aad7e1af781fa954e888c92ba0af580419ad77c2f1b156f4030ab9f153eb9a23baa14fa9a462b67888501089d8ad4fc706b153cfaae84be7499540a616a207c555c82fdeb5eb2a2ce30e9edebe7b63267818a2c4636f486a19f201e3aea7b9d33c1d81b62f856b31f03479ea005020e06d4b5a6b59e6a08d642f1042cb611bbfc310c58250e895e58a7fa2c34a53e810fbef2b40c34e3348edadfbc20394275616546e7",
@@ -437,4 +437,40 @@ export const MockGetActiveTestStateResponse = {
     ],
     "emulatorStatus": "running",
     "agentStatus": "running",
+    "goalConfig": {
+        "condition": {
+            "inputs": {
+                "GAME_ID": {
+                    "name": "GAME_ID",
+                    "type": "chars",
+                    "pointerOffsets": [],
+                    "rawValue": "x"
+                }
+            },
+            "logic": {
+                "operation": {
+                    "id": "emuop-384f9b513a464ec0",
+                    "name": "==",
+                    "hasLeftOperand": true,
+                    "hasRightOperand": true
+                },
+                "lhs": {
+                    "input": {
+                        "name": "GAME_ID",
+                        "type": "chars",
+                        "pointerOffsets": [],
+                        "rawValue": "x"
+                    }
+                },
+                "rhs": {
+                    "input": {
+                        "name": "GAME_ID",
+                        "type": "chars",
+                        "pointerOffsets": [],
+                        "rawValue": "x"
+                    }
+                }
+            }
+        }
+    }
 }
