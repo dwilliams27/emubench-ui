@@ -1,4 +1,4 @@
-import { ActiveTestChat } from "@/components/test/active/active-test-chat";
+import { ActiveTestLogs } from "@/components/test/active/active-test-logs";
 import { ActiveTestGoal } from "@/components/test/active/active-test-goal";
 import { ActiveTestHeader } from "@/components/test/active/active-test-header";
 import { ActiveTestScreen } from "@/components/test/active/active-test-screen";
@@ -83,7 +83,7 @@ export function ActiveTestView() {
       <ActiveTestHeader agentStatus={currentState?.agentStatus} emulatorStatus={currentState?.emulatorStatus} testId={testId} />
       <div className="flex flex-col space-y-1 md:flex-row space-x-1">
         <ActiveTestScreen screenshots={currentState?.screenshots} />
-        <ActiveTestChat messages={currentState?.agentLogs} />
+        <ActiveTestLogs messages={currentState?.agentLogs} />
       </div>
       <ActiveTestGoal flatCondition={flatCondition} />
     </div>

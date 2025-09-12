@@ -2,21 +2,22 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { EmuConditionOperand } from "@/shared/conditions/types";
 
 function renderOperand(operand: EmuConditionOperand) {
+  const className = "border-2 rounded-2xl p-2";
   if (operand.conditionPart) {
     return (
-      <div>
+      <div className={className} key={JSON.stringify(operand)}>
         {operand.conditionPart.operation.name}
       </div>
     );
   } else if (operand.input) {
     return (
-      <div>
-        {operand.input.name}: {operand.input.parsedValue}
+      <div className={className} key={operand.input.name}>
+        {operand.input.name}: {operand.input.parsedValue || "N/A"}
       </div>
     );
   } else if (operand.primitive) {
     return (
-      <div>
+      <div className={className} key={JSON.stringify(operand.primitive)}>
         {operand.primitive}
       </div>
     )
@@ -25,11 +26,11 @@ function renderOperand(operand: EmuConditionOperand) {
 
 export function ActiveTestGoal({ flatCondition }: { flatCondition: EmuConditionOperand[] }) {
   return (
-    <Card className="w-full md:w-1/3">
+    <Card className="w-full md:w-2/3">
       <CardHeader>
         <CardTitle>Goal</CardTitle>
       </CardHeader>
-      <CardContent>
+      <CardContent className="flex flex-row space-x-2">
         {
           flatCondition.map(operand => renderOperand(operand))
         }

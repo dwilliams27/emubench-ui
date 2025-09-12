@@ -13,7 +13,7 @@ export function ActiveTestScreen({ screenshots }: { screenshots: Record<string, 
   }
 
   return (
-    <Card className="w-full md:w-2/3">
+    <Card className="w-full md:w-2/3 mb-0">
       <CardHeader>
         <CardTitle>View</CardTitle>
       </CardHeader>

@@ -3,11 +3,11 @@ import { Separator } from "@/components/ui/separator";
 import type { EmuLogBlock } from "@/shared/types";
 import { toolToLog } from "@/utils/tools";
 
-export interface ActiveTestChatProps {
+export interface ActiveTestLogsProps {
   messages: EmuLogBlock[] | undefined;
 }
 
-export function ActiveTestChat({ messages }: ActiveTestChatProps) {
+export function ActiveTestLogs({ messages }: ActiveTestLogsProps) {
   const renderLogBlock = (block: EmuLogBlock) => {
     return (
       <div key={block.title} className="break-words border-2 rounded-2xl p-2">
