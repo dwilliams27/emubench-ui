@@ -48,7 +48,7 @@ export function GameConfig({ form }: { form: UseFormReturn<z.infer<typeof SETUP_
             <FormItem>
               <div className="flex items-center justify-between">
                 <FormLabel>Platform</FormLabel>
-                <Select onValueChange={field.onChange} defaultValue={field.value}>
+                <Select onValueChange={field.onChange} value={field.value}>
                   <SelectTrigger className="w-1/2">
                     <SelectValue placeholder="Select a platform" />
                   </SelectTrigger>
@@ -71,7 +71,7 @@ export function GameConfig({ form }: { form: UseFormReturn<z.infer<typeof SETUP_
             <FormItem>
               <div className="flex items-center justify-between">
                 <FormLabel>Game</FormLabel>
-                <Select onValueChange={(value) => { field.onChange(value); onSetGame(value); }} defaultValue={field.value}>
+                <Select onValueChange={(value) => { field.onChange(value); onSetGame(value); }} value={field.value}>
                   <SelectTrigger className="w-1/2">
                     <SelectValue placeholder="Select a Game" />
                   </SelectTrigger>
@@ -95,7 +95,7 @@ export function GameConfig({ form }: { form: UseFormReturn<z.infer<typeof SETUP_
             <FormItem>
               <div className="flex items-center justify-between">
                 <FormLabel>Save State</FormLabel>
-                <Select onValueChange={field.onChange} defaultValue={field.value}>
+                <Select onValueChange={field.onChange} value={field.value}>
                   <SelectTrigger className="w-1/2">
                     <SelectValue placeholder="Select a Save State" />
                   </SelectTrigger>
@@ -119,10 +119,9 @@ export function GameConfig({ form }: { form: UseFormReturn<z.infer<typeof SETUP_
             <div className="space-y-2 pt-2">
               <FormLabel>Game Context</FormLabel>
               <Textarea 
-                onChange={field.onChange} 
+                {...field}
                 className="flex-1 resize-none max-h-28 overflow-y-auto"
                 placeholder="Enter game context (controls, info)..."
-                defaultValue={field.value}
               />
             </div>
           )}
@@ -133,10 +132,10 @@ export function GameConfig({ form }: { form: UseFormReturn<z.infer<typeof SETUP_
         <FormField
           control={form.control}
           name="gameConfig.gameMode"
-          render={(_) => (
+          render={({ field }) => (
             <FormItem>
               <FormLabel>Game Mode</FormLabel>
-              <RadioGroup defaultValue="turn-based" className="flex justify-around">
+              <RadioGroup onValueChange={field.onChange} value={field.value} className="flex justify-around">
                 <Label htmlFor="turn-based" className="flex items-center space-x-2 border-1 p-2 rounded-2xl cursor-pointer">
                   <div className="h-full justify-start">
                     <RadioGroupItem value="turn-based" id="turn-based" />
