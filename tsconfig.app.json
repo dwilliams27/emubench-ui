@@ -27,5 +27,11 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["src"]
+  "include": ["src"],
+  "exclude": [
+    // TODO: Better shared lib handling
+    "src/shared/services/firebase.service.ts",
+    "src/shared/services/resource-locator.service.ts",
+    "src/shared/types/firebase.ts"
+  ]
 }
