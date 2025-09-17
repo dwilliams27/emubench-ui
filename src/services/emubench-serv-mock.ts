@@ -22,6 +22,6 @@ export class EmuBenchServMock implements Api {
   async getActiveTestState(_: string) {
     await new Promise(resolve => setTimeout(resolve, 500));
 
-    return MockGetActiveTestStateResponse as unknown as EmuActiveTestReponse;
+    return [MockGetActiveTestStateResponse, 200] as unknown as [EmuActiveTestReponse, number];
   }
 }

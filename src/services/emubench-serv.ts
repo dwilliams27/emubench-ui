@@ -14,7 +14,7 @@ export interface Api {
   fetchTestConfigs: () => Promise<GetActiveTestConfigResponse>;
   getTestState: (id: string) => Promise<TestState>;
   setupTest: (config: z.infer<typeof REQ_SETUP_TEST>) => Promise<{ testId: string }>;
-  getActiveTestState: (testId: string) => Promise<EmuActiveTestReponse>;
+  getActiveTestState: (testId: string) => Promise<[EmuActiveTestReponse, number]>;
 }
 
 export class EmuBenchServ implements Api {
@@ -90,7 +90,7 @@ export class EmuBenchServ implements Api {
           }
         }
       );
-      return response.data;
+      return [response.data, response.status] as [EmuActiveTestReponse, number];
     } catch (error) {
       console.error('[API] Unabled to get active test:', error);
       throw error;

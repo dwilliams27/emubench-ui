@@ -9,6 +9,22 @@ export function testStatusToBadge(testStatus?: string) {
     );
   }
 
+  if (testStatus === 'booting') {
+    return (
+      <Badge variant="outline">
+        Booting
+      </Badge>
+    );
+  }
+
+  if (testStatus === 'ready' || testStatus === 'emulator-ready') {
+    return (
+      <Badge variant="outline">
+        Ready
+      </Badge>
+    );
+  }
+
   if (testStatus === 'running') {
     return (
       <Badge variant="default">

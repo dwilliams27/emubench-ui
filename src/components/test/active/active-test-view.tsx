@@ -22,14 +22,14 @@ export function ActiveTestView() {
   const testId = searchParams.get('testId');
 
   const flatCondition = useMemo(() => {
-    if (!currentState?.bootConfig?.goalConfig?.condition || !currentState.testState?.stateHistory) {
+    if (!currentState?.bootConfig?.goalConfig?.condition || !currentState.testState?.stateHistory[-1]) {
       return [];
     }
 
     const conditionCopy = { ...currentState.bootConfig.goalConfig.condition };
-    Object.keys(currentState.testState?.stateHistory[-1].contextMemWatchValues).forEach((key) => {
+    Object.keys(currentState.testState.stateHistory[-1].contextMemWatchValues).forEach((key) => {
       conditionCopy.inputs[key].rawValue = currentState.testState?.stateHistory[-1].contextMemWatchValues[key];
-    })
+    });
     return emuFlattenCondition(conditionCopy);
   }, [currentState]);
 
@@ -38,7 +38,7 @@ export function ActiveTestView() {
       console.log('Could not find testId query param.');
       return;
     }
-    let response: EmuActiveTestReponse;
+    let response: [EmuActiveTestReponse, number];
     try {
       response = await api.getActiveTestState(testId);
     } catch (error) {
@@ -46,20 +46,20 @@ export function ActiveTestView() {
       return;
     }
 
-    if (response.emulatorState.status === 'error' || response.agentState.status === 'error' || (response.emulatorState.status === 'finished' && response.agentState.status === 'finished')) {
+    if (
+      response[0].emulatorState?.status === 'error' ||
+      response[0].agentState?.status === 'error' ||
+      (response[0].emulatorState?.status === 'finished' && response[0].agentState?.status === 'finished')
+    ) {
       if (activeIntervalRef.current) {
         clearInterval(activeIntervalRef.current);
         activeIntervalRef.current = null;
       }
     }
 
-    if (!currentState) {
-      setCurrentState(response);
+    if (!currentState || response[1] === 200) {
+      setCurrentState(response[0]);
       return;
-    }
-
-    if (response.agentLogs.length > currentState?.agentLogs.length || response.testState.screenshots.length > currentState.testState.screenshots.length) {
-      setCurrentState(response);
     }
   }
 
@@ -80,9 +80,9 @@ export function ActiveTestView() {
 
   return (
     <div className="flex flex-col space-y-1">
-      <ActiveTestHeader agentStatus={currentState?.agentState.status} emulatorStatus={currentState?.emulatorState.status} testId={testId} />
+      <ActiveTestHeader testStatus={currentState?.testState?.status} agentStatus={currentState?.agentState?.status} emulatorStatus={currentState?.emulatorState?.status} testId={testId} />
       <div className="flex flex-col space-y-1 md:flex-row space-x-1">
-        <ActiveTestScreen screenshots={currentState?.testState.screenshots} />
+        <ActiveTestScreen screenshots={currentState?.testState?.screenshots} />
         <ActiveTestLogs messages={currentState?.agentLogs} />
       </div>
       <ActiveTestGoal flatCondition={flatCondition} />

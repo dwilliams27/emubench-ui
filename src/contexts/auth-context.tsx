@@ -44,15 +44,14 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     const checkCurrentUser = async () => {
       const currentUser = auth.currentUser;
       if (currentUser) {
-        checkAndSetUser(currentUser);
+        await checkAndSetUser(currentUser);
       }
-      setIsLoading(false);
     };
     checkCurrentUser();
 
     const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
       if (firebaseUser) {
-        checkAndSetUser(firebaseUser);
+        await checkAndSetUser(firebaseUser);
       } else {
         setUser(null);
       }
