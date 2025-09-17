@@ -22,13 +22,13 @@ export function ActiveTestView() {
   const testId = searchParams.get('testId');
 
   const flatCondition = useMemo(() => {
-    if (!currentState?.goalConfig?.condition || !currentState.testState?.contextMemWatchValues) {
+    if (!currentState?.bootConfig?.goalConfig?.condition || !currentState.testState?.stateHistory) {
       return [];
     }
 
-    const conditionCopy = { ...currentState.goalConfig.condition };
-    Object.keys(currentState.testState.contextMemWatchValues).forEach((key) => {
-      conditionCopy.inputs[key].rawValue = currentState.testState.contextMemWatchValues[key];
+    const conditionCopy = { ...currentState.bootConfig.goalConfig.condition };
+    Object.keys(currentState.testState?.stateHistory[-1].contextMemWatchValues).forEach((key) => {
+      conditionCopy.inputs[key].rawValue = currentState.testState?.stateHistory[-1].contextMemWatchValues[key];
     })
     return emuFlattenCondition(conditionCopy);
   }, [currentState]);
@@ -46,7 +46,7 @@ export function ActiveTestView() {
       return;
     }
 
-    if (response.emulatorStatus === 'error' || response.agentStatus === 'error' || (response.emulatorStatus === 'finished' && response.agentStatus === 'finished')) {
+    if (response.emulatorState.status === 'error' || response.agentState.status === 'error' || (response.emulatorState.status === 'finished' && response.agentState.status === 'finished')) {
       if (activeIntervalRef.current) {
         clearInterval(activeIntervalRef.current);
         activeIntervalRef.current = null;
@@ -58,7 +58,7 @@ export function ActiveTestView() {
       return;
     }
 
-    if (response.agentLogs.length > currentState?.agentLogs.length || response.screenshots.length > currentState.screenshots.length) {
+    if (response.agentLogs.length > currentState?.agentLogs.length || response.testState.screenshots.length > currentState.testState.screenshots.length) {
       setCurrentState(response);
     }
   }
@@ -80,9 +80,9 @@ export function ActiveTestView() {
 
   return (
     <div className="flex flex-col space-y-1">
-      <ActiveTestHeader agentStatus={currentState?.agentStatus} emulatorStatus={currentState?.emulatorStatus} testId={testId} />
+      <ActiveTestHeader agentStatus={currentState?.agentState.status} emulatorStatus={currentState?.emulatorState.status} testId={testId} />
       <div className="flex flex-col space-y-1 md:flex-row space-x-1">
-        <ActiveTestScreen screenshots={currentState?.screenshots} />
+        <ActiveTestScreen screenshots={currentState?.testState.screenshots} />
         <ActiveTestLogs messages={currentState?.agentLogs} />
       </div>
       <ActiveTestGoal flatCondition={flatCondition} />
