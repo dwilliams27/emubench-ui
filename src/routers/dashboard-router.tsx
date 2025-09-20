@@ -5,6 +5,7 @@ import { DashboardLayout } from "@/layouts/dashboard-layout";
 import TestConfig from "@/pages/test-config";
 import ActiveTests from "@/pages/active-tests";
 import TestHistory from "@/pages/test-history";
+import Traces from "@/pages/traces";
 
 export function DashboardRouter() {
   return (
@@ -16,6 +17,7 @@ export function DashboardRouter() {
         <Route path="/test-history" element={<TestHistory />} />
 
         <Route path="/api-playground" element={<ApiPlayground />} />
+        <Route path="/traces" element={<Traces />} />
       </Route>
     </Routes>
   );

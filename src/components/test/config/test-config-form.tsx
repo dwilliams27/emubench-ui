@@ -6,6 +6,7 @@ import { MODEL_PROVIDERS, MODELS, PLATFORMS, GAMES, SETUP_TEST_CONFIG_SCHEMA, AV
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
 import { useApi } from "@/contexts/api-context";
+import { EmuError } from "@/shared/types";
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -126,6 +127,9 @@ export function TestConfigForm() {
 
       navigateToTest(result.testId);
     } catch (error) {
+      if (error instanceof EmuError) {
+        setError(error.traceId || error.message);
+      }
       console.log('[Test Config Form]: Unable to setup test: ', error);
       setError(JSON.stringify(error));
     } finally {

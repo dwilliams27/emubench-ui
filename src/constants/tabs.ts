@@ -1,4 +1,4 @@
-import { Cog, FlaskConical, MonitorPlay, Scroll } from "lucide-react";
+import { Cog, FlaskConical, MonitorPlay, Scroll, TextSearch } from "lucide-react";
 
 export interface TabItem {
   label: string;
@@ -34,5 +34,11 @@ export const DEV_TABS: Record<string, TabItem> = {
     title: 'API Playground',
     url: '/dashboard/api-playground',
     icon: FlaskConical,
+  },
+  TRACES: {
+    label: 'Traces',
+    title: 'Traces',
+    url: '/dashboard/traces',
+    icon: TextSearch,
   },
 };

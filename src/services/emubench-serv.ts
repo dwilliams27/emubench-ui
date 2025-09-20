@@ -1,20 +1,20 @@
 import axios, { type AxiosInstance } from 'axios';
 import { config } from '@/config';
 import type { GetActiveTestConfigResponse } from '@/constants/api';
-import type { TestState } from '@/constants/games';
 import { getIdToken } from 'firebase/auth';
 import { auth } from '@/constants/firebase';
 import { REQ_SETUP_TEST } from '@/components/test/config/types';
 import type z from 'zod';
-import type { EmuActiveTestReponse } from '@/shared/types';
+import type { EmuActiveTestReponse, EmuGetTraceLogsResponse } from '@/shared/types';
+import { createEmuError } from '@/shared/utils/error';
 
 export interface Api {
   getAuthToken: () => Promise<string>;
   makeApiCall: (endpoint: string, method: string, data?: any) => Promise<any>;
   fetchTestConfigs: () => Promise<GetActiveTestConfigResponse>;
-  getTestState: (id: string) => Promise<TestState>;
   setupTest: (config: z.infer<typeof REQ_SETUP_TEST>) => Promise<{ testId: string }>;
   getActiveTestState: (testId: string) => Promise<[EmuActiveTestReponse, number]>;
+  getTrace: (traceId: string) => Promise<[EmuGetTraceLogsResponse, number]>;
 }
 
 export class EmuBenchServ implements Api {
@@ -56,7 +56,7 @@ export class EmuBenchServ implements Api {
       return response;
     } catch (error) {
       console.error('[API] Error making API call:', error);
-      throw error;
+      throw createEmuError(error);
     }
   }
 
@@ -75,7 +75,7 @@ export class EmuBenchServ implements Api {
       return response.data;
     } catch (error) {
       console.error('[API] Unabled to setup test:', error);
-      throw error;
+      throw createEmuError(error);
     }
   }
 
@@ -93,7 +93,7 @@ export class EmuBenchServ implements Api {
       return [response.data, response.status] as [EmuActiveTestReponse, number];
     } catch (error) {
       console.error('[API] Unabled to get active test:', error);
-      throw error;
+      throw createEmuError(error);
     }
   }
 
@@ -111,25 +111,25 @@ export class EmuBenchServ implements Api {
       return response.data;
     } catch (error) {
       console.error('[API] Unabled to fetch test configs:', error);
-      throw error;
+      throw createEmuError(error);
     }
   }
 
-  getTestState = async(id: string) => {
+  getTrace = async(traceId: string) => {
     const authToken = await this.getAuthToken();
     try {
       const response = await this.axiosInstance.get(
-        `/test-orx/tests/${id}`,
+        `/debug/trace-logs/${traceId}`,
         {
           headers: {
             'Authorization': `Bearer ${authToken}`
           }
         }
       );
-      return response.data;
+      return [response.data, response.status] as [EmuGetTraceLogsResponse, number];
     } catch (error) {
-      console.error(`[API] Unabled to fetch test state for ${id}:`, error);
-      throw error;
+      console.error(`[API] Unabled to fetch trace for ${traceId}:`, error);
+      throw createEmuError(error);
     }
   }
 }

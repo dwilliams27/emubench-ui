@@ -4,7 +4,7 @@ import type { EmuLogBlock } from "@/shared/types";
 import { toolToLog } from "@/utils/tools";
 
 export interface ActiveTestLogsProps {
-  messages: EmuLogBlock[] | undefined;
+  messages?: EmuLogBlock[] | null;
 }
 
 export function ActiveTestLogs({ messages }: ActiveTestLogsProps) {
