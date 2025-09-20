@@ -17,6 +17,7 @@ export interface ActiveTestViewProps {
 export function ActiveTestView() {
   const { api } = useApi();
   const [currentState, setCurrentState] = useState<EmuActiveTestReponse | null>(null);
+  const [error, setError] = useState<string | null>(null);
   const activeIntervalRef = useRef<NodeJS.Timeout | null>(null);
   const [searchParams] = useSearchParams();
   const testId = searchParams.get('testId');
@@ -43,6 +44,15 @@ export function ActiveTestView() {
       response = await api.getActiveTestState(testId);
     } catch (error) {
       console.log('[Active Test] Unable to fetch active test: ', error);
+      if (error instanceof Error) {
+        setError(error.message);
+      } else {
+        setError('An unknown error occurred');
+      }
+      if (activeIntervalRef.current) {
+        clearInterval(activeIntervalRef.current);
+        activeIntervalRef.current = null;
+      }
       return;
     }
 
@@ -80,7 +90,7 @@ export function ActiveTestView() {
 
   return (
     <div className="flex flex-col space-y-1">
-      <ActiveTestHeader testStatus={currentState?.testState?.status} agentStatus={currentState?.agentState?.status} emulatorStatus={currentState?.emulatorState?.status} testId={testId} />
+      <ActiveTestHeader requestError={error} testStatus={currentState?.testState?.status} agentStatus={currentState?.agentState?.status} emulatorStatus={currentState?.emulatorState?.status} testId={testId} />
       <div className="flex flex-col space-y-1 md:flex-row space-x-1">
         <ActiveTestScreen screenshots={currentState?.testState?.screenshots} />
         <ActiveTestLogs messages={currentState?.agentLogs} />

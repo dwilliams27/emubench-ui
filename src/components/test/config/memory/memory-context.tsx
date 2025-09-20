@@ -28,6 +28,30 @@ export const ContextMemoryWatches: Record<string, ContextMemoryItem[]> = {
       name: "GAME_ID",
       description: "Game ID, used for testing"
     },
+    {
+      address: "803E440C",
+      type: "float",
+      size: 4,
+      pointerOffsets: [],
+      name: "LINK_X",
+      description: "Link's X Position"
+    },
+    {
+      address: "803E4410",
+      type: "float",
+      size: 4,
+      pointerOffsets: [],
+      name: "LINK_Y",
+      description: "Link's Y Position"
+    },
+    {
+      address: "803E4414",
+      type: "float",
+      size: 4,
+      pointerOffsets: [],
+      name: "LINK_Z",
+      description: "Link's Z Position"
+    },
   ],
   [GAMES.HARVEST_MOOON]: [
     {
