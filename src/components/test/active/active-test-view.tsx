@@ -92,8 +92,8 @@ export function ActiveTestView() {
     <div className="flex flex-col space-y-1">
       <ActiveTestHeader requestError={error} testStatus={currentState?.testState?.status} agentStatus={currentState?.agentState?.status} emulatorStatus={currentState?.emulatorState?.status} testId={testId} />
       <div className="flex flex-col space-y-1 md:flex-row space-x-1">
-        <ActiveTestScreen screenshots={currentState?.testState?.screenshots} />
-        <ActiveTestLogs messages={currentState?.agentLogs} />
+        <ActiveTestScreen screenshots={currentState?.testState?.screenshots} testStarted={!!currentState?.bootConfig} />
+        <ActiveTestLogs messages={currentState?.agentLogs} testStarted={!!currentState?.bootConfig} />
       </div>
       <ActiveTestGoal flatCondition={flatCondition} />
     </div>

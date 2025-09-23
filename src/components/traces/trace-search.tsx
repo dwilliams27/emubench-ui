@@ -18,7 +18,7 @@ export function TraceSearch({ search }: { search: (traceId: string) => void }) {
         type="text"
         value={traceId}
         onChange={(e) => setTraceId(e.target.value)}
-        placeholder="Enter Trace ID"
+        placeholder="Enter Trace ID or Test ID"
         className="flex-grow border border-gray-300 rounded-l px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
       />
       <Button type="submit">

@@ -1,13 +1,15 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
+import { Skeleton } from "@/components/ui/skeleton";
 import type { EmuLogBlock } from "@/shared/types";
 import { toolToLog } from "@/utils/tools";
 
 export interface ActiveTestLogsProps {
+  testStarted: boolean;
   messages?: EmuLogBlock[] | null;
 }
 
-export function ActiveTestLogs({ messages }: ActiveTestLogsProps) {
+export function ActiveTestLogs({ testStarted, messages }: ActiveTestLogsProps) {
   const renderLogBlock = (block: EmuLogBlock) => {
     return (
       <div key={block.title} className="break-words border-2 rounded-2xl p-2">
@@ -47,7 +49,16 @@ export function ActiveTestLogs({ messages }: ActiveTestLogsProps) {
               messages.map((message) => (
                 renderLogBlock(message))
             )) : (
-              <h3>-</h3>
+              (testStarted && <div className="flex flex-col space-y-3">
+                <Skeleton className="h-[125px] rounded-xl" />
+                <Skeleton className="h-[125px] rounded-xl" />
+                <Skeleton className="h-[125px] rounded-xl" />
+                <Skeleton className="h-[125px] rounded-xl" />
+                <div className="space-y-2">
+                  <Skeleton className="h-4" />
+                  <Skeleton className="h-4" />
+                </div>
+              </div>)
             )
           }
         </div>
