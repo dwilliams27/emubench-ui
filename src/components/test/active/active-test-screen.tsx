@@ -24,15 +24,19 @@ const GamingLoadingState = () => {
             <div className="w-20 h-12 bg-primary-foreground/20 rounded-lg relative animate-pulse">
               {/* D-pad */}
               <div className="absolute left-2 top-1/2 transform -translate-y-1/2">
-                <div className="w-3 h-1 bg-primary-foreground/30 rounded-full"></div>
-                <div className="w-1 h-3 bg-primary-foreground/30 rounded-full absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"></div>
+                <div className="w-5 h-1.5 bg-primary-foreground/30 rounded-full"></div>
+                <div className="w-1.5 h-5 bg-primary-foreground/30 rounded-full absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"></div>
               </div>
               {/* Action buttons */}
-              <div className="absolute right-2 top-1/2 transform -translate-y-1/2 grid grid-cols-2 gap-1">
-                <div className="w-1.5 h-1.5 bg-primary-foreground/30 rounded-full animate-ping" style={{animationDelay: '0s'}}></div>
-                <div className="w-1.5 h-1.5 bg-primary-foreground/30 rounded-full animate-ping" style={{animationDelay: '0.5s'}}></div>
-                <div className="w-1.5 h-1.5 bg-primary-foreground/30 rounded-full animate-ping" style={{animationDelay: '1s'}}></div>
-                <div className="w-1.5 h-1.5 bg-primary-foreground/30 rounded-full animate-ping" style={{animationDelay: '1.5s'}}></div>
+              <div className="absolute right-2 top-1/2 transform -translate-y-1/2 w-6 h-6">
+                {/* Top button */}
+                <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-1.5 h-1.5 bg-primary-foreground/30 rounded-full animate-ping" style={{animationDelay: '0s', animationDuration: '3s'}}></div>
+                {/* Right button */}
+                <div className="absolute right-0 top-1/2 transform -translate-y-1/2 w-1.5 h-1.5 bg-primary-foreground/30 rounded-full animate-ping" style={{animationDelay: '0.75s', animationDuration: '3s'}}></div>
+                {/* Bottom button */}
+                <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-1.5 h-1.5 bg-primary-foreground/30 rounded-full animate-ping" style={{animationDelay: '1.5s', animationDuration: '3s'}}></div>
+                {/* Left button */}
+                <div className="absolute left-0 top-1/2 transform -translate-y-1/2 w-1.5 h-1.5 bg-primary-foreground/30 rounded-full animate-ping" style={{animationDelay: '2.25s', animationDuration: '3s'}}></div>
               </div>
             </div>
           </div>

@@ -50,13 +50,13 @@ export function ActiveTestLogs({ testStarted, messages }: ActiveTestLogsProps) {
                 renderLogBlock(message))
             )) : (
               (testStarted && <div className="flex flex-col space-y-3">
-                <Skeleton className="h-[125px] rounded-xl" />
-                <Skeleton className="h-[125px] rounded-xl" />
-                <Skeleton className="h-[125px] rounded-xl" />
-                <Skeleton className="h-[125px] rounded-xl" />
+                <Skeleton className="h-[125px] rounded-xl bg-primary/25" />
+                <Skeleton className="h-[125px] rounded-xl bg-primary/25" />
+                <Skeleton className="h-[125px] rounded-xl bg-primary/25" />
+                <Skeleton className="h-[125px] rounded-xl bg-primary/25" />
                 <div className="space-y-2">
-                  <Skeleton className="h-4" />
-                  <Skeleton className="h-4" />
+                  <Skeleton className="h-4 bg-primary/25" />
+                  <Skeleton className="h-4 bg-primary/25" />
                 </div>
               </div>)
             )
