@@ -23,15 +23,17 @@ export function ActiveTestView() {
   const testId = searchParams.get('testId');
 
   const flatCondition = useMemo(() => {
-    if (!currentState?.bootConfig?.goalConfig?.condition || !currentState.testState?.stateHistory[-1]) {
+    const lastHistoryIndex = Object.keys(currentState?.testState?.stateHistory || {}).length;
+    if (!currentState?.bootConfig?.goalConfig?.condition || !currentState.testState?.stateHistory[lastHistoryIndex]) {
       return [];
     }
 
     const conditionCopy = { ...currentState.bootConfig.goalConfig.condition };
-    Object.keys(currentState.testState.stateHistory[-1].contextMemWatchValues).forEach((key) => {
-      conditionCopy.inputs[key].rawValue = currentState.testState?.stateHistory[-1].contextMemWatchValues[key];
+    Object.entries(currentState.testState.stateHistory[lastHistoryIndex].contextMemWatchValues).forEach(([key, value]) => {
+      conditionCopy.inputs[key].rawValue = value;
     });
-    return emuFlattenCondition(conditionCopy);
+    const flat = emuFlattenCondition(conditionCopy);
+    return flat;
   }, [currentState]);
 
   const getActiveTestState = async () => {
