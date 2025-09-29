@@ -57,6 +57,17 @@ function contextMemoryToInputs(context?: Record<string, ContextMemoryItem>): Emu
 function canvasItemsToEmuCondition(items: CanvasItem[]) {
   const expression = items.map(item => {
     const { data } = item;
+    switch (data.type) {
+      case 'string':
+        data.primitiveValue = data.primitiveValue || "";
+        break;
+      case 'number':
+        data.primitiveValue = data.primitiveValue ? Number(data.primitiveValue) : 0;
+        break;
+      case 'boolean':
+        data.primitiveValue = data.primitiveValue === 'true' || data.primitiveValue === true;
+        break;
+    }
     const part: EmuConditionOperand = {
       primitive: data.primitiveValue,
       input: data.input,
@@ -215,6 +226,7 @@ export function GoalConfig({ form }: { form: UseFormReturn<z.infer<typeof SETUP_
   const onAddNewItem = async (formData: z.infer<typeof ADD_PRIMITIVE_GOAL_INPUT_SCHEMA>) => {
     setAddFormOpen(false);
 
+    console.log('Adding new item:', formData);
     const newItem = {
       id: genId(CANVAS_ITEM_ID),
       data: {
