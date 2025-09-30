@@ -14,6 +14,12 @@ export const TEST_TABS: Record<string, TabItem> = {
     url: '/dashboard/active-tests',
     icon: MonitorPlay,
   },
+  TEST_EXPERIMENT: {
+    label: 'Run Experiment',
+    title: 'Run Experiment',
+    url: '/dashboard/test-experiment',
+    icon: FlaskConical,
+  },
   TEST_CONFIG: {
     label: 'Config',
     title: 'Test Config',
@@ -29,12 +35,6 @@ export const TEST_TABS: Record<string, TabItem> = {
 };
 
 export const DEV_TABS: Record<string, TabItem> = {
-  API_PLAYGROUND: {
-    label: 'API Playground',
-    title: 'API Playground',
-    url: '/dashboard/api-playground',
-    icon: FlaskConical,
-  },
   TRACES: {
     label: 'Traces',
     title: 'Traces',
