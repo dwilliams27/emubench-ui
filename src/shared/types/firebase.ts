@@ -1,15 +1,21 @@
 import { EmuAgentState, EmuBootConfig, EmuEmulatorState, EmuLogBlock, EmuTraceLog, EmuServiceName, EmuSharedTestState, EmuTestState, EmuTrace } from "@/shared/types";
+import { EmuAgentJob } from "@/shared/types/agent";
 import { EmuExperiment, EmuTestQueueJob } from "@/shared/types/experiments";
 import { EmuTestRun } from "@/shared/types/test-run";
 
-export type DocumentWithId = {
+export interface DocumentWithId {
   id: string;
   [key: string]: any;
 };
 
+export interface FirebaseTimestamp {
+  _seconds: number;
+  _nanoseconds: number;
+}
+
 export interface FirebasePathParam {
   collection: string;
-  docId?: string;
+  docIds?: string[];
 };
 
 // Top level firebase collections
@@ -19,6 +25,7 @@ export const FB_1 = {
   TEST_RUNS: 'TEST_RUNS',
   EXPERIMENTS: 'EXPERIMENTS',
   TRACES: 'TRACES',
+  AGENT_JOBS: 'AGENT_JOBS',
 } as const;
 
 export const FB_2 = {
@@ -33,16 +40,15 @@ export const FB_2 = {
 
   // TRACES
   TRACE_LOGS: 'TRACE_LOGS',
+
+  // EXPERIMENTS
+  RESULTS: 'RESULTS',
 } as const;
 
 export interface FEmuBaseObject {
-  // TODO: Fix
-  createdAt: {
-    "_seconds": number,
-    "_nanoseconds": number
-  };
-  updatedAt: FirebaseFirestore.FieldValue;
-  deletedAt: FirebaseFirestore.FieldValue | undefined;
+  createdAt: FirebaseTimestamp;
+  updatedAt: FirebaseTimestamp;
+  deletedAt: FirebaseTimestamp | null;
   id: string;
 };
 
@@ -69,5 +75,7 @@ export interface FEmuTraceLog extends FEmuBaseObject, EmuTraceLog {};
 
 export interface FEmuTestRun extends FEmuBaseObject, EmuTestRun {};
 
-export interface FEmuExperiment extends FEmuBaseObject, EmuExperiment {};
-export interface FEmuTestQueueJob extends FEmuBaseObject, EmuTestQueueJob {}
+export interface FEmuExperiment extends FEmuBaseObject, Omit<EmuExperiment, "RESULTS"> {};
+export interface FEmuTestQueueJob extends FEmuBaseObject, EmuTestQueueJob {};
+
+export interface FEmuAgentJob extends FEmuBaseObject, EmuAgentJob {};

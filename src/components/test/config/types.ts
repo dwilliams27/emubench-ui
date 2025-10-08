@@ -75,6 +75,13 @@ export const AVAILABLE_SAVE_STATES = {
   }
 };
 
+export const DEBUG_GAME_MAP = {
+  [GAMES.HARVEST_MOOON]: "G4AEE9",
+  [GAMES.ZELDA_WIND_WAKER]: "GZLE01",
+  [GAMES.KIRBY_AIR_RIDE]: "GKYE01",
+  [GAMES.SIMPSONS_HIT_AND_RUN]: "GHQE7D",
+};
+
 export const GAME_CONTEXT = {
   [GAMES.ZELDA_WIND_WAKER]: `Controls:
 Left stick: Move Link/Navigate menus

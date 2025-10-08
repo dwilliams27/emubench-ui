@@ -15,8 +15,8 @@ export const TEST_TABS: Record<string, TabItem> = {
     icon: MonitorPlay,
   },
   TEST_EXPERIMENT: {
-    label: 'Run Experiment',
-    title: 'Run Experiment',
+    label: 'Experiments',
+    title: 'Experiments',
     url: '/dashboard/test-experiment',
     icon: FlaskConical,
   },

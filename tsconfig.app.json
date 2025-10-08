@@ -33,6 +33,7 @@
     "src/shared/services/firebase.service.ts",
     "src/shared/services/resource-locator.service.ts",
     "src/shared/types/firebase.ts",
-    "src/shared/utils/trace.ts"
+    "src/shared/utils/trace.ts",
+    "src/shared/types/resource-locator.ts"
   ]
 }

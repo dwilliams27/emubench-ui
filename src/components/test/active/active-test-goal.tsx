@@ -6,7 +6,7 @@ function renderOperand(operand: EmuConditionOperand) {
   if (operand.conditionPart !== undefined) {
     return (
       <div className={className} key={JSON.stringify(operand)}>
-        {operand.conditionPart.operation.name}
+        {operand.conditionPart.operation?.name}
       </div>
     );
   } else if (operand.input !== undefined) {
