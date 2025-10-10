@@ -45,9 +45,30 @@ export function ExperimentGroupConfig() {
             const newGroups = [...experimentRunGroups];
             if (newGroups[index].baseConfigDelta.agentConfig && key in newGroups[index].baseConfigDelta.agentConfig) {
               // @ts-ignore
-              delete newGroups[index].baseConfigDelta.agentConfig[key];
+              const { [key]: deleted, ...remainingConfig } = newGroups[index].baseConfigDelta.agentConfig;
+              newGroups[index] = {
+                ...newGroups[index],
+                baseConfigDelta: {
+                  ...newGroups[index].baseConfigDelta,
+                  agentConfig: remainingConfig
+                }
+              };
               setExperimentRunGroups(newGroups);
             }
+          }}
+          addConfigDeltaItem={(data: { key: string, value?: any }) => {
+            const newGroups = [...experimentRunGroups];
+            newGroups[index] = {
+              ...newGroups[index],
+              baseConfigDelta: {
+                ...newGroups[index].baseConfigDelta,
+                agentConfig: {
+                  ...newGroups[index].baseConfigDelta.agentConfig,
+                  [data.key]: data.value
+                }
+              }
+            };
+            setExperimentRunGroups(newGroups);
           }}
         />
       ))}

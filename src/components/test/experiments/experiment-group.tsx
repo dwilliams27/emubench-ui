@@ -1,46 +1,14 @@
-import { MODEL_PROVIDERS, MODELS } from "@/components/test/config/types";
+import { AddConfigDeltaModal } from "@/components/test/experiments/experiment-add-config-delta";
+import { DeltaFields } from "@/components/test/experiments/types";
 import { Button } from "@/components/ui/button"
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { DeepPartial, EmuBootConfig } from "@/shared/types";
 import { EmuExperimentRunGroup } from "@/shared/types/experiments";
 import { ColumnDef, flexRender, getCoreRowModel, useReactTable } from "@tanstack/react-table";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 
-interface DeltaField {
-  key: string;
-  getAllowedValues?: (currentConfig: EmuBootConfig) => string[];
-  toDisplayValue?: (key: string) => string;
-}
-
-const DeltaFields: Record<string, DeltaField> = {
-  "Game Context": {
-    key: "gameContext",
-  },
-  "Model Provider": {
-    key: "llmProvider",
-    getAllowedValues: (_) => Object.keys(MODEL_PROVIDERS).map((key) => MODEL_PROVIDERS[key].displayName),
-    toDisplayValue: (key) => MODEL_PROVIDERS[key as keyof typeof MODEL_PROVIDERS].displayName
-  },
-  "Model": {
-    key: "model",
-    getAllowedValues: (currentConfig) => MODELS[currentConfig.agentConfig.llmProvider].map((model) => model.displayName),
-  },
-  "Temperature": {
-    key: "temperature"
-  },
-  "Task Name": {
-    key: "taskName",
-  },
-  "Task Description": {
-    key: "taskDescription",
-  },
-  "System Prompt": {
-    key: "systemPrompt",
-  }
-}
-
-export function ExperimentGroup({ group, addIterations, removeConfigDeltaItem }: { group: EmuExperimentRunGroup, addIterations: (amount: number) => void, removeConfigDeltaItem: (key: string) => void }) {
+export function ExperimentGroup({ group, addIterations, removeConfigDeltaItem, addConfigDeltaItem }: { group: EmuExperimentRunGroup, addIterations: (amount: number) => void, removeConfigDeltaItem: (key: string) => void, addConfigDeltaItem: (data: { key: string, value?: any }) => void }) {
+  const [addFormOpen, setAddFormOpen] = useState(false);
   const columns: ColumnDef<{ key: string, value: string, displayValue: string }>[] = useMemo(() =>[
     {
       accessorKey: "key",
@@ -54,14 +22,20 @@ export function ExperimentGroup({ group, addIterations, removeConfigDeltaItem }:
     },
     {
       accessorKey: "remove",
-      header: "",
+      header: () => (
+        <AddConfigDeltaModal onSubmit={addConfigDeltaItem} open={addFormOpen} close={() => setAddFormOpen(false)}>
+          <div className="flex justify-end">
+            <Button variant="outline" className="h-2" onClick={() => setAddFormOpen(true)}>+</Button>
+          </div>
+        </AddConfigDeltaModal>
+      ),
       cell: ({ row }) => (
         <div className="flex justify-end">
           <Button size="sm" variant="destructive" onClick={() => removeConfigDeltaItem(row.getValue("key"))}>x</Button>
         </div>
       ),
     },
-  ], [removeConfigDeltaItem]);
+  ], [removeConfigDeltaItem, addConfigDeltaItem, addFormOpen, setAddFormOpen]);
 
   const data = useMemo(() => {
     if (!group.baseConfigDelta.agentConfig) {
@@ -78,7 +52,7 @@ export function ExperimentGroup({ group, addIterations, removeConfigDeltaItem }:
       // TODO: Handler numbers
       return { key, value: value as string, displayValue };
     });
-  }, [group]);
+  }, [group.baseConfigDelta.agentConfig]);
 
   const table = useReactTable({
     data,
