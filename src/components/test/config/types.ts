@@ -117,7 +117,7 @@ L/R: Quick turns
 C-stick: Camera control`
 }
 
-export const MODEL_PROVIDERS = {
+export const MODEL_PROVIDERS: Record<string, { name: string, displayName: string }> = {
   ANTHROPIC: {
     name: "anthropic",
     displayName: "Anthropic"

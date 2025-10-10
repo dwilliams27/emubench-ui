@@ -118,7 +118,7 @@ export const columns: ColumnDef<ContextMemoryItem>[] = [
     header: "Pointer Offsets",
     cell: ({ row }) => <div className="lowercase">{row.getValue("pointerOffsets")}</div>,
   },
-]
+];
 
 export function MemoryContext({ form }: { form: UseFormReturn<z.infer<typeof SETUP_TEST_CONFIG_SCHEMA>> }) {
   const [addFormOpen, setAddFormOpen] = useState(false);
