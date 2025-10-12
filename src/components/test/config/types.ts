@@ -83,13 +83,7 @@ export const DEBUG_GAME_MAP = {
 };
 
 export const GAME_CONTEXT = {
-  [GAMES.ZELDA_WIND_WAKER]: `Controls:
-Left stick: Move Link/Navigate menus
-A: Context-sensitive action (talk, grab, climb, roll attack)
-B: Sword attack
-X/Y: Assigned items/tools
-Start: Pause menu
-Z: Z-target enemies/objects`,
+  [GAMES.ZELDA_WIND_WAKER]: `You are playing the Legend of Zelda Wind Waker on the Gamecube.`,
   [GAMES.SIMPSONS_HIT_AND_RUN]: `Controls:
 On Foot:
 Left stick: Move character
@@ -202,10 +196,8 @@ export const REQ_SETUP_TEST = z.object({
     model: z.string(),
     maxIterations: z.number(),
     temperature: z.number(),
-    task: z.object({
-      name: z.string(),
-      description: z.string()
-    })
+    taskName: z.string(),
+    taskDescription: z.string(),
   }),
   // TODO: lazy
   goalConfig: z.any()

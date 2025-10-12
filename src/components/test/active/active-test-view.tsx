@@ -30,7 +30,9 @@ export function ActiveTestView() {
 
     const conditionCopy = { ...currentState.bootConfig.goalConfig.condition };
     Object.entries(currentState.testState.stateHistory[lastHistoryIndex].contextMemWatchValues).forEach(([key, value]) => {
-      conditionCopy.inputs[key].rawValue = value;
+      if (conditionCopy.inputs[key]) {
+        conditionCopy.inputs[key].rawValue = value;
+      }
     });
     const flat = emuFlattenCondition(conditionCopy);
     return flat;

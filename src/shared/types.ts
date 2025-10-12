@@ -1,4 +1,5 @@
 import { EmuCondition } from "@/shared/conditions/types";
+import { EmuTestRun } from "@/shared/types/test-run";
 
 export interface EmuLogItem {
   text: string;
@@ -10,6 +11,9 @@ export interface EmuLogItem {
 
     toolName?: string;
     toolPayload?: any;
+
+    contextMemWatchValues?: Record<string, string>;
+    endStateMemWatchValues?: Record<string, string>;
   };
 };
 
@@ -93,6 +97,10 @@ export interface EmuActiveTestReponse {
 
 export interface EmuGetTraceLogsResponse {
   traces: EmuTrace[];
+};
+
+export interface EmuGetTestHistoryResponse {
+  testRun: EmuTestRun;
 };
 
 export interface EmuTurn {

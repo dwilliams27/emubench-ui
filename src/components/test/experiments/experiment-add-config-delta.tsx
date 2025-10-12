@@ -94,7 +94,7 @@ export function AddConfigDeltaModal({ onSubmit, open, close, children }: { onSub
               <DialogClose asChild>
                 <Button variant="outline" onClick={() => { form.reset(); close() }}>Cancel</Button>
               </DialogClose>
-              <Button type="button" onClick={() => form.handleSubmit(onSubmit)()}>Add</Button>
+              <Button type="button" onClick={() => { form.handleSubmit(onSubmit)(); close() }}>Add</Button>
             </DialogFooter>
           </form>
         </Form>

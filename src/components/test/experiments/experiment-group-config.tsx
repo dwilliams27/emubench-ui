@@ -6,16 +6,16 @@ import { EXPERIMENT_RUN_GROUP_ID, genId } from "@/shared/utils/id";
 import { useState } from "react";
 
 export function ExperimentGroupConfig() {
-  const [experimentRunGroups, setExperimentRunGroups] = useState<EmuExperimentRunGroup[]>([{
-    name: "Group 1",
-    baseConfigDelta: {
-      agentConfig: {
-        model: "gpt-3.5-turbo",
-      },
-    },
-    iterations: 1,
-    id: genId(EXPERIMENT_RUN_GROUP_ID)
-  }]);
+  const [experimentRunGroups, setExperimentRunGroups] = useState<EmuExperimentRunGroup[]>([]);
+
+  const addNewRunGroup = () => {
+    setExperimentRunGroups([...experimentRunGroups, {
+      name: `Group ${experimentRunGroups.length + 1}`,
+      baseConfigDelta: {},
+      iterations: 1,
+      id: genId(EXPERIMENT_RUN_GROUP_ID)
+    }]);
+  }
   
   return (
     <div className="space-y-2">
@@ -24,54 +24,75 @@ export function ExperimentGroupConfig() {
           <CardTitle>
             <div className="flex flex-row justify-between items-center">
               <div>Experiment Groups</div>
-              <Button variant="outline">+ Add Group</Button>
+              <Button variant="outline" onClick={addNewRunGroup}>+ Add Group</Button>
             </div>  
           </CardTitle>
         </CardHeader>
       </Card>
-      {experimentRunGroups.map((group, index) => (
-        <ExperimentGroup
-          key={group.name}
-          group={group}
-          addIterations={(amount: number) => {
-            const newGroups = [...experimentRunGroups];
-            newGroups[index].iterations += amount;
-            if (newGroups[index].iterations < 1) {
-              newGroups[index].iterations = 1;
-            }
-            setExperimentRunGroups(newGroups);
-          }}
-          removeConfigDeltaItem={(key: string) => {
-            const newGroups = [...experimentRunGroups];
-            if (newGroups[index].baseConfigDelta.agentConfig && key in newGroups[index].baseConfigDelta.agentConfig) {
-              // @ts-ignore
-              const { [key]: deleted, ...remainingConfig } = newGroups[index].baseConfigDelta.agentConfig;
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+        {experimentRunGroups.map((group, index) => (
+          <ExperimentGroup
+            key={group.name}
+            group={group}
+            addIterations={(amount: number) => {
+              const newGroups = [...experimentRunGroups];
+              newGroups[index].iterations += amount;
+              if (newGroups[index].iterations < 1) {
+                newGroups[index].iterations = 1;
+              }
+              setExperimentRunGroups(newGroups);
+            }}
+            removeConfigDeltaItem={(key: string) => {
+              const newGroups = [...experimentRunGroups];
+              if (newGroups[index].baseConfigDelta.agentConfig && key in newGroups[index].baseConfigDelta.agentConfig) {
+                // @ts-ignore
+                const { [key]: deleted, ...remainingConfig } = newGroups[index].baseConfigDelta.agentConfig;
+                newGroups[index] = {
+                  ...newGroups[index],
+                  baseConfigDelta: {
+                    ...newGroups[index].baseConfigDelta,
+                    agentConfig: remainingConfig
+                  }
+                };
+                setExperimentRunGroups(newGroups);
+              }
+            }}
+            addConfigDeltaItem={(data: { key: string, value?: any }) => {
+              const newGroups = [...experimentRunGroups];
               newGroups[index] = {
                 ...newGroups[index],
                 baseConfigDelta: {
                   ...newGroups[index].baseConfigDelta,
-                  agentConfig: remainingConfig
+                  agentConfig: {
+                    ...newGroups[index].baseConfigDelta.agentConfig,
+                    [data.key]: data.value
+                  }
                 }
               };
               setExperimentRunGroups(newGroups);
-            }
-          }}
-          addConfigDeltaItem={(data: { key: string, value?: any }) => {
-            const newGroups = [...experimentRunGroups];
-            newGroups[index] = {
-              ...newGroups[index],
-              baseConfigDelta: {
-                ...newGroups[index].baseConfigDelta,
-                agentConfig: {
-                  ...newGroups[index].baseConfigDelta.agentConfig,
-                  [data.key]: data.value
-                }
+            }}
+            deleteGroup={(id: string) => {
+              setExperimentRunGroups(experimentRunGroups.filter(g => g.id !== id));
+            }}
+            updateGroupName={(id: string, name: string) => {
+              const newGroups = [...experimentRunGroups];
+              const groupIndex = newGroups.findIndex(g => g.id === id);
+              if (groupIndex !== -1) {
+                newGroups[groupIndex] = {
+                  ...newGroups[groupIndex],
+                  name: name
+                };
+                setExperimentRunGroups(newGroups);
               }
-            };
-            setExperimentRunGroups(newGroups);
-          }}
-        />
-      ))}
+            }}
+          />
+        ))}
+      </div>
+      <div className="w-full flex justify-center mt-10">
+        <Button type="submit" size="lg">
+          Submit
+        </Button>
+      </div>
     </div>
   );
 }

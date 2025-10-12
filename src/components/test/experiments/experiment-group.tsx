@@ -2,13 +2,39 @@ import { AddConfigDeltaModal } from "@/components/test/experiments/experiment-ad
 import { DeltaFields } from "@/components/test/experiments/types";
 import { Button } from "@/components/ui/button"
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { EmuExperimentRunGroup } from "@/shared/types/experiments";
 import { ColumnDef, flexRender, getCoreRowModel, useReactTable } from "@tanstack/react-table";
+import { SquarePen, XIcon } from "lucide-react";
 import { useMemo, useState } from "react";
 
-export function ExperimentGroup({ group, addIterations, removeConfigDeltaItem, addConfigDeltaItem }: { group: EmuExperimentRunGroup, addIterations: (amount: number) => void, removeConfigDeltaItem: (key: string) => void, addConfigDeltaItem: (data: { key: string, value?: any }) => void }) {
+export function ExperimentGroup({ group, addIterations, removeConfigDeltaItem, addConfigDeltaItem, deleteGroup, updateGroupName }: { group: EmuExperimentRunGroup, addIterations: (amount: number) => void, removeConfigDeltaItem: (key: string) => void, addConfigDeltaItem: (data: { key: string, value?: any }) => void, deleteGroup: (id: string) => void, updateGroupName: (id: string, name: string) => void }) {
   const [addFormOpen, setAddFormOpen] = useState(false);
+  const [isEditingName, setIsEditingName] = useState(false);
+  const [editingName, setEditingName] = useState(group.name);
+
+  const handleNameClick = () => {
+    setIsEditingName(true);
+    setEditingName(group.name);
+  };
+
+  const handleNameSave = () => {
+    if (editingName.trim() && editingName !== group.name) {
+      updateGroupName(group.id, editingName.trim());
+    }
+    setIsEditingName(false);
+  };
+
+  const handleNameKeyPress = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter') {
+      handleNameSave();
+    } else if (e.key === 'Escape') {
+      setEditingName(group.name);
+      setIsEditingName(false);
+    }
+  };
+
   const columns: ColumnDef<{ key: string, value: string, displayValue: string }>[] = useMemo(() =>[
     {
       accessorKey: "key",
@@ -31,7 +57,9 @@ export function ExperimentGroup({ group, addIterations, removeConfigDeltaItem, a
       ),
       cell: ({ row }) => (
         <div className="flex justify-end">
-          <Button size="sm" variant="destructive" onClick={() => removeConfigDeltaItem(row.getValue("key"))}>x</Button>
+          <Button variant="ghost" onClick={() => removeConfigDeltaItem(row.getValue("key"))}>
+            <XIcon />
+          </Button>
         </div>
       ),
     },
@@ -61,22 +89,48 @@ export function ExperimentGroup({ group, addIterations, removeConfigDeltaItem, a
   });
 
   return (
-    <Card className="md:w-1/2">
+    <Card className="w-full">
       <CardHeader>
         <CardTitle>
           <div className="flex flex-row justify-between items-center">
-            <div>{group.name}</div>
-            <div className="flex flex-row items-center">
-              <div>Iterations: {group.iterations}</div>
-              <div className="flex flex-col space-y-1">
-                <Button variant="outline" className="ml-2 h-2" onClick={() => addIterations(1)}>+</Button>
-                <Button variant="outline" className="ml-2 h-2" onClick={() => addIterations(-1)}>-</Button>
+            {isEditingName ? (
+              <Input
+                value={editingName}
+                onChange={(e) => setEditingName(e.target.value)}
+                onBlur={handleNameSave}
+                onKeyDown={handleNameKeyPress}
+                className="border-none p-0 h-auto focus-visible:ring-0 bg-transparent"
+                autoFocus
+              />
+            ) : (
+              <div className="flex flex-row items-center">
+                <div>
+                  {group.name}
+                </div>
+                <Button 
+                  variant="link" 
+                  size="sm" 
+                  className="p-0 mt-1"
+                  onClick={handleNameClick}
+                >
+                  <SquarePen />
+                </Button>
               </div>
-            </div>
+            )}
+            <Button variant="ghost" onClick={() => deleteGroup(group.id)}>
+              <XIcon />
+            </Button>
           </div>
         </CardTitle>
       </CardHeader>
-      <CardContent className="space-y-2">
+      <CardContent className="space-y-2 flex flex-col">
+        <div className="flex flex-row items-center">
+          <div>Group Iterations: {group.iterations}</div>
+          <div className="flex flex-col space-y-1">
+            <Button variant="outline" className="ml-2 h-2" onClick={() => addIterations(1)}>+</Button>
+            <Button variant="outline" className="ml-2 h-2" onClick={() => addIterations(-1)}>-</Button>
+          </div>
+        </div>
         <div className="overflow-hidden rounded-md border">
           <Table>
             <TableHeader>
@@ -118,9 +172,9 @@ export function ExperimentGroup({ group, addIterations, removeConfigDeltaItem, a
                 <TableRow>
                   <TableCell
                     colSpan={columns.length}
-                    className="h-24 text-center"
+                    className="h-13 text-center"
                   >
-                    No results.
+                    No changes.
                   </TableCell>
                 </TableRow>
               )}
