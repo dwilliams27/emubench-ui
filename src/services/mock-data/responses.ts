@@ -385,3 +385,39 @@ export const MockGetHistoryResponse = {
         }
     }
 };
+
+export const MockGetExperimentSummaryResponse = {
+    "runGroupSummaries": [{
+        "id": "rg-1",
+        "tests": {
+            "tst-1": {
+                "agentState":{"id":"astate-d95e38d351f945ee","status":"finished","createdAt":{"_seconds":1759110945,"_nanoseconds":446000000},"updatedAt":{"_seconds":1759110945,"_nanoseconds":446000000}},
+                "emulatorState":{"id":"estate-1","contextMemWatchValues":{"LINK_X":"C83E0680","LINK_Y":"455AC000"},"endStateMemWatchValues":{},"status":"finished","createdAt":{"_seconds":1759110945,"_nanoseconds":498000000},"updatedAt":{"_seconds":1759110945,"_nanoseconds":498000000}}
+            },
+            "tst-2": {
+                "agentState":{"id":"astate-d95e38d351f945ee","status":"finished","createdAt":{"_seconds":1759110945,"_nanoseconds":446000000},"updatedAt":{"_seconds":1759110945,"_nanoseconds":446000000}},
+                "emulatorState":{"id":"estate-1","contextMemWatchValues":{"LINK_X":"C83E0680","LINK_Y":"455AC000"},"endStateMemWatchValues":{},"status":"finished","createdAt":{"_seconds":1759110945,"_nanoseconds":498000000},"updatedAt":{"_seconds":1759110945,"_nanoseconds":498000000}}
+            },
+            "tst-3": {
+                "agentState":{"id":"astate-d95e38d351f945ee","status":"finished","createdAt":{"_seconds":1759110945,"_nanoseconds":446000000},"updatedAt":{"_seconds":1759110945,"_nanoseconds":446000000}},
+                "emulatorState":{"id":"estate-1","contextMemWatchValues":{"LINK_X":"C83E0680","LINK_Y":"455AC000"},"endStateMemWatchValues":{},"status":"finished","createdAt":{"_seconds":1759110945,"_nanoseconds":498000000},"updatedAt":{"_seconds":1759110945,"_nanoseconds":498000000}}
+            },
+        }
+    }, {
+        "id": "rg-2",
+        "tests": {
+            "tst-4": {
+                "agentState":{"id":"astate-d95e38d351f945ee","status":"finished","createdAt":{"_seconds":1759110945,"_nanoseconds":446000000},"updatedAt":{"_seconds":1759110945,"_nanoseconds":446000000}},
+                "emulatorState":{"id":"estate-1","contextMemWatchValues":{"LINK_X":"C83E0680","LINK_Y":"455AC000"},"endStateMemWatchValues":{},"status":"finished","createdAt":{"_seconds":1759110945,"_nanoseconds":498000000},"updatedAt":{"_seconds":1759110945,"_nanoseconds":498000000}}
+            },
+            "tst-5": {
+                "agentState":{"id":"astate-d95e38d351f945ee","status":"finished","createdAt":{"_seconds":1759110945,"_nanoseconds":446000000},"updatedAt":{"_seconds":1759110945,"_nanoseconds":446000000}},
+                "emulatorState":{"id":"estate-1","contextMemWatchValues":{"LINK_X":"C83E0680","LINK_Y":"455AC000"},"endStateMemWatchValues":{},"status":"finished","createdAt":{"_seconds":1759110945,"_nanoseconds":498000000},"updatedAt":{"_seconds":1759110945,"_nanoseconds":498000000}}
+            },
+            "tst-6": {
+                "agentState":{"id":"astate-d95e38d351f945ee","status":"finished","createdAt":{"_seconds":1759110945,"_nanoseconds":446000000},"updatedAt":{"_seconds":1759110945,"_nanoseconds":446000000}},
+                "emulatorState":{"id":"estate-1","contextMemWatchValues":{"LINK_X":"C83E0680","LINK_Y":"455AC000"},"endStateMemWatchValues":{},"status":"finished","createdAt":{"_seconds":1759110945,"_nanoseconds":498000000},"updatedAt":{"_seconds":1759110945,"_nanoseconds":498000000}}
+            },
+        }
+    }]
+}

@@ -26,6 +26,7 @@ export interface EmuLogBlock {
 export interface EmuBootConfig {
   id: string;
   experimentId: string | null;
+  experimentRunGroupId: string | null;
   agentConfig: EmuAgentConfig;
   testConfig: EmuTestConfig;
   goalConfig: EmuGoalConfig;

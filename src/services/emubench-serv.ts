@@ -8,6 +8,7 @@ import type z from 'zod';
 import type { EmuActiveTestReponse, EmuGetTestHistoryResponse, EmuGetTraceLogsResponse, EmuSetupExperimentResponse } from '@/shared/types';
 import { createEmuError } from '@/shared/utils/error';
 import { EmuExperiment } from '@/shared/types/experiments';
+import { EmuGetExperimentSummaryResponse } from '@/shared/types/requests';
 
 export interface Api {
   getAuthToken: () => Promise<string>;
@@ -18,6 +19,7 @@ export interface Api {
   getTrace: (traceId: string) => Promise<[EmuGetTraceLogsResponse, number]>;
   getTestHistory: (testRunId: string) => Promise<[EmuGetTestHistoryResponse, number]>;
   setupExperiment: (experiment: Omit<EmuExperiment, 'status' | 'id' | 'completedTestRunIds'>) => Promise<[EmuSetupExperimentResponse, number]>;
+  getExperimentSummary: (experimentId: string) => Promise<[EmuGetExperimentSummaryResponse, number]>;
 }
 
 export class EmuBenchServ implements Api {
@@ -169,6 +171,24 @@ export class EmuBenchServ implements Api {
       return [response.data, response.status] as [EmuSetupExperimentResponse, number];
     } catch (error) {
       console.error(`[API] Unabled to setup experiment ${experimentConfig.name}:`, error);
+      throw createEmuError(error);
+    }
+  }
+
+  getExperimentSummary = async(experimentId: string) => {
+    const authToken = await this.getAuthToken();
+    try {
+      const response = await this.axiosInstance.get(
+        `/test-orx/experiments/${experimentId}`,
+        {
+          headers: {
+            'Authorization': `Bearer ${authToken}`
+          }
+        }
+      );
+      return [response.data, response.status] as [EmuGetExperimentSummaryResponse, number];
+    } catch (error) {
+      console.error(`[API] Unabled to fetch experiment summary for ${experimentId}:`, error);
       throw createEmuError(error);
     }
   }

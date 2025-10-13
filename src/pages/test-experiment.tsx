@@ -19,23 +19,23 @@ const SETUP_EXPERIMENT_VIEWS = {
 export default function TestExperiment() {
   const { api } = useApi();
   const [baseConfig, setBaseConfig] = useState<Omit<EmuBootConfig, "id"> | null>(null);
-  const [experimentRunGroups, setExperimentRunGroups] = useState<EmuExperimentRunGroup[]>([]);
   const [experimentName, setExperimentName] = useState(`Experiment ${new Date().toISOString()}`);
   const [experimentDescription, setExperimentDescription] = useState('Experiment created via UI');
   const [currentView, setCurrentView] = useState<keyof typeof SETUP_EXPERIMENT_VIEWS>(SETUP_EXPERIMENT_VIEWS.EXPERIMENT_CONFIG);
 
-  const submitExperiment = async () => {
+  const submitExperiment = async (runGroups: EmuExperimentRunGroup[]) => {
+    const experiment = {
+      name: experimentName,
+      description: experimentDescription,
+      runGroups,
+      baseConfig: baseConfig as EmuBootConfig,
+      totalTestRuns: runGroups.reduce((acc, group) => acc + group.iterations, 0)
+    };
     if (!baseConfig) {
       return;
     }
     try {
-      const response = await api.setupExperiment({
-        name: experimentName,
-        description: experimentDescription,
-        runGroups: experimentRunGroups,
-        baseConfig: baseConfig as EmuBootConfig,
-        totalTestRuns: 0
-      });
+      const response = await api.setupExperiment(experiment);
     } catch (error) {
       console.error('Error submitting experiment: ', error);
     }
@@ -53,9 +53,9 @@ export default function TestExperiment() {
     setCurrentView(SETUP_EXPERIMENT_VIEWS.GROUP_CONFIG);
   }
 
-  const onExperimentGroupConfigSubmit = async (groupConfigexperimentRunGroups: EmuExperimentRunGroup[]) => {
-    setExperimentRunGroups(groupConfigexperimentRunGroups);
-    await submitExperiment();
+  const onExperimentGroupConfigSubmit = async (groupConfigExperimentRunGroups: EmuExperimentRunGroup[]) => {
+    // awk, fix
+    await submitExperiment(groupConfigExperimentRunGroups);
   }
 
   return (
