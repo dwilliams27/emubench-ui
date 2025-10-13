@@ -5,8 +5,9 @@ import { getIdToken } from 'firebase/auth';
 import { auth } from '@/constants/firebase';
 import { REQ_SETUP_TEST } from '@/components/test/config/types';
 import type z from 'zod';
-import type { EmuActiveTestReponse, EmuGetTestHistoryResponse, EmuGetTraceLogsResponse } from '@/shared/types';
+import type { EmuActiveTestReponse, EmuGetTestHistoryResponse, EmuGetTraceLogsResponse, EmuSetupExperimentResponse } from '@/shared/types';
 import { createEmuError } from '@/shared/utils/error';
+import { EmuExperiment } from '@/shared/types/experiments';
 
 export interface Api {
   getAuthToken: () => Promise<string>;
@@ -16,6 +17,7 @@ export interface Api {
   getActiveTestState: (testId: string) => Promise<[EmuActiveTestReponse, number]>;
   getTrace: (traceId: string) => Promise<[EmuGetTraceLogsResponse, number]>;
   getTestHistory: (testRunId: string) => Promise<[EmuGetTestHistoryResponse, number]>;
+  setupExperiment: (experiment: Omit<EmuExperiment, 'status' | 'id' | 'completedTestRunIds'>) => Promise<[EmuSetupExperimentResponse, number]>;
 }
 
 export class EmuBenchServ implements Api {
@@ -148,6 +150,25 @@ export class EmuBenchServ implements Api {
       return [response.data, response.status] as [EmuGetTestHistoryResponse, number];
     } catch (error) {
       console.error(`[API] Unabled to fetch history for ${testRunId}:`, error);
+      throw createEmuError(error);
+    }
+  }
+
+  setupExperiment = async(experimentConfig: Omit<EmuExperiment, 'status' | 'id' | 'completedTestRunIds'>) => {
+    const authToken = await this.getAuthToken();
+    try {
+      const response = await this.axiosInstance.post(
+        `/test-orx/setup-experiment`,
+        { experimentConfig },
+        {
+          headers: {
+            'Authorization': `Bearer ${authToken}`
+          }
+        }
+      );
+      return [response.data, response.status] as [EmuSetupExperimentResponse, number];
+    } catch (error) {
+      console.error(`[API] Unabled to setup experiment ${experimentConfig.name}:`, error);
       throw createEmuError(error);
     }
   }

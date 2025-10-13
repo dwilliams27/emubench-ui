@@ -3,8 +3,8 @@ import type { TestChatSegment } from "@/constants/games";
 import { MockGetActiveTestConfigResponse, MockGetActiveTestStateResponse, MockGetHistoryResponse, MockGetTraceLogsResponse } from "@/services/mock-data/responses";
 import type { REQ_SETUP_TEST } from "@/components/test/config/types";
 import type z from "zod";
-import type { EmuActiveTestReponse, EmuGetTestHistoryResponse, EmuGetTraceLogsResponse } from "@/shared/types";
-import { genId, TRACE_LOG_ID } from "@/shared/utils/id";
+import type { EmuActiveTestReponse, EmuGetTestHistoryResponse, EmuGetTraceLogsResponse, EmuSetupExperimentResponse } from "@/shared/types";
+import { EmuExperiment } from "@/shared/types/experiments";
 
 export class EmuBenchServMock implements Api {
   messages: TestChatSegment[] = [];
@@ -31,5 +31,10 @@ export class EmuBenchServMock implements Api {
     await new Promise(resolve => setTimeout(resolve, 500));
 
     return [MockGetHistoryResponse, 200] as unknown as [EmuGetTestHistoryResponse, number];
+  }
+  async setupExperiment(experimentConfig: Omit<EmuExperiment, "status" | "id" | "completedTestRunIds">) {
+    await new Promise(resolve => setTimeout(resolve, 500));
+
+    return [{ experimentId: 'exp-1234' }, 200] as unknown as [EmuSetupExperimentResponse, number];
   }
 }

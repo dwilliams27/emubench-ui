@@ -46,7 +46,11 @@ export const AVAILABLE_SAVE_STATES = {
       {
         filename: "ww_game_play_start.sav",
         displayName: "Start of New Game"
-      }
+      },
+      {
+        filename: "ww_on_ladder.sav",
+        displayName: "On Ladder"
+      },
     ],
     [GAMES.KIRBY_AIR_RIDE]: [
       {

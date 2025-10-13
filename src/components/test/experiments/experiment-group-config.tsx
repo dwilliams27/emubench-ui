@@ -5,7 +5,7 @@ import { EmuExperimentRunGroup } from "@/shared/types/experiments";
 import { EXPERIMENT_RUN_GROUP_ID, genId } from "@/shared/utils/id";
 import { useState } from "react";
 
-export function ExperimentGroupConfig() {
+export function ExperimentGroupConfig({ onSubmit }: { onSubmit: (experimentRunGroups: EmuExperimentRunGroup[]) => void }) {
   const [experimentRunGroups, setExperimentRunGroups] = useState<EmuExperimentRunGroup[]>([]);
 
   const addNewRunGroup = () => {
@@ -89,7 +89,7 @@ export function ExperimentGroupConfig() {
         ))}
       </div>
       <div className="w-full flex justify-center mt-10">
-        <Button type="submit" size="lg">
+        <Button type="submit" size="lg" onClick={() => onSubmit(experimentRunGroups)}>
           Submit
         </Button>
       </div>

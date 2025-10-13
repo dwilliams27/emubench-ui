@@ -101,7 +101,11 @@ export interface EmuGetTraceLogsResponse {
 
 export interface EmuGetTestHistoryResponse {
   testRun: EmuTestRun;
-};
+}
+
+export interface EmuSetupExperimentResponse {
+  experimentId: string;
+}
 
 export interface EmuTurn {
   iteration: number;
