@@ -94,6 +94,7 @@ export interface EmuActiveTestReponse {
   agentState?: EmuAgentState | null;
   agentLogs?: EmuLogBlock[] | null;
   emulatorState?: EmuEmulatorState | null;
+  currentCondition?: EmuCondition;
   bootConfig: EmuBootConfig;
 };
 

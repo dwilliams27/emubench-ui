@@ -15,7 +15,16 @@ export function ExperimentView({ experiment }: { experiment: EmuExperiment }) {
       try {
         const result = await api.getExperimentSummary(experiment.id);
         if (result[1] === 200) {
-          setSummary(result[0]);
+          const response = result[0];
+          if (import.meta.env.VITE_MOCK_API === "true") {
+            const keys = Object.keys(response.runGroupSummaries);
+            for(let i = 0; i < keys.length; i++) {
+              if (i < experiment.runGroups.length) {
+                response.runGroupSummaries[experiment.runGroups[i].id] = response.runGroupSummaries[keys[i]]; 
+              }
+            }
+          }
+          setSummary(response);
         } else {
           setError('Could not fetch experiment summary');
         }
@@ -26,10 +35,10 @@ export function ExperimentView({ experiment }: { experiment: EmuExperiment }) {
   }, []);
 
   return (
-    <div>
-      {/* {experiment.runGroups.map((group) => (
-        <ExperimentActiveGroupView runGroup={group} tests={summary[group.id]} />
-      ))} */}
+    <div className="space-y-2">
+      {experiment.runGroups.map((group) => (
+        <ExperimentActiveGroupView runGroup={group} tests={summary?.runGroupSummaries[group.id]?.tests} />
+      ))}
     </div>
   );
 }

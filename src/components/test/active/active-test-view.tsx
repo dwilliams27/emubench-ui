@@ -1,5 +1,4 @@
 import { ActiveTestLogs } from "@/components/test/active/active-test-logs";
-import { ActiveTestGoal } from "@/components/test/active/active-test-goal";
 import { ActiveTestHeader } from "@/components/test/active/active-test-header";
 import { ActiveTestScreen } from "@/components/test/active/active-test-screen";
 import type { Test, TestState } from "@/constants/games";
@@ -8,6 +7,8 @@ import { emuFlattenCondition } from "@/shared/conditions/evaluate";
 import type { EmuActiveTestReponse } from "@/shared/types";
 import { useEffect, useState, useRef, useMemo } from "react";
 import { useSearchParams } from "react-router-dom";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { TestCondition } from "@/components/shared/test-condition";
 
 export interface ActiveTestViewProps {
   test: Test | undefined;
@@ -23,18 +24,10 @@ export function ActiveTestView() {
   const testId = searchParams.get('testId');
 
   const flatCondition = useMemo(() => {
-    const lastHistoryIndex = Object.keys(currentState?.testState?.stateHistory || {}).length;
-    if (!currentState?.bootConfig?.goalConfig?.condition || !currentState.testState?.stateHistory[lastHistoryIndex]) {
+    if (!currentState?.currentCondition) {
       return [];
     }
-
-    const conditionCopy = { ...currentState.bootConfig.goalConfig.condition };
-    Object.entries(currentState.testState.stateHistory[lastHistoryIndex].contextMemWatchValues).forEach(([key, value]) => {
-      if (conditionCopy.inputs[key]) {
-        conditionCopy.inputs[key].rawValue = value;
-      }
-    });
-    const flat = emuFlattenCondition(conditionCopy);
+    const flat = emuFlattenCondition(currentState.currentCondition);
     return flat;
   }, [currentState]);
 
@@ -99,7 +92,14 @@ export function ActiveTestView() {
         <ActiveTestScreen screenshots={currentState?.testState?.screenshots} testStarted={!!currentState?.bootConfig} />
         <ActiveTestLogs messages={currentState?.agentLogs} testStarted={!!currentState?.bootConfig} />
       </div>
-      <ActiveTestGoal flatCondition={flatCondition} />
+      <Card className="w-full md:w-2/3">
+        <CardHeader>
+          <CardTitle>Goal</CardTitle>
+        </CardHeader>
+        <CardContent className="flex flex-row space-x-2">
+          <TestCondition flatCondition={flatCondition} />
+        </CardContent>
+      </Card>
     </div>
   )
 }

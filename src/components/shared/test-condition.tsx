@@ -1,8 +1,7 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { EmuConditionOperand } from "@/shared/conditions/types";
 
 function renderOperand(operand: EmuConditionOperand) {
-  const className = "border-2 rounded-2xl p-2";
+  const className = "p-2";
   if (operand.conditionPart !== undefined) {
     return (
       <div className={className} key={JSON.stringify(operand)}>
@@ -24,17 +23,12 @@ function renderOperand(operand: EmuConditionOperand) {
   }
 }
 
-export function ActiveTestGoal({ flatCondition }: { flatCondition: EmuConditionOperand[] }) {
+export function TestCondition({ flatCondition }: { flatCondition: EmuConditionOperand[] }) {
   return (
-    <Card className="w-full md:w-2/3">
-      <CardHeader>
-        <CardTitle>Goal</CardTitle>
-      </CardHeader>
-      <CardContent className="flex flex-row space-x-2">
-        {
-          flatCondition.map(operand => renderOperand(operand))
-        }
-      </CardContent>
-    </Card>
+    <div className="flex flex-row border-2 rounded-2xl">
+      {
+        flatCondition.map(operand => renderOperand(operand))
+      }
+    </div>
   )
 }
