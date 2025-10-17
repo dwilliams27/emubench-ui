@@ -27,9 +27,9 @@ export function ExperimentView({ experiment }: { experiment: EmuExperiment }) {
 
   return (
     <div>
-      {experiment.runGroups.map((group) => (
+      {/* {experiment.runGroups.map((group) => (
         <ExperimentActiveGroupView runGroup={group} tests={summary[group.id]} />
-      ))}
+      ))} */}
     </div>
   );
 }

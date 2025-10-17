@@ -1,7 +1,8 @@
 import { EmuAgentState, EmuBootConfig, EmuEmulatorState, EmuLogBlock, EmuTraceLog, EmuServiceName, EmuSharedTestState, EmuTestState, EmuTrace } from "@/shared/types";
 import { EmuAgentJob } from "@/shared/types/agent";
 import { EmuExperiment, EmuTestQueueJob } from "@/shared/types/experiments";
-import { EmuTestRun } from "@/shared/types/test-run";
+import { EmuTest } from "@/shared/types/test";
+import { EmuTestResult } from "@/shared/types/test-result";
 
 export interface DocumentWithId {
   id: string;
@@ -20,24 +21,19 @@ export interface FirebasePathParam {
 
 // Top level firebase collections
 export const FB_1 = {
-  SESSIONS: 'SESSIONS',
+  TESTS: 'TESTS',
   TEST_QUEUE: 'TEST_QUEUE',
-  TEST_RUNS: 'TEST_RUNS',
+  TEST_RESULTS: 'TEST_RUSULTS',
   EXPERIMENTS: 'EXPERIMENTS',
   TRACES: 'TRACES',
   AGENT_JOBS: 'AGENT_JOBS',
 } as const;
 
 export const FB_2 = {
-  // SESSIONS
-  AGENT_STATE: 'AGENT_STATE',
-  TEST_STATE: 'TEST_STATE',
-  EMULATOR_STATE: 'EMULATOR_STATE',
-  SHARED_STATE: 'SHARED_STATE',
-  BOOT_CONFIG: 'BOOT_CONFIG',
+  // TESTS
   AGENT_LOGS: 'AGENT_LOGS',
   DEV_LOGS: 'DEV_LOGS',
-
+  
   // TRACES
   TRACE_LOGS: 'TRACE_LOGS',
 
@@ -52,18 +48,7 @@ export interface FEmuBaseObject {
   id: string;
 };
 
-export const EmuCollectionOwnership: { [key: string]: EmuServiceName[] } = {
-  [FB_2.AGENT_STATE]: [],
-  [FB_2.TEST_STATE]: [],
-  [FB_2.EMULATOR_STATE]: [],
-  [FB_2.SHARED_STATE]: [],
-  [FB_2.BOOT_CONFIG]: ["SERV"],
-  [FB_2.AGENT_LOGS]: [],
-  [FB_2.DEV_LOGS]: [],
-  [FB_2.TRACE_LOGS]: [],
-};
-
-export interface FEmuTest extends FEmuBaseObject {};
+export interface FEmuTest extends FEmuBaseObject, EmuTest {};
 export interface FEmuBootConfig extends FEmuBaseObject, EmuBootConfig {};
 export interface FEmuTestState extends FEmuBaseObject, EmuTestState {};
 export interface FEmuEmulatorState extends FEmuBaseObject, EmuEmulatorState {};
@@ -73,7 +58,7 @@ export interface FEmuLogBlock extends FEmuBaseObject, EmuLogBlock {};
 export interface FEmuTrace extends FEmuBaseObject, Omit<EmuTrace, "logs"> {};
 export interface FEmuTraceLog extends FEmuBaseObject, EmuTraceLog {};
 
-export interface FEmuTestRun extends FEmuBaseObject, EmuTestRun {};
+export interface FEmuTestResult extends FEmuBaseObject, EmuTestResult {};
 
 export interface FEmuExperiment extends FEmuBaseObject, Omit<EmuExperiment, "RESULTS"> {};
 export interface FEmuTestQueueJob extends FEmuBaseObject, EmuTestQueueJob {};

@@ -9,6 +9,7 @@ import { Separator } from "@/components/ui/separator";
 import { Input } from "@/components/ui/input";
 import { Slider } from "@/components/ui/slider";
 import { Textarea } from "@/components/ui/textarea";
+import { Button } from "@/components/ui/button";
 
 export function AgentConfig({ form }: { form: UseFormReturn<z.infer<typeof SETUP_TEST_CONFIG_SCHEMA>> }) {
   const selectedModelProvider = useWatch({
@@ -82,8 +83,8 @@ export function AgentConfig({ form }: { form: UseFormReturn<z.infer<typeof SETUP
             control={form.control}
             name="agentConfig.maxIterations"
             render={({ field }) => (
-              <div className="space-y-2 w-1/2">
-                <FormLabel>Max Iterations</FormLabel>
+              <div className="space-y-2 w-1/3 flex flex-col items-center">
+                <FormLabel className="block text-center">Max Iterations</FormLabel>
                 <Select onValueChange={field.onChange} defaultValue={"15"}>
                   <SelectTrigger className="w-1/2">
                     <SelectValue placeholder="Select a max number of iterations" />
@@ -99,17 +100,32 @@ export function AgentConfig({ form }: { form: UseFormReturn<z.infer<typeof SETUP
               </div>
             )}
           />
+
+          <FormField
+            control={form.control}
+            name="agentConfig.contextHistorySize"
+            render={({ field }) => (
+              <div className="w-1/3 space-y-2">
+                <FormLabel className="block text-center">Turn Context Size</FormLabel>
+                <div className="flex flex-row items-center">
+                  <div className="ml-auto">{field.value}</div>
+                  <div className="mr-auto flex flex-col space-y-1">
+                    <Button type="button" variant="outline" className="ml-2 h-2" onClick={() => field.onChange(Math.min(10, field.value + 1))}>+</Button>
+                    <Button type="button" variant="outline" className="ml-2 h-2" onClick={() => field.onChange(Math.max(0, field.value - 1))}>-</Button>
+                  </div>
+                </div>
+              </div>
+            )}
+          />
           
           <FormField
             control={form.control}
             name="agentConfig.temperature"
             render={({ field }) => (
-              <div className="items-center justify-between w-1/2">
-                <FormLabel>Temperature</FormLabel>
-                <div className="flex items-center mt-4 space-x-2">
-                  <div className="w-5/6">
-                    <Slider defaultValue={[1]} max={2} step={0.1} onValueChange={(value) => field.onChange(value[0])} />
-                  </div>
+              <div className="w-1/3 flex flex-col items-center">
+                <FormLabel className="block text-center">Temperature</FormLabel>
+                <div className="flex flex-col items-center mt-4 space-y-2 w-full justify-center">
+                  <Slider defaultValue={[1]} max={2} step={0.1} onValueChange={(value) => field.onChange(value[0])} />
                   <p className="flex justify-center w-1/6 text-sm">{field.value}</p>
                 </div>
               </div>

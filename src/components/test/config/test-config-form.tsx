@@ -25,6 +25,7 @@ export function TestConfigForm({ onSubmit, submitting, buttonText }: { onSubmit:
         gameContext: GAME_CONTEXT[GAMES.ZELDA_WIND_WAKER],
         maxIterations: "20",
         temperature: 1.0,
+        contextHistorySize: 3,
         taskName: "Find and climb down the ladder",
         taskDescription: "You will start out on top of a high wooden platform. You need to walk around using the main stick and find the ladder on the side of the platform. Walk into the ladder to start climbing down, and then climb all the way down.",
         systemPrompt: `You are an extremely competent video game playing agent. You will be given a task and tools to interact with a game. The game will pause while you are thinking, and only play during actions you take. Tools will be executed sequentially. Sometimes you may want to take an action, and then wait. Each response you give should be a very concise summary (1 sentance) of the action you are taking and why. You MUST give a text response every single time, even if calling tools. These responses will be fed back in as context for subsequent prompts. You will be given a history of your recent actions and related screenshots. Complete the objective.`

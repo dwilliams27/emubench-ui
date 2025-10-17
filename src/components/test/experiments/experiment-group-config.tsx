@@ -1,11 +1,13 @@
+import { LoadingSpinner } from "@/components/shared/loading-spinner";
 import { ExperimentGroup } from "@/components/test/experiments/experiment-group";
+import { DeltaFields } from "@/components/test/experiments/types";
 import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import { EmuExperimentRunGroup } from "@/shared/types/experiments";
 import { EXPERIMENT_RUN_GROUP_ID, genId } from "@/shared/utils/id";
 import { useState } from "react";
 
-export function ExperimentGroupConfig({ onSubmit }: { onSubmit: (experimentRunGroups: EmuExperimentRunGroup[]) => void }) {
+export function ExperimentGroupConfig({ onSubmit, submitting }: { onSubmit: (experimentRunGroups: EmuExperimentRunGroup[]) => void, submitting: boolean }) {
   const [experimentRunGroups, setExperimentRunGroups] = useState<EmuExperimentRunGroup[]>([]);
 
   const addNewRunGroup = () => {
@@ -15,6 +17,12 @@ export function ExperimentGroupConfig({ onSubmit }: { onSubmit: (experimentRunGr
       iterations: 1,
       id: genId(EXPERIMENT_RUN_GROUP_ID)
     }]);
+  }
+
+  const handleSubmit = () => {
+    if (experimentRunGroups.length > 0) {
+      onSubmit(experimentRunGroups);
+    }
   }
   
   return (
@@ -65,7 +73,7 @@ export function ExperimentGroupConfig({ onSubmit }: { onSubmit: (experimentRunGr
                   ...newGroups[index].baseConfigDelta,
                   agentConfig: {
                     ...newGroups[index].baseConfigDelta.agentConfig,
-                    [data.key]: data.value
+                    [DeltaFields[data.key].key]: data.value
                   }
                 }
               };
@@ -89,7 +97,7 @@ export function ExperimentGroupConfig({ onSubmit }: { onSubmit: (experimentRunGr
         ))}
       </div>
       <div className="w-full flex justify-center mt-10">
-        <Button type="submit" size="lg" onClick={() => onSubmit(experimentRunGroups)}>
+        <Button type="submit" disabled={submitting} size="lg" onClick={() => handleSubmit()}>
           Submit
         </Button>
       </div>

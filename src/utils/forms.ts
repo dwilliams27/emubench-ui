@@ -29,6 +29,7 @@ export function configFormToEmuBootConfig(formData: z.infer<typeof SETUP_TEST_CO
       model: formData.agentConfig.model,
       maxIterations: parseInt(formData.agentConfig.maxIterations),
       temperature: formData.agentConfig.temperature,
+      contextHistorySize: formData.agentConfig.contextHistorySize,
       taskName: formData.agentConfig.taskName,
       taskDescription: formData.agentConfig.taskDescription,
     },

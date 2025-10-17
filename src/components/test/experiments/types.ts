@@ -23,6 +23,9 @@ export const DeltaFields: Record<string, DeltaField> = {
   "Temperature": {
     key: "temperature"
   },
+  "Turn Context Size": {
+    key: "contextHistorySize"
+  },
   "Task Name": {
     key: "taskName",
   },

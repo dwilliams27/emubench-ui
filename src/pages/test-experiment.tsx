@@ -19,6 +19,7 @@ const SETUP_EXPERIMENT_VIEWS = {
 export default function TestExperiment() {
   const { api } = useApi();
   const [baseConfig, setBaseConfig] = useState<Omit<EmuBootConfig, "id"> | null>(null);
+  const [submitting, setSubmitting] = useState<boolean>(false);
   const [experimentName, setExperimentName] = useState(`Experiment ${new Date().toISOString()}`);
   const [experimentDescription, setExperimentDescription] = useState('Experiment created via UI');
   const [currentView, setCurrentView] = useState<keyof typeof SETUP_EXPERIMENT_VIEWS>(SETUP_EXPERIMENT_VIEWS.EXPERIMENT_CONFIG);
@@ -54,8 +55,10 @@ export default function TestExperiment() {
   }
 
   const onExperimentGroupConfigSubmit = async (groupConfigExperimentRunGroups: EmuExperimentRunGroup[]) => {
+    setSubmitting(true);
     // awk, fix
     await submitExperiment(groupConfigExperimentRunGroups);
+    setSubmitting(false);
   }
 
   return (
@@ -76,7 +79,7 @@ export default function TestExperiment() {
           <TestConfigForm onSubmit={onTestConfigSubmit} buttonText="Next" />
         </div>
       )}
-      {currentView === SETUP_EXPERIMENT_VIEWS.GROUP_CONFIG && <ExperimentGroupConfig onSubmit={onExperimentGroupConfigSubmit} />}
+      {currentView === SETUP_EXPERIMENT_VIEWS.GROUP_CONFIG && <ExperimentGroupConfig onSubmit={onExperimentGroupConfigSubmit} submitting={submitting} />}
     </div>
   )
 }

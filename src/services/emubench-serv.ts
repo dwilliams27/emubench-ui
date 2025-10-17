@@ -3,9 +3,8 @@ import { config } from '@/config';
 import type { GetActiveTestConfigResponse } from '@/constants/api';
 import { getIdToken } from 'firebase/auth';
 import { auth } from '@/constants/firebase';
-import { REQ_SETUP_TEST } from '@/components/test/config/types';
 import type z from 'zod';
-import type { EmuActiveTestReponse, EmuGetTestHistoryResponse, EmuGetTraceLogsResponse, EmuSetupExperimentResponse } from '@/shared/types';
+import type { EmuActiveTestReponse, EmuBootConfig, EmuGetTestHistoryResponse, EmuGetTraceLogsResponse, EmuSetupExperimentResponse } from '@/shared/types';
 import { createEmuError } from '@/shared/utils/error';
 import { EmuExperiment } from '@/shared/types/experiments';
 import { EmuGetExperimentSummaryResponse } from '@/shared/types/requests';
@@ -14,10 +13,10 @@ export interface Api {
   getAuthToken: () => Promise<string>;
   makeApiCall: (endpoint: string, method: string, data?: any) => Promise<any>;
   fetchTestConfigs: () => Promise<GetActiveTestConfigResponse>;
-  setupTest: (config: z.infer<typeof REQ_SETUP_TEST>) => Promise<{ testId: string }>;
+  setupTest: (config: EmuBootConfig) => Promise<{ testId: string }>;
   getActiveTestState: (testId: string) => Promise<[EmuActiveTestReponse, number]>;
   getTrace: (traceId: string) => Promise<[EmuGetTraceLogsResponse, number]>;
-  getTestHistory: (testRunId: string) => Promise<[EmuGetTestHistoryResponse, number]>;
+  getTestHistory: (testResultId: string) => Promise<[EmuGetTestHistoryResponse, number]>;
   setupExperiment: (experiment: Omit<EmuExperiment, 'status' | 'id' | 'completedTestRunIds'>) => Promise<[EmuSetupExperimentResponse, number]>;
   getExperimentSummary: (experimentId: string) => Promise<[EmuGetExperimentSummaryResponse, number]>;
 }
@@ -65,7 +64,7 @@ export class EmuBenchServ implements Api {
     }
   }
 
-  setupTest = async (config: z.infer<typeof REQ_SETUP_TEST>) => {
+  setupTest = async (config: EmuBootConfig) => {
     const authToken = await this.getAuthToken();
     try {
       const response = await this.axiosInstance.post(
@@ -138,11 +137,11 @@ export class EmuBenchServ implements Api {
     }
   }
 
-  getTestHistory = async(testRunId: string) => {
+  getTestHistory = async(testResultId: string) => {
     const authToken = await this.getAuthToken();
     try {
       const response = await this.axiosInstance.get(
-        `/test-orx/history/${testRunId}`,
+        `/test-orx/history/${testResultId}`,
         {
           headers: {
             'Authorization': `Bearer ${authToken}`
@@ -151,7 +150,7 @@ export class EmuBenchServ implements Api {
       );
       return [response.data, response.status] as [EmuGetTestHistoryResponse, number];
     } catch (error) {
-      console.error(`[API] Unabled to fetch history for ${testRunId}:`, error);
+      console.error(`[API] Unabled to fetch history for ${testResultId}:`, error);
       throw createEmuError(error);
     }
   }

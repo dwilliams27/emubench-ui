@@ -1,4 +1,4 @@
-import { EmuHistoryAtom } from "@/shared/types/test-run";
+import { EmuHistoryAtom } from "@/shared/types/test-result";
 
 export function HistoryLogView({ items }: { items: EmuHistoryAtom[] }) {
   return (

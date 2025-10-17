@@ -163,6 +163,7 @@ export const SETUP_TEST_CONFIG_SCHEMA = z.object({
     model: z.string(),
     maxIterations: z.string(),
     temperature: z.number().min(0).max(2),
+    contextHistorySize: z.number().min(0).max(10),
     taskName: z.string(),
     taskDescription: z.string(),
     systemPrompt: z.string(),
@@ -182,27 +183,4 @@ export const SETUP_TEST_CONFIG_SCHEMA = z.object({
     // TODO: lazy
     condition: z.any()
   }).optional()
-});
-
-export const REQ_SETUP_TEST = z.object({
-  testConfig: z.object({
-    gameId: z.string(),
-    platform: z.string(),
-    mode: z.string(),
-    startStateFilename: z.string(),
-    contextMemWatches: z.any(),
-    endStateMemWatches: z.any()
-  }),
-  agentConfig: z.object({
-    systemPrompt: z.string(),
-    gameContext: z.string(),
-    llmProvider: z.string(),
-    model: z.string(),
-    maxIterations: z.number(),
-    temperature: z.number(),
-    taskName: z.string(),
-    taskDescription: z.string(),
-  }),
-  // TODO: lazy
-  goalConfig: z.any()
 });
