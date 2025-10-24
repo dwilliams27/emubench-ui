@@ -8,13 +8,21 @@ import { testStatusToBadge } from "@/utils/test";
 
 export function ExperimentActiveGroupView({ runGroup, tests }: { runGroup: EmuExperimentRunGroup, tests?: Record<string, EmuTestSummary> }) {
   const renderCondition = (condition: EmuCondition) => {
-    const flatCondition = emuFlattenCondition(condition);
-    return (
-      <div>
-        <TestCondition flatCondition={flatCondition} />
-        <TestConditionResult condition={condition} />
-      </div>
-    );
+    try {
+      if (!condition) {
+        return <div>No condition</div>;
+      }
+      const flatCondition = emuFlattenCondition(condition);
+      return (
+        <div>
+          <TestCondition flatCondition={flatCondition} />
+          <TestConditionResult condition={condition} />
+        </div>
+      );
+    } catch (error) {
+      console.log('Error rendering condition: ', error);
+      return <div>Error rendering condition</div>;
+    }
   }
 
   return (

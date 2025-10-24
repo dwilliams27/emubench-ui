@@ -27,8 +27,13 @@ export function ActiveTestView() {
     if (!currentState?.currentCondition) {
       return [];
     }
-    const flat = emuFlattenCondition(currentState.currentCondition);
-    return flat;
+    try {
+      const flat = emuFlattenCondition(currentState.currentCondition);
+      return flat;
+    } catch (error) {
+      console.log('Error flattening condition: ', error);
+      return [];
+    }
   }, [currentState]);
 
   const getActiveTestState = async () => {

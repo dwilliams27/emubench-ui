@@ -114,7 +114,7 @@ export class EmuBenchServ implements Api {
       );
       return response.data;
     } catch (error) {
-      console.error('[API] Unabled to fetch test configs:', error);
+      console.error('[API] Unable to fetch test configs:', error);
       throw createEmuError(error);
     }
   }
@@ -132,7 +132,7 @@ export class EmuBenchServ implements Api {
       );
       return [response.data, response.status] as [EmuGetTraceLogsResponse, number];
     } catch (error) {
-      console.error(`[API] Unabled to fetch trace for ${traceId}:`, error);
+      console.error(`[API] Unable to fetch trace for ${traceId}:`, error);
       throw createEmuError(error);
     }
   }
@@ -150,7 +150,7 @@ export class EmuBenchServ implements Api {
       );
       return [response.data, response.status] as [EmuGetTestHistoryResponse, number];
     } catch (error) {
-      console.error(`[API] Unabled to fetch history for ${testResultId}:`, error);
+      console.error(`[API] Unable to fetch history for ${testResultId}:`, error);
       throw createEmuError(error);
     }
   }
@@ -187,7 +187,7 @@ export class EmuBenchServ implements Api {
       );
       return [response.data, response.status] as [EmuGetExperimentSummaryResponse, number];
     } catch (error) {
-      console.error(`[API] Unabled to fetch experiment summary for ${experimentId}:`, error);
+      console.error(`[API] Unable to fetch experiment summary for ${experimentId}:`, error);
       throw createEmuError(error);
     }
   }

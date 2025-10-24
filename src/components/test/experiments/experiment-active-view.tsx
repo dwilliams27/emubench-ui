@@ -1,11 +1,19 @@
 import { ExperimentActiveGroupView } from "@/components/test/experiments/experiment-active-group-view";
 import { useApi } from "@/contexts/api-context";
+import { useFirestoreCollection } from "@/hooks/use-firstore-collection";
 import { EmuExperiment } from "@/shared/types/experiments";
 import { EmuGetExperimentSummaryResponse } from "@/shared/types/requests";
+import { EmuTest } from "@/shared/types/test";
 import { formatError } from "@/shared/utils/error";
 import { useEffect, useState } from "react";
 
 export function ExperimentView({ experiment }: { experiment: EmuExperiment }) {
+  const { data, loading } = useFirestoreCollection<EmuTest>(
+    'TESTS_PUBLIC',
+    'bootConfig.experimentId',
+    experiment.id,
+  );
+  console.log('ExperimentView tests data: ', data, loading);
   const { api } = useApi();
   const [summary, setSummary] = useState<EmuGetExperimentSummaryResponse | null>(null);
   const [error, setError] = useState<string>('');

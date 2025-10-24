@@ -176,7 +176,32 @@ export async function freadTest(testId: string, options: Partial<EmuReadOptions>
   }
   return null;
 }
+function testToPublic(test: Partial<EmuTest> & { id: string }) {
+  return {
+    id: test.id,
+    ...(test.agentState && { agentState: test.agentState }),
+    ...(test.testState && { testState: test.testState }),
+    ...(test.emulatorState && { emulatorState: test.emulatorState }),
+    ...(test.bootConfig && { bootConfig: test.bootConfig })
+  };
+}
+function testFieldsToPublic(fields: Record<string, any>) {
+  return Object.fromEntries(
+    Object.entries(fields).filter(([key]) =>
+      !key.startsWith('sharedState') &&
+      !key.startsWith('agentLogs') &&
+      !key.startsWith('devLogs')
+    )
+  );
+}
 export async function fwriteTest(test: Partial<EmuTest> & { id: string }, options: Partial<EmuWriteOptions> = {}) {
+  await writeObjectToFirebase({
+    pathParams: [
+      { collection: FB_1.TESTS_PUBLIC }
+    ],
+    payload: [testToPublic(test)],
+    ...options
+  });
   return writeObjectToFirebase({
     pathParams: [
       { collection: FB_1.TESTS }
@@ -186,6 +211,10 @@ export async function fwriteTest(test: Partial<EmuTest> & { id: string }, option
   });
 }
 export async function fwriteTestFields(testId: string, fields: Record<string, any>) {
+   await firebaseService.updateFields(
+    [{ collection: FB_1.TESTS_PUBLIC }],
+    [{ id: testId, fields: testFieldsToPublic(fields) }]
+  );
   const result = await firebaseService.updateFields(
     [{ collection: FB_1.TESTS }],
     [{ id: testId, fields }]
