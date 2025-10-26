@@ -1,4 +1,5 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { EmuScreenshot } from "@/shared/types/test";
 import { useEffect, useState } from "react";
 
 const GamingLoadingState = () => {
@@ -78,18 +79,19 @@ const GamingLoadingState = () => {
   );
 };
 
-export function ActiveTestScreen({ screenshots, testStarted }: { screenshots: Record<string, string> | undefined, testStarted: boolean }) {
+export function ActiveTestScreen({ screenshots, testStarted }: { screenshots: Record<string, EmuScreenshot> | undefined, testStarted: boolean }) {
   const [screenshotKey, setScreenshotKey] = useState<string>('');
 
   useEffect(() => {
-    if (!screenshots) {
+    if (!screenshots || Object.keys(screenshots).length === 0) {
       return;
     }
-    setScreenshotKey(Object.entries(screenshots).sort((a, b) => {
-      const numA = parseInt(a[0].replace('.png', ''));
-      const numB = parseInt(b[0].replace('.png', ''));
+    const fullResURL = Object.entries(screenshots).sort((a, b) => {
+      const numA = parseInt(a[0].substring(2));
+      const numB = parseInt(b[0].substring(2));
       return numB - numA;
-    })[0]?.[1]);
+    })[0][1].fullResolutionUrl;
+    setScreenshotKey(fullResURL);
   }, [screenshots]);
 
   return (

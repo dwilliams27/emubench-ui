@@ -20,6 +20,9 @@ export const DeltaFields: Record<string, DeltaField> = {
     key: "model",
     getAllowedValues: (currentConfig) => MODELS[currentConfig.agentConfig.llmProvider].map((model) => model.displayName),
   },
+  "Max Iterations": {
+    key: "maxIterations"
+  },
   "Temperature": {
     key: "temperature"
   },
