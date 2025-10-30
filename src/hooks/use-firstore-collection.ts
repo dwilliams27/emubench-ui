@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { collection, onSnapshot, query, where, QueryConstraint } from 'firebase/firestore';
 import { db } from '@/constants/firebase';
+import { TESTS_PUBLIC_MOCK } from '@/hooks/firestore-mocks';
 
 export function useFirestoreCollection<T>(
   collectionName: string,
@@ -14,6 +15,12 @@ export function useFirestoreCollection<T>(
 
   useEffect(() => {
     if (!enabled) return;
+    if (import.meta.env.VITE_MOCK_API) {
+      if (collectionName === 'TESTS_PUBLIC') {
+        setData(TESTS_PUBLIC_MOCK as unknown as T[]);
+        return;
+      }
+    }
 
     setLoading(true);
 

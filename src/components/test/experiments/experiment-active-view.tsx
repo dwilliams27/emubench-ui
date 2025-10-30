@@ -1,51 +1,30 @@
 import { ExperimentActiveGroupView } from "@/components/test/experiments/experiment-active-group-view";
-import { useApi } from "@/contexts/api-context";
 import { useFirestoreCollection } from "@/hooks/use-firstore-collection";
-import { EmuExperiment } from "@/shared/types/experiments";
-import { EmuGetExperimentSummaryResponse } from "@/shared/types/requests";
-import { EmuTest } from "@/shared/types/test";
-import { formatError } from "@/shared/utils/error";
-import { useEffect, useState } from "react";
+import { EmuExperiment, EmuExperimentRunGroup } from "@/shared/types/experiments";
+import { EmuTestPublic } from "@/shared/types/test";
+import { useMemo } from "react";
 
 export function ExperimentView({ experiment }: { experiment: EmuExperiment }) {
-  const { data, loading } = useFirestoreCollection<EmuTest>(
+  const { data, loading } = useFirestoreCollection<EmuTestPublic>(
     'TESTS_PUBLIC',
     'bootConfig.experimentId',
     experiment.id,
   );
-  console.log('ExperimentView tests data: ', data, loading);
-  const { api } = useApi();
-  const [summary, setSummary] = useState<EmuGetExperimentSummaryResponse | null>(null);
-  const [error, setError] = useState<string>('');
-
-  useEffect(() => {
-    (async () => {
-      try {
-        const result = await api.getExperimentSummary(experiment.id);
-        if (result[1] === 200) {
-          const response = result[0];
-          if (import.meta.env.VITE_MOCK_API === "true") {
-            const keys = Object.keys(response.runGroupSummaries);
-            for(let i = 0; i < keys.length; i++) {
-              if (i < experiment.runGroups.length) {
-                response.runGroupSummaries[experiment.runGroups[i].id] = response.runGroupSummaries[keys[i]]; 
-              }
-            }
-          }
-          setSummary(response);
-        } else {
-          setError('Could not fetch experiment summary');
-        }
-      } catch (error) {
-        setError(formatError(error));
-      }
-    })();
-  }, []);
+  const groupsWithTests = useMemo(() => {
+    const result: [EmuExperimentRunGroup, EmuTestPublic[]][] = [];
+    for (const group of experiment.runGroups) {
+      result.push([
+        group,
+        data.filter(test => test.bootConfig.experimentRunGroupId === group.id)
+      ]);
+    }
+    return result;
+  }, [data]);
 
   return (
     <div className="space-y-2">
-      {experiment.runGroups.map((group) => (
-        <ExperimentActiveGroupView runGroup={group} tests={summary?.runGroupSummaries[group.id]?.tests} />
+      {groupsWithTests.map((group) => (
+        <ExperimentActiveGroupView runGroup={group[0]} tests={group[1]} />
       ))}
     </div>
   );

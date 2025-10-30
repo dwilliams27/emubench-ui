@@ -16,3 +16,13 @@ export interface EmuTest {
   agentLogs: EmuLogBlock[];
   devLogs: EmuLogBlock[];
 }
+
+export interface EmuTestPublic {
+  id: string;
+  agentState: EmuAgentState;
+  testState: EmuTestState;
+  emulatorState: EmuEmulatorState;
+  sharedState: EmuSharedTestState;
+  bootConfig: EmuBootConfig;
+  screenshots: Record<string, EmuScreenshot>;
+}
