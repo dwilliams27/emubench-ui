@@ -132,10 +132,21 @@ export const MODEL_PROVIDERS: Record<string, { name: string, displayName: string
 
 export const MODELS = {
   [MODEL_PROVIDERS.ANTHROPIC.name]: [{
-    name: "claude-opus-4-1-20250805",
+    name: "claude-sonnet-4-5",
+    displayName: "Claude Sonnet 4.5"
+  },
+  {
+    name: "claude-haiku-4-5",
+    displayName: "Claude Haiku 4.5"
+  },
+  {
+    name: "claude-opus-4-1",
     displayName: "Claude Opus 4.1"
   }],
   [MODEL_PROVIDERS.GOOGLE.name]: [{
+    name: "gemini-2.5-flash",
+    displayName: "Gemini 2.5 Flash"
+  },{
     name: "gemini-2.5-pro",
     displayName: "Gemini 2.5 Pro"
   }],
