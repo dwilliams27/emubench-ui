@@ -129,6 +129,11 @@ export const TESTS_PUBLIC_MOCK = [
                 "thumbnailUrl": "https://storage.googleapis.com/emubench-sessions/tst-17e78521d9774913/ScreenShots/0_t.webp?X-Goog-Algorithm=GOOG4-RSA-SHA256&X-Goog-Credential=thumbnail-function-sa%40emubench-459802.iam.gserviceaccount.com%2F20251030%2Fauto%2Fstorage%2Fgoog4_request&X-Goog-Date=20251030T003007Z&X-Goog-Expires=86400&X-Goog-SignedHeaders=host&X-Goog-Signature=764063f9f8a223311c0c1344f5a741c7dd8d97ee031b9f8355eb38407444cb1ae572cd49dd9a45449f1bcb73c832e7039a29f7cbe42691b8ba5a3a62a0d54bed3e3ecaeff7e31c42df08cb132f9bc0ece5d8b2ef523b9f7562a492d9e50fe954bb412772012e5181b4d596e7369ad8bc8f6394905063acc31db187bd5b0dac866f2eee5a5557a5a93baedd898943e043a8cc6dd0a0cb8b98fbf15d3e57776c6adbd0fc641ccb0a2df77d6c58eb5bfc3abac7c853f3760d5048d97c844ce29a660615bd88a98a16e24fc041966b799ca31140d86652d69990438e26cbb2afe6f3aa0a3a38df5303f2364dae404517e511411f7f45ee77bbe44c27092c9f927a39",
                 "fullResolutionUrl": "https://storage.googleapis.com/emubench-sessions/tst-17e78521d9774913/ScreenShots/0.png?X-Goog-Algorithm=GOOG4-RSA-SHA256&X-Goog-Credential=thumbnail-function-sa%40emubench-459802.iam.gserviceaccount.com%2F20251030%2Fauto%2Fstorage%2Fgoog4_request&X-Goog-Date=20251030T003007Z&X-Goog-Expires=86400&X-Goog-SignedHeaders=host&X-Goog-Signature=09731635b1c150dce02923c3a09f6990076530f567b03a301969b55eae0b441ec6f2c02a5f4b5268ee8267650d6d2ba82a9e1857ef11d913578762937000d0b026b6db714c50f7c08f9555d1f7bf05c730a9d1a56792cfad17c4aae5b1c4d7ce8a66744e1bd5577a63a30992ff2bf18546d8959fcfea433eafbc0ee6c03dd2d9bf0b29025528891257e135aac635eba4b009cf93873dd952c26c6e28c6cb8cefcd4d0ab6c280998afea698f2925a95963424ab695b1a68d83054d983df61b197fb9f2265475bb97fcb9a9188d6af18aa0fdf12c35dba95be79568933e14e66cd84aa31b773ae2ba0f945ddfd9040fffb158354a66b47a0d16f37edbca9387766"
             }
+        },
+        "result": {
+          "conditionResult": 'failed',
+          "conditionPrimitiveResult": true,
+          "errorDetails": ""
         }
     },
     {
@@ -261,6 +266,11 @@ export const TESTS_PUBLIC_MOCK = [
                 "fullResolutionUrl": "https://storage.googleapis.com/emubench-sessions/tst-4bbf21485d0b491b/ScreenShots/2.png?X-Goog-Algorithm=GOOG4-RSA-SHA256&X-Goog-Credential=thumbnail-function-sa%40emubench-459802.iam.gserviceaccount.com%2F20251030%2Fauto%2Fstorage%2Fgoog4_request&X-Goog-Date=20251030T003335Z&X-Goog-Expires=86400&X-Goog-SignedHeaders=host&X-Goog-Signature=4ae2f4745d69f91035851c174f098d452d14b759b59086ca55cb7aedf30dcad6711589e9609f4fcd51737a0449c51bfd8b7273d0aa80279a2b20ba70da2208282582a0e6e9491406240d3ebf1cfd8b715e84ec04194b7b9ffc5f6341435ac3336ddbbdd62ee7e0fd087c31763b1538f55bba9c6dd65fc0669ff46d5698948b14d31d7c0bbe82d2dcc3e4355f568684b75e84c8259e7ceba690570b702a784b61f70ae55e7f925480075f176e17bc0ef7b51cb93558e535e98d51c12d18208c9d7b916153638e4150149db856a87e30a39c809481fa9d13c870e8d79e6e9e7562e299c9f13a011d10a147ef2bc770d7402d915faa38fed85f4d32d3c9c0f24454",
                 "thumbnailUrl": "https://storage.googleapis.com/emubench-sessions/tst-4bbf21485d0b491b/ScreenShots/2_t.webp?X-Goog-Algorithm=GOOG4-RSA-SHA256&X-Goog-Credential=thumbnail-function-sa%40emubench-459802.iam.gserviceaccount.com%2F20251030%2Fauto%2Fstorage%2Fgoog4_request&X-Goog-Date=20251030T003335Z&X-Goog-Expires=86400&X-Goog-SignedHeaders=host&X-Goog-Signature=857c51824b8d9b30c2ff41cd50a5dcadd0a6c83eb42098716a81af25ec057b1d69b4a5d531f6d82b2f49bf93fecabf5a37ff093cfe898061de7ff20ab0047da337214c6c9dd270ab14c6572827edbbda4640cc5e95da2e7205020d9c2e8a1180391753a4dddb6b0f28cb29b0f96a4f996b30398c1546715d4f3657e6d896fe5c0365aa7f88c0fbd0709188776a9aa52f3f62722df1183f730741db6935b51a7bb99288b732fdadfc6be2bc3c6b024b2d8dc3eaeb9e00a0315b6f733e68551bdc3b0c4d135240b27cc03cec121dd362afbc6d48043c2da59c8328e330acbfe89b4248151cb08f111ef4346dc79a4f48780aa9599d80f7d1cf20c8a635a0900248"
             }
+        },
+        "result": {
+          "conditionResult": 'failed',
+          "conditionPrimitiveResult": true,
+          "errorDetails": ""
         }
     },
     {
@@ -393,6 +403,11 @@ export const TESTS_PUBLIC_MOCK = [
             "type": "firestore/timestamp/1.0",
             "seconds": 1761784301,
             "nanoseconds": 876000000
+        },
+        "result": {
+          "conditionResult": 'passed',
+          "conditionPrimitiveResult": true,
+          "errorDetails": ""
         }
     },
     {
@@ -507,6 +522,11 @@ export const TESTS_PUBLIC_MOCK = [
             "type": "firestore/timestamp/1.0",
             "seconds": 1761784391,
             "nanoseconds": 191000000
+        },
+        "result": {
+          "conditionResult": 'passed',
+          "conditionPrimitiveResult": true,
+          "errorDetails": ""
         }
     },
     {
@@ -639,6 +659,11 @@ export const TESTS_PUBLIC_MOCK = [
             "type": "firestore/timestamp/1.0",
             "seconds": 1761784295,
             "nanoseconds": 185000000
+        },
+        "result": {
+          "conditionResult": 'passed',
+          "conditionPrimitiveResult": true,
+          "errorDetails": ""
         }
     },
     {
@@ -771,6 +796,11 @@ export const TESTS_PUBLIC_MOCK = [
                 "taskDescription": "You will start out on top of a high wooden platform. You need to walk around using the main stick and find the ladder on the side of the platform. Walk into the ladder to start climbing down, and then climb all the way down.",
                 "temperature": 1
             }
+        },
+        "result": {
+          "conditionResult": 'failed',
+          "conditionPrimitiveResult": true,
+          "errorDetails": ""
         }
     },
     {
@@ -903,6 +933,11 @@ export const TESTS_PUBLIC_MOCK = [
             "type": "firestore/timestamp/1.0",
             "seconds": 1761784278,
             "nanoseconds": 914000000
+        },
+        "result": {
+          "conditionResult": 'passed',
+          "conditionPrimitiveResult": true,
+          "errorDetails": ""
         }
     },
     {
@@ -1035,6 +1070,11 @@ export const TESTS_PUBLIC_MOCK = [
             "type": "firestore/timestamp/1.0",
             "seconds": 1761784200,
             "nanoseconds": 795000000
+        },
+        "result": {
+          "conditionResult": 'failed',
+          "conditionPrimitiveResult": true,
+          "errorDetails": ""
         }
     },
     {
@@ -1169,6 +1209,11 @@ export const TESTS_PUBLIC_MOCK = [
                 "fullResolutionUrl": "https://storage.googleapis.com/emubench-sessions/tst-d55aede8a6e14bd7/ScreenShots/3.png?X-Goog-Algorithm=GOOG4-RSA-SHA256&X-Goog-Credential=thumbnail-function-sa%40emubench-459802.iam.gserviceaccount.com%2F20251030%2Fauto%2Fstorage%2Fgoog4_request&X-Goog-Date=20251030T003058Z&X-Goog-Expires=86400&X-Goog-SignedHeaders=host&X-Goog-Signature=a8471acb89e2bd349775e4ae8a0beb94f9954d8c93fce1ae010649eef2773e756063b5dcad5a90f61c021a2b45435e772fbaabcff8d8f8df04cd99591a82290890838f9bdaa87c493f81177bcdd74d4558c76ee9cd7d7f288f69d30b00ab67011987b0809c344e9aa91aa63433c2c82c3157b929100f3caaa57cfbdc448d2869aef2b7872b285f505d92e7c2253e07ea148b36c2939a2c5596fa2ae27c78268dc3cb26a2ba7044ef4e4ca787b8a46471ed90f8671ea5b4659ccfdf6ce2a759a0f784712ef9936e20f890ef8a3d2abf597519b4d1d830307957a9dcc09026803d4596d6e63db6767f02e0a947f2c7f839e2df96d9eb0c1805eda5ef5d8003900f",
                 "thumbnailUrl": "https://storage.googleapis.com/emubench-sessions/tst-d55aede8a6e14bd7/ScreenShots/3_t.webp?X-Goog-Algorithm=GOOG4-RSA-SHA256&X-Goog-Credential=thumbnail-function-sa%40emubench-459802.iam.gserviceaccount.com%2F20251030%2Fauto%2Fstorage%2Fgoog4_request&X-Goog-Date=20251030T003058Z&X-Goog-Expires=86400&X-Goog-SignedHeaders=host&X-Goog-Signature=0608f1e252c335471a28387a25a83a2d659ce8fca674cf9f2de1bf6edb0f411b6d3b37aaff7cd6d8aeab8e70dea5789826cb6ae27ba156de2e3d3f421d0849b5514f2f42a0b0171cdbed89ce005602576f4b193728d20f34ddf1493436257f7d710a24f9de54e216d58b0c05e56d3155f72d4b7495ed20386dece460f750fda26e5ffed0aae9b541d0db586bb1a1a6a864d9b7b931337f6321ecaeda0d2621a96dc1274c0f2e30df3af1a6a3f28523125df3d12a11b0a7f90247a7c04e99c90f5934c85765ca63ce4e18f8efd1e1828fb2e639370ad76fcb91369159ae712043256baa0f819ce2da019b919450c6d65f49c2416ce2be0ffb80fe0cdc154408cf"
             }
+        },
+        "result": {
+          "conditionResult": 'passed',
+          "conditionPrimitiveResult": true,
+          "errorDetails": ""
         }
     },
     {
@@ -1301,6 +1346,11 @@ export const TESTS_PUBLIC_MOCK = [
         },
         "emulatorState": {
             "status": "finished"
+        },
+        "result": {
+          "conditionResult": 'passed',
+          "conditionPrimitiveResult": true,
+          "errorDetails": ""
         }
     },
     {
@@ -1433,6 +1483,11 @@ export const TESTS_PUBLIC_MOCK = [
             "type": "firestore/timestamp/1.0",
             "seconds": 1761784331,
             "nanoseconds": 989000000
+        },
+        "result": {
+          "conditionResult": 'passed',
+          "conditionPrimitiveResult": true,
+          "errorDetails": ""
         }
     },
     {
@@ -1615,6 +1670,11 @@ export const TESTS_PUBLIC_MOCK = [
         "agentState": {
             "status": "finished",
             "id": "astate-0fef53459aee478d"
+        },
+        "result": {
+          "conditionResult": 'failed',
+          "conditionPrimitiveResult": true,
+          "errorDetails": ""
         }
     },
     {
@@ -1797,6 +1857,11 @@ export const TESTS_PUBLIC_MOCK = [
         "agentState": {
             "id": "astate-4db5807301ed4511",
             "status": "finished"
+        },
+        "result": {
+          "conditionResult": 'error',
+          "conditionPrimitiveResult": true,
+          "errorDetails": "some error"
         }
     },
     {
@@ -1931,6 +1996,11 @@ export const TESTS_PUBLIC_MOCK = [
         "agentState": {
             "status": "error",
             "id": "astate-5bcc0820a837472f"
+        },
+        "result": {
+          "conditionResult": 'error',
+          "conditionPrimitiveResult": true,
+          "errorDetails": "some error2"
         }
     },
     {
@@ -2113,6 +2183,11 @@ export const TESTS_PUBLIC_MOCK = [
             "type": "firestore/timestamp/1.0",
             "seconds": 1761784472,
             "nanoseconds": 391000000
+        },
+        "result": {
+          "conditionResult": 'passed',
+          "conditionPrimitiveResult": true,
+          "errorDetails": ""
         }
     },
     {
@@ -2295,6 +2370,11 @@ export const TESTS_PUBLIC_MOCK = [
             "type": "firestore/timestamp/1.0",
             "seconds": 1761784326,
             "nanoseconds": 525000000
+        },
+        "result": {
+          "conditionResult": 'passed',
+          "conditionPrimitiveResult": true,
+          "errorDetails": ""
         }
     },
     {
@@ -2477,6 +2557,11 @@ export const TESTS_PUBLIC_MOCK = [
             "screenshots": {},
             "id": "tst-9cd8d4d0978d48e9",
             "status": "finished"
+        },
+        "result": {
+          "conditionResult": 'passed',
+          "conditionPrimitiveResult": true,
+          "errorDetails": ""
         }
     },
     {
@@ -2645,6 +2730,11 @@ export const TESTS_PUBLIC_MOCK = [
             "type": "firestore/timestamp/1.0",
             "seconds": 1761784393,
             "nanoseconds": 591000000
+        },
+        "result": {
+          "conditionResult": 'passed',
+          "conditionPrimitiveResult": true,
+          "errorDetails": ""
         }
     },
     {
@@ -2748,6 +2838,11 @@ export const TESTS_PUBLIC_MOCK = [
                 "maxIterations": "10",
                 "gameContext": "You are playing the Legend of Zelda Wind Waker on the Gamecube."
             }
+        },
+        "result": {
+          "conditionResult": 'passed',
+          "conditionPrimitiveResult": true,
+          "errorDetails": ""
         }
     },
     {
@@ -2932,6 +3027,11 @@ export const TESTS_PUBLIC_MOCK = [
                     "endStateMemWatchValues": {}
                 }
             }
+        },
+        "result": {
+          "conditionResult": 'failed',
+          "conditionPrimitiveResult": true,
+          "errorDetails": ""
         }
     }
 ];

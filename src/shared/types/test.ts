@@ -1,4 +1,5 @@
 import { EmuAgentState, EmuBootConfig, EmuEmulatorState, EmuLogBlock, EmuSharedTestState, EmuTestState } from "@/shared/types";
+import { EmuTestResultData } from "@/shared/types/test-result";
 
 export interface EmuScreenshot {
   fullResolutionUrl: string;
@@ -13,6 +14,7 @@ export interface EmuTest {
   sharedState: EmuSharedTestState;
   bootConfig: EmuBootConfig;
   screenshots: Record<string, EmuScreenshot>;
+  result: EmuTestResultData | null;
   agentLogs: EmuLogBlock[];
   devLogs: EmuLogBlock[];
 }
@@ -25,4 +27,5 @@ export interface EmuTestPublic {
   sharedState: EmuSharedTestState;
   bootConfig: EmuBootConfig;
   screenshots: Record<string, EmuScreenshot>;
+  result: EmuTestResultData | null;
 }

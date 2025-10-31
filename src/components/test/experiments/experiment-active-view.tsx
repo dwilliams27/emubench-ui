@@ -24,7 +24,7 @@ export function ExperimentView({ experiment }: { experiment: EmuExperiment }) {
   return (
     <div className="space-y-2">
       {groupsWithTests.map((group) => (
-        <ExperimentActiveGroupView runGroup={group[0]} tests={group[1]} />
+        <ExperimentActiveGroupView key={group[0].id} runGroup={group[0]} tests={group[1]} />
       ))}
     </div>
   );

@@ -14,8 +14,25 @@ export function ExperimentActiveCell({ test }: { test?: EmuTestPublic }) {
     })[0][1].thumbnailUrl;
   }, [test]);
 
+  const getBorderColor = () => {
+    if (!test?.result?.conditionResult) {
+      return "border-gray-300";
+    }
+    
+    switch (test.result.conditionResult) {
+      case 'passed':
+        return "border-green-500";
+      case 'failed':
+        return "border-yellow-500";
+      case 'error':
+        return "border-red-500";
+      default:
+        return "border-gray-300";
+    }
+  };
+
   return (
-    <div className="w-full min-w-16 max-w-32 aspect-square flex items-center justify-center bg-secondary/10 rounded-md">
+    <div className={`w-full min-w-16 max-w-32 aspect-square flex items-center justify-center bg-secondary/10 rounded-md border-4 ${getBorderColor()}`}>
       {
         test ? (
           <div className="w-full h-full flex items-center justify-center">
