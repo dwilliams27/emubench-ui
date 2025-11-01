@@ -1,5 +1,4 @@
-import { LoadingSpinner } from "@/components/shared/loading-spinner";
-import { ExperimentGroup } from "@/components/test/experiments/experiment-group";
+import { ExperimentGroup } from "@/components/test/experiments/config/experiment-group";
 import { DeltaFields } from "@/components/test/experiments/types";
 import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle } from "@/components/ui/card";

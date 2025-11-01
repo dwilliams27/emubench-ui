@@ -1,4 +1,4 @@
-import { AddConfigDeltaModal } from "@/components/test/experiments/experiment-add-config-delta";
+import { AddConfigDeltaModal } from "@/components/test/experiments/config/experiment-add-config-delta";
 import { DeltaFields } from "@/components/test/experiments/types";
 import { Button } from "@/components/ui/button"
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";

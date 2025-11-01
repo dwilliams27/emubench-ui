@@ -1,8 +1,8 @@
 import { TestConfigForm } from "@/components/test/config/test-config-form";
 import { SETUP_TEST_CONFIG_SCHEMA } from "@/components/test/config/types";
-import { ExperimentView } from "@/components/test/experiments/experiment-active-view";
-import { EXPERIMENT_CONFIG_SCHEMA, ExperimentConfig } from "@/components/test/experiments/experiment-config";
-import { ExperimentGroupConfig } from "@/components/test/experiments/experiment-group-config";
+import { ExperimentView } from "@/components/test/experiments/active/experiment-active-view";
+import { EXPERIMENT_CONFIG_SCHEMA, ExperimentConfig } from "@/components/test/experiments/config/experiment-config";
+import { ExperimentGroupConfig } from "@/components/test/experiments/config/experiment-group-config";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useApi } from "@/contexts/api-context";
 import { EmuBootConfig } from "@/shared/types";

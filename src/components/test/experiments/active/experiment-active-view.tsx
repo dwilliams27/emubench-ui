@@ -1,4 +1,5 @@
-import { ExperimentActiveGroupView } from "@/components/test/experiments/experiment-active-group-view";
+import { ExperimentActiveGroupView } from "@/components/test/experiments/active/experiment-active-group-view";
+import { ExperimentResult } from "@/components/test/experiments/active/experiment-result";
 import { useFirestoreCollection } from "@/hooks/use-firstore-collection";
 import { EmuExperiment, EmuExperimentRunGroup } from "@/shared/types/experiments";
 import { EmuTestPublic } from "@/shared/types/test";
@@ -23,6 +24,7 @@ export function ExperimentView({ experiment }: { experiment: EmuExperiment }) {
 
   return (
     <div className="space-y-2">
+      <ExperimentResult experiment={experiment} />
       {groupsWithTests.map((group) => (
         <ExperimentActiveGroupView key={group[0].id} runGroup={group[0]} tests={group[1]} />
       ))}
