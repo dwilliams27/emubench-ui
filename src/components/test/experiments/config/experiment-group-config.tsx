@@ -1,13 +1,18 @@
 import { ExperimentGroup } from "@/components/test/experiments/config/experiment-group";
 import { DeltaFields } from "@/components/test/experiments/types";
 import { Button } from "@/components/ui/button";
-import { Card, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { EmuExperimentRunGroup } from "@/shared/types/experiments";
 import { EXPERIMENT_RUN_GROUP_ID, genId } from "@/shared/utils/id";
 import { useState } from "react";
 
 export function ExperimentGroupConfig({ onSubmit, submitting }: { onSubmit: (experimentRunGroups: EmuExperimentRunGroup[]) => void, submitting: boolean }) {
   const [experimentRunGroups, setExperimentRunGroups] = useState<EmuExperimentRunGroup[]>([]);
+
+  const helper = (groups: EmuExperimentRunGroup[]) => {
+    console.log('$$$ ExperimentRunGroups:', groups);
+    setExperimentRunGroups(groups);
+  }
 
   const addNewRunGroup = () => {
     setExperimentRunGroups([...experimentRunGroups, {
@@ -72,11 +77,13 @@ export function ExperimentGroupConfig({ onSubmit, submitting }: { onSubmit: (exp
                   ...newGroups[index].baseConfigDelta,
                   agentConfig: {
                     ...newGroups[index].baseConfigDelta.agentConfig,
-                    [DeltaFields[data.key].key]: data.value
+                    [DeltaFields[data.key].key]: DeltaFields[data.key].toValue(data.value)
                   }
                 }
               };
-              setExperimentRunGroups(newGroups);
+              
+              helper(newGroups);
+              // setExperimentRunGroups(newGroups);
             }}
             deleteGroup={(id: string) => {
               setExperimentRunGroups(experimentRunGroups.filter(g => g.id !== id));

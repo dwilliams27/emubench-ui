@@ -6,7 +6,7 @@ export function ExperimentResult({ experiment }: { experiment: EmuExperiment }) 
     <Card className="w-full">
       <CardHeader>
         <CardTitle>
-          {experiment.name}
+          {experiment.id} - {experiment.name}
         </CardTitle>
       </CardHeader>
       <CardContent className="flex flex-col space-y-4">

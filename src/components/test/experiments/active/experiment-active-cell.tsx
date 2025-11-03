@@ -21,18 +21,18 @@ export function ExperimentActiveCell({ test }: { test?: EmuTestPublic }) {
     
     switch (test.result.conditionResult) {
       case 'passed':
-        return "border-green-500";
+        return "border-green-300";
       case 'failed':
-        return "border-red-500";
+        return "border-red-300";
       case 'error':
-        return "border-yellow-500";
+        return "border-yellow-300";
       default:
         return "border-gray-300";
     }
   };
 
   return (
-    <div className={`w-full min-w-16 max-w-32 aspect-square flex items-center justify-center bg-secondary/10 rounded-md border-4 ${getBorderColor()}`}>
+    <div className={`w-full min-w-16 max-w-32 aspect-square flex flex-col items-center justify-center bg-secondary/10 rounded-md border-4 ${getBorderColor()}`}>
       {
         test && mostRecentScreenshot ? (
           <div className="w-full h-full flex items-center justify-center">
