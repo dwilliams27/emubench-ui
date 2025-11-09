@@ -12,6 +12,7 @@ import {
 import { Form, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { EmuBootConfig } from "@/shared/types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import z from "zod";
@@ -25,7 +26,7 @@ export const ADD_CONFIG_DELTA_SCHEMA = z.object({
   value: z.any(),
 })
 
-export function AddConfigDeltaModal({ onSubmit, open, close, children }: { onSubmit: (data: z.infer<typeof ADD_CONFIG_DELTA_SCHEMA>) => void, open: boolean, close: Function, children: React.ReactNode }) {
+export function AddConfigDeltaModal({ onSubmit, open, close, children, currentConfig }: { onSubmit: (data: z.infer<typeof ADD_CONFIG_DELTA_SCHEMA>) => void, open: boolean, close: Function, children: React.ReactNode, currentConfig?: EmuBootConfig }) {
   const form = useForm<z.infer<typeof ADD_CONFIG_DELTA_SCHEMA>>({
     resolver: zodResolver(ADD_CONFIG_DELTA_SCHEMA),
     defaultValues: {
@@ -33,6 +34,11 @@ export function AddConfigDeltaModal({ onSubmit, open, close, children }: { onSub
       value: "",
     },
   });
+
+  const selectedKey = form.watch("key");
+  const selectedField = selectedKey ? DeltaFields[selectedKey] : null;
+  const hasAllowedValues = selectedField?.getAllowedValues && currentConfig;
+  const allowedValues = hasAllowedValues ? selectedField.getAllowedValues!(currentConfig) : [];
   
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -84,7 +90,22 @@ export function AddConfigDeltaModal({ onSubmit, open, close, children }: { onSub
                 render={({ field }) => (
                   <FormItem className="flex flex-col space-y-2">
                     <FormLabel>Value</FormLabel>
-                    <Input {...field} />
+                    {hasAllowedValues ? (
+                      <Select onValueChange={field.onChange} value={field.value}>
+                        <SelectTrigger className="mb-0">
+                          <SelectValue placeholder="Select a value" />
+                        </SelectTrigger>
+                        <SelectContent className="w-full">
+                          {allowedValues.map((value) => (
+                            <SelectItem key={value} value={value}>
+                              {value}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    ) : (
+                      <Input {...field} />
+                    )}
                     <FormMessage />
                   </FormItem>
                 )}

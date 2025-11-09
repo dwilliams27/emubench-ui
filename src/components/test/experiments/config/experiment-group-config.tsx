@@ -1,18 +1,14 @@
 import { ExperimentGroup } from "@/components/test/experiments/config/experiment-group";
 import { DeltaFields } from "@/components/test/experiments/types";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardHeader, CardTitle } from "@/components/ui/card";
+import { EmuBootConfig } from "@/shared/types";
 import { EmuExperimentRunGroup } from "@/shared/types/experiments";
 import { EXPERIMENT_RUN_GROUP_ID, genId } from "@/shared/utils/id";
 import { useState } from "react";
 
-export function ExperimentGroupConfig({ onSubmit, submitting }: { onSubmit: (experimentRunGroups: EmuExperimentRunGroup[]) => void, submitting: boolean }) {
+export function ExperimentGroupConfig({ onSubmit, submitting, baseConfig }: { onSubmit: (experimentRunGroups: EmuExperimentRunGroup[]) => void, submitting: boolean, baseConfig: EmuBootConfig }) {
   const [experimentRunGroups, setExperimentRunGroups] = useState<EmuExperimentRunGroup[]>([]);
-
-  const helper = (groups: EmuExperimentRunGroup[]) => {
-    console.log('$$$ ExperimentRunGroups:', groups);
-    setExperimentRunGroups(groups);
-  }
 
   const addNewRunGroup = () => {
     setExperimentRunGroups([...experimentRunGroups, {
@@ -46,6 +42,7 @@ export function ExperimentGroupConfig({ onSubmit, submitting }: { onSubmit: (exp
           <ExperimentGroup
             key={group.name}
             group={group}
+            baseConfig={baseConfig}
             addIterations={(amount: number) => {
               const newGroups = [...experimentRunGroups];
               newGroups[index].iterations += amount;
@@ -71,19 +68,27 @@ export function ExperimentGroupConfig({ onSubmit, submitting }: { onSubmit: (exp
             }}
             addConfigDeltaItem={(data: { key: string, value?: any }) => {
               const newGroups = [...experimentRunGroups];
+              const deltaField = DeltaFields[data.key];
               newGroups[index] = {
                 ...newGroups[index],
                 baseConfigDelta: {
                   ...newGroups[index].baseConfigDelta,
-                  agentConfig: {
-                    ...newGroups[index].baseConfigDelta.agentConfig,
-                    [DeltaFields[data.key].key]: DeltaFields[data.key].toValue(data.value)
-                  }
+                  ...(deltaField.configKey === "emulatorConfig" ? {
+                    emulatorConfig: {
+                      ...newGroups[index].baseConfigDelta.emulatorConfig,
+                      [deltaField.key]: deltaField.toValue(data.value)
+                    }
+                  } : {}),
+                  ...(deltaField.configKey === "agentConfig" ? {
+                    agentConfig: {
+                      ...newGroups[index].baseConfigDelta.agentConfig,
+                      [deltaField.key]: deltaField.toValue(data.value)
+                    }
+                  } : {})
                 }
               };
               
-              helper(newGroups);
-              // setExperimentRunGroups(newGroups);
+              setExperimentRunGroups(newGroups);
             }}
             deleteGroup={(id: string) => {
               setExperimentRunGroups(experimentRunGroups.filter(g => g.id !== id));

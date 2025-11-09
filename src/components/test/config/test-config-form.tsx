@@ -9,7 +9,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
-export function TestConfigForm({ onSubmit, submitting, buttonText }: { onSubmit: (formData: z.infer<typeof SETUP_TEST_CONFIG_SCHEMA>) => Promise<void>, submitting?: boolean, buttonText?: string }) {
+export function EmulatorConfigForm({ onSubmit, submitting, buttonText }: { onSubmit: (formData: z.infer<typeof SETUP_TEST_CONFIG_SCHEMA>) => Promise<void>, submitting?: boolean, buttonText?: string }) {
   const form = useForm<z.infer<typeof SETUP_TEST_CONFIG_SCHEMA>>({
     resolver: zodResolver(SETUP_TEST_CONFIG_SCHEMA),
     defaultValues: {

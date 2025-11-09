@@ -1,4 +1,4 @@
-import { TestConfigForm } from "@/components/test/config/test-config-form";
+import { EmulatorConfigForm } from "@/components/test/config/test-config-form";
 import { DEBUG_GAME_MAP, GAMES, SETUP_TEST_CONFIG_SCHEMA } from "@/components/test/config/types";
 import { Button } from "@/components/ui/button";
 import { useApi } from "@/contexts/api-context";
@@ -8,7 +8,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import z from "zod";
 
-export default function TestConfig() {
+export default function EmulatorConfig() {
   const { api } = useApi();
   const navigate = useNavigate();
   const [submitting, setSubmitting] = useState(false);
@@ -46,7 +46,7 @@ export default function TestConfig() {
 
   return (
     <div>
-      <TestConfigForm onSubmit={onSubmit} submitting={submitting} />
+      <EmulatorConfigForm onSubmit={onSubmit} submitting={submitting} />
       { testId && (
         <Button className="mx-auto" size="sm" disabled={submitting} onClick={() => navigateToTest(testId)}>
           {`Navigate to ${testId}`}

@@ -50,7 +50,7 @@ export const TESTS_PUBLIC_MOCK = [
             "screenshots": {}
         },
         "bootConfig": {
-            "testConfig": {
+            "emulatorConfig": {
                 "gameId": "GZLE01",
                 "platform": "gamecube",
                 "endStateMemWatches": {},
@@ -230,7 +230,7 @@ export const TESTS_PUBLIC_MOCK = [
                     }
                 }
             },
-            "testConfig": {
+            "emulatorConfig": {
                 "mode": "turn-based",
                 "platform": "gamecube",
                 "endStateMemWatches": {},
@@ -327,7 +327,7 @@ export const TESTS_PUBLIC_MOCK = [
                 "temperature": 1,
                 "contextHistorySize": 3
             },
-            "testConfig": {
+            "emulatorConfig": {
                 "gameId": "GZLE01",
                 "contextMemWatches": {
                     "LINK_Y": {
@@ -465,7 +465,7 @@ export const TESTS_PUBLIC_MOCK = [
             "experimentRunGroupId": "erg-3ecacf292af34da8",
             "id": "bootcfg-007666805a704878",
             "experimentId": "exp-d7f3b57db87b4310",
-            "testConfig": {
+            "emulatorConfig": {
                 "endStateMemWatches": {},
                 "contextMemWatches": {
                     "LINK_Y": {
@@ -575,7 +575,7 @@ export const TESTS_PUBLIC_MOCK = [
             },
             "id": "bootcfg-7fb8941ae3a84920",
             "experimentRunGroupId": "erg-3ecacf292af34da8",
-            "testConfig": {
+            "emulatorConfig": {
                 "endStateMemWatches": {},
                 "id": "tst-87b98be5d6f14e87",
                 "mode": "turn-based",
@@ -741,7 +741,7 @@ export const TESTS_PUBLIC_MOCK = [
         "bootConfig": {
             "experimentRunGroupId": "erg-3ecacf292af34da8",
             "id": "bootcfg-a0f608366217476d",
-            "testConfig": {
+            "emulatorConfig": {
                 "startStateFilename": "ww_game_play_start.sav",
                 "endStateMemWatches": {},
                 "contextMemWatches": {
@@ -842,7 +842,7 @@ export const TESTS_PUBLIC_MOCK = [
                 }
             },
             "experimentId": "exp-d7f3b57db87b4310",
-            "testConfig": {
+            "emulatorConfig": {
                 "contextMemWatches": {
                     "LINK_Y": {
                         "size": 4,
@@ -1051,7 +1051,7 @@ export const TESTS_PUBLIC_MOCK = [
                 }
             },
             "id": "bootcfg-682ea07eb70d4884",
-            "testConfig": {
+            "emulatorConfig": {
                 "mode": "turn-based",
                 "platform": "gamecube",
                 "endStateMemWatches": {},
@@ -1122,7 +1122,7 @@ export const TESTS_PUBLIC_MOCK = [
                 "contextHistorySize": 3,
                 "temperature": 1
             },
-            "testConfig": {
+            "emulatorConfig": {
                 "mode": "turn-based",
                 "platform": "gamecube",
                 "contextMemWatches": {
@@ -1315,7 +1315,7 @@ export const TESTS_PUBLIC_MOCK = [
                     }
                 }
             },
-            "testConfig": {
+            "emulatorConfig": {
                 "startStateFilename": "ww_game_play_start.sav",
                 "endStateMemWatches": {},
                 "id": "tst-e4b351c979a942f0",
@@ -1404,7 +1404,7 @@ export const TESTS_PUBLIC_MOCK = [
             "screenshots": {}
         },
         "bootConfig": {
-            "testConfig": {
+            "emulatorConfig": {
                 "gameId": "GZLE01",
                 "platform": "gamecube",
                 "endStateMemWatches": {},
@@ -1584,7 +1584,7 @@ export const TESTS_PUBLIC_MOCK = [
                     }
                 }
             },
-            "testConfig": {
+            "emulatorConfig": {
                 "mode": "turn-based",
                 "platform": "gamecube",
                 "endStateMemWatches": {},
@@ -1681,7 +1681,7 @@ export const TESTS_PUBLIC_MOCK = [
                 "temperature": 1,
                 "contextHistorySize": 3
             },
-            "testConfig": {
+            "emulatorConfig": {
                 "gameId": "GZLE01",
                 "contextMemWatches": {
                     "LINK_Y": {
@@ -1819,7 +1819,7 @@ export const TESTS_PUBLIC_MOCK = [
             "experimentRunGroupId": "erg-3ecacf292af34da8",
             "id": "bootcfg-007666805a704878",
             "experimentId": "exp-d7f3b57db87b4310",
-            "testConfig": {
+            "emulatorConfig": {
                 "endStateMemWatches": {},
                 "contextMemWatches": {
                     "LINK_Y": {
@@ -1929,7 +1929,7 @@ export const TESTS_PUBLIC_MOCK = [
             },
             "id": "bootcfg-7fb8941ae3a84920",
             "experimentRunGroupId": "erg-3ecacf292af34da8",
-            "testConfig": {
+            "emulatorConfig": {
                 "endStateMemWatches": {},
                 "id": "tst-87b98be5d6f14e87",
                 "mode": "turn-based",
@@ -2095,7 +2095,7 @@ export const TESTS_PUBLIC_MOCK = [
         "bootConfig": {
             "experimentRunGroupId": "erg-3ecacf292af34da8",
             "id": "bootcfg-a0f608366217476d",
-            "testConfig": {
+            "emulatorConfig": {
                 "startStateFilename": "ww_game_play_start.sav",
                 "endStateMemWatches": {},
                 "contextMemWatches": {
@@ -2196,7 +2196,7 @@ export const TESTS_PUBLIC_MOCK = [
                 }
             },
             "experimentId": "exp-d7f3b57db87b4310",
-            "testConfig": {
+            "emulatorConfig": {
                 "contextMemWatches": {
                     "LINK_Y": {
                         "size": 4,
@@ -2405,7 +2405,7 @@ export const TESTS_PUBLIC_MOCK = [
                 }
             },
             "id": "bootcfg-682ea07eb70d4884",
-            "testConfig": {
+            "emulatorConfig": {
                 "mode": "turn-based",
                 "platform": "gamecube",
                 "endStateMemWatches": {},
@@ -2476,7 +2476,7 @@ export const TESTS_PUBLIC_MOCK = [
                 "contextHistorySize": 3,
                 "temperature": 1
             },
-            "testConfig": {
+            "emulatorConfig": {
                 "mode": "turn-based",
                 "platform": "gamecube",
                 "contextMemWatches": {
@@ -2669,7 +2669,7 @@ export const TESTS_PUBLIC_MOCK = [
                     }
                 }
             },
-            "testConfig": {
+            "emulatorConfig": {
                 "startStateFilename": "ww_game_play_start.sav",
                 "endStateMemWatches": {},
                 "id": "tst-e4b351c979a942f0",
@@ -2750,7 +2750,7 @@ export const TESTS_PUBLIC_MOCK = [
             "status": "finished"
         },
         "bootConfig": {
-            "testConfig": {
+            "emulatorConfig": {
                 "mode": "turn-based",
                 "id": "tst-11706b5345124834",
                 "endStateMemWatches": {},
@@ -2912,7 +2912,7 @@ export const TESTS_PUBLIC_MOCK = [
         },
         "bootConfig": {
             "id": "bootcfg-61e9a4786a504e69",
-            "testConfig": {
+            "emulatorConfig": {
                 "gameId": "GZLE01",
                 "id": "tst-1519bdc277e3464c",
                 "platform": "gamecube",
@@ -3149,7 +3149,7 @@ export const TESTS_PUBLIC_MOCK = [
         "bootConfig": {
             "id": "bootcfg-a86de940d5434828",
             "experimentRunGroupId": "erg-42ff07c906914c31",
-            "testConfig": {
+            "emulatorConfig": {
                 "id": "tst-504406302a7744c4",
                 "startStateFilename": "ww_game_play_start.sav",
                 "platform": "gamecube",
@@ -3261,7 +3261,7 @@ export const TESTS_PUBLIC_MOCK = [
             "nanoseconds": 320000000
         },
         "bootConfig": {
-            "testConfig": {
+            "emulatorConfig": {
                 "mode": "turn-based",
                 "gameId": "GZLE01",
                 "contextMemWatches": {
@@ -3380,7 +3380,7 @@ export const TESTS_PUBLIC_MOCK = [
                 "model": "gpt-4o",
                 "llmProvider": "openai"
             },
-            "testConfig": {
+            "emulatorConfig": {
                 "contextMemWatches": {
                     "LINK_Y": {
                         "address": "803E4410",
@@ -3638,7 +3638,7 @@ export const TESTS_PUBLIC_MOCK = [
                     }
                 }
             },
-            "testConfig": {
+            "emulatorConfig": {
                 "startStateFilename": "ww_game_play_start.sav",
                 "platform": "gamecube",
                 "contextMemWatches": {
@@ -3752,7 +3752,7 @@ export const TESTS_PUBLIC_MOCK = [
                 "taskName": "Find and climb down the ladder",
                 "systemPrompt": "You are an extremely competent video game playing agent. You will be given a task and tools to interact with a game. The game will pause while you are thinking, and only play during actions you take. Tools will be executed sequentially. Sometimes you may want to take an action, and then wait. Each response you give should be a very concise summary (1 sentance) of the action you are taking and why. You MUST give a text response every single time, even if calling tools. These responses will be fed back in as context for subsequent prompts. You will be given a history of your recent actions and related screenshots. Complete the objective."
             },
-            "testConfig": {
+            "emulatorConfig": {
                 "gameId": "GZLE01",
                 "platform": "gamecube",
                 "startStateFilename": "ww_game_play_start.sav",
@@ -4060,7 +4060,7 @@ export const TESTS_PUBLIC_MOCK = [
                 "taskDescription": "You will start out on top of a high wooden platform. You need to walk around using the main stick and find the ladder on the side of the platform. Walk into the ladder to start climbing down, and then climb all the way down."
             },
             "experimentId": "exp-d7f3b57db87b4310",
-            "testConfig": {
+            "emulatorConfig": {
                 "platform": "gamecube",
                 "contextMemWatches": {
                     "LINK_Y": {
@@ -4135,7 +4135,7 @@ export const TESTS_PUBLIC_MOCK = [
             "nanoseconds": 352000000
         },
         "bootConfig": {
-            "testConfig": {
+            "emulatorConfig": {
                 "contextMemWatches": {
                     "LINK_Y": {
                         "address": "803E4410",
@@ -4214,7 +4214,7 @@ export const TESTS_PUBLIC_MOCK = [
             "status": "finished"
         },
         "bootConfig": {
-            "testConfig": {
+            "emulatorConfig": {
                 "mode": "turn-based",
                 "gameId": "GZLE01",
                 "contextMemWatches": {
@@ -4431,7 +4431,7 @@ export const TESTS_PUBLIC_MOCK = [
             "status": "finished"
         },
         "bootConfig": {
-            "testConfig": {
+            "emulatorConfig": {
                 "mode": "turn-based",
                 "id": "tst-11706b5345124834",
                 "endStateMemWatches": {},
@@ -4593,7 +4593,7 @@ export const TESTS_PUBLIC_MOCK = [
         },
         "bootConfig": {
             "id": "bootcfg-61e9a4786a504e69",
-            "testConfig": {
+            "emulatorConfig": {
                 "gameId": "GZLE01",
                 "id": "tst-1519bdc277e3464c",
                 "platform": "gamecube",
@@ -4830,7 +4830,7 @@ export const TESTS_PUBLIC_MOCK = [
         "bootConfig": {
             "id": "bootcfg-a86de940d5434828",
             "experimentRunGroupId": "erg-42ff07c906914c31",
-            "testConfig": {
+            "emulatorConfig": {
                 "id": "tst-504406302a7744c4",
                 "startStateFilename": "ww_game_play_start.sav",
                 "platform": "gamecube",
@@ -4942,7 +4942,7 @@ export const TESTS_PUBLIC_MOCK = [
             "nanoseconds": 320000000
         },
         "bootConfig": {
-            "testConfig": {
+            "emulatorConfig": {
                 "mode": "turn-based",
                 "gameId": "GZLE01",
                 "contextMemWatches": {
@@ -5061,7 +5061,7 @@ export const TESTS_PUBLIC_MOCK = [
                 "model": "gpt-4o",
                 "llmProvider": "openai"
             },
-            "testConfig": {
+            "emulatorConfig": {
                 "contextMemWatches": {
                     "LINK_Y": {
                         "address": "803E4410",
@@ -5319,7 +5319,7 @@ export const TESTS_PUBLIC_MOCK = [
                     }
                 }
             },
-            "testConfig": {
+            "emulatorConfig": {
                 "startStateFilename": "ww_game_play_start.sav",
                 "platform": "gamecube",
                 "contextMemWatches": {
@@ -5433,7 +5433,7 @@ export const TESTS_PUBLIC_MOCK = [
                 "taskName": "Find and climb down the ladder",
                 "systemPrompt": "You are an extremely competent video game playing agent. You will be given a task and tools to interact with a game. The game will pause while you are thinking, and only play during actions you take. Tools will be executed sequentially. Sometimes you may want to take an action, and then wait. Each response you give should be a very concise summary (1 sentance) of the action you are taking and why. You MUST give a text response every single time, even if calling tools. These responses will be fed back in as context for subsequent prompts. You will be given a history of your recent actions and related screenshots. Complete the objective."
             },
-            "testConfig": {
+            "emulatorConfig": {
                 "gameId": "GZLE01",
                 "platform": "gamecube",
                 "startStateFilename": "ww_game_play_start.sav",
@@ -5741,7 +5741,7 @@ export const TESTS_PUBLIC_MOCK = [
                 "taskDescription": "You will start out on top of a high wooden platform. You need to walk around using the main stick and find the ladder on the side of the platform. Walk into the ladder to start climbing down, and then climb all the way down."
             },
             "experimentId": "exp-d7f3b57db87b4310",
-            "testConfig": {
+            "emulatorConfig": {
                 "platform": "gamecube",
                 "contextMemWatches": {
                     "LINK_Y": {
@@ -5816,7 +5816,7 @@ export const TESTS_PUBLIC_MOCK = [
             "nanoseconds": 352000000
         },
         "bootConfig": {
-            "testConfig": {
+            "emulatorConfig": {
                 "contextMemWatches": {
                     "LINK_Y": {
                         "address": "803E4410",
@@ -5895,7 +5895,7 @@ export const TESTS_PUBLIC_MOCK = [
             "status": "finished"
         },
         "bootConfig": {
-            "testConfig": {
+            "emulatorConfig": {
                 "mode": "turn-based",
                 "gameId": "GZLE01",
                 "contextMemWatches": {

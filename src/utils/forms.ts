@@ -4,7 +4,7 @@ import z from "zod";
 
 export function configFormToEmuBootConfig(formData: z.infer<typeof SETUP_TEST_CONFIG_SCHEMA>): EmuBootConfig {
   return {
-    testConfig: {
+    emulatorConfig: {
       gameId: DEBUG_GAME_MAP[formData.gameConfig.game],
       // @ts-ignore Lazy
       platform: formData.gameConfig.platform,
@@ -18,6 +18,7 @@ export function configFormToEmuBootConfig(formData: z.infer<typeof SETUP_TEST_CO
         };
         return acc;
       }, {}) : {},
+      shader: formData.gameConfig.shader || undefined,
       // TODO: Remove
       endStateMemWatches: {}
     },

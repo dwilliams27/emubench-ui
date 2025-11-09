@@ -1,4 +1,4 @@
-import { TestConfigForm } from "@/components/test/config/test-config-form";
+import { EmulatorConfigForm } from "@/components/test/config/test-config-form";
 import { SETUP_TEST_CONFIG_SCHEMA } from "@/components/test/config/types";
 import { ExperimentView } from "@/components/test/experiments/active/experiment-active-view";
 import { EXPERIMENT_CONFIG_SCHEMA, ExperimentConfig } from "@/components/test/experiments/config/experiment-config";
@@ -54,7 +54,7 @@ export default function TestExperiment() {
     setCurrentView(SETUP_EXPERIMENT_VIEWS.BASE_CONFIG);
   }
 
-  const onTestConfigSubmit = async (formData: z.infer<typeof SETUP_TEST_CONFIG_SCHEMA>) => {
+  const onEmulatorConfigSubmit = async (formData: z.infer<typeof SETUP_TEST_CONFIG_SCHEMA>) => {
     const bootConfig = configFormToEmuBootConfig(formData);
     setBaseConfig(bootConfig);
     setCurrentView(SETUP_EXPERIMENT_VIEWS.GROUP_CONFIG);
@@ -82,10 +82,10 @@ export default function TestExperiment() {
               Configure base settings for the experiment. Next you will be able to configure different test groups that can each a subset of these parameters.
             </CardContent>
           </Card>
-          <TestConfigForm onSubmit={onTestConfigSubmit} buttonText="Next" />
+          <EmulatorConfigForm onSubmit={onEmulatorConfigSubmit} buttonText="Next" />
         </div>
       )}
-      {currentView === SETUP_EXPERIMENT_VIEWS.GROUP_CONFIG && <ExperimentGroupConfig onSubmit={onExperimentGroupConfigSubmit} submitting={submitting} />}
+      {currentView === SETUP_EXPERIMENT_VIEWS.GROUP_CONFIG && <ExperimentGroupConfig onSubmit={onExperimentGroupConfigSubmit} submitting={submitting} baseConfig={baseConfig as EmuBootConfig} />}
       {currentView === SETUP_EXPERIMENT_VIEWS.ACTIVE_EXPERIMENT && <ExperimentView experiment={experiment!} />}
     </div>
   )

@@ -1,6 +1,6 @@
 import type { Api } from "@/services/emubench-serv";
 import type { TestChatSegment } from "@/constants/games";
-import { MockGetActiveTestConfigResponse, MockGetActiveTestStateResponse, MockGetExperimentSummaryResponse, MockGetHistoryResponse, MockGetTraceLogsResponse } from "@/services/mock-data/responses";
+import { MockGetActiveEmulatorConfigResponse, MockGetActiveTestStateResponse, MockGetExperimentSummaryResponse, MockGetHistoryResponse, MockGetTraceLogsResponse } from "@/services/mock-data/responses";
 import type { EmuActiveTestReponse, EmuBootConfig, EmuGetTestHistoryResponse, EmuGetTraceLogsResponse, EmuSetupExperimentResponse } from "@/shared/types";
 import { EmuExperiment } from "@/shared/types/experiments";
 import { EmuGetExperimentSummaryResponse } from "@/shared/types/requests";
@@ -10,7 +10,7 @@ export class EmuBenchServMock implements Api {
 
   async getAuthToken() { return 'testing'; };
   async makeApiCall(_endpoint: string, _method: string, _data?: any) { return null };
-  async fetchTestConfigs() { return MockGetActiveTestConfigResponse };
+  async fetchEmulatorConfigs() { return MockGetActiveEmulatorConfigResponse };
   async setupTest(_: EmuBootConfig) {
     await new Promise(resolve => setTimeout(resolve, 1000));
 

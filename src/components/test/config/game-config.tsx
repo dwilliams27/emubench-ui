@@ -1,6 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { AVAILABLE_SAVE_STATES, SETUP_TEST_CONFIG_SCHEMA, GAMES, PLATFORMS, GAME_CONTEXT } from "@/components/test/config/types"
+import { AVAILABLE_SAVE_STATES, SETUP_TEST_CONFIG_SCHEMA, GAMES, PLATFORMS, GAME_CONTEXT, SHADERS } from "@/components/test/config/types"
 import { useWatch, type UseFormReturn } from "react-hook-form";
 import { FormField, FormItem, FormLabel } from "@/components/ui/form";
 import { useMemo } from "react";
@@ -103,6 +103,30 @@ export function GameConfig({ form }: { form: UseFormReturn<z.infer<typeof SETUP_
                     { availableSaveStates.map((saveState) => (
                       <SelectItem key={saveState.filename} value={saveState.filename}>
                         {saveState.displayName}
+                      </SelectItem>
+                    )) }
+                  </SelectContent>
+                </Select>
+              </div>
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="gameConfig.shader"
+          render={({ field }) => (
+            <FormItem>
+              <div className="flex items-center justify-between">
+                <FormLabel>Shader</FormLabel>
+                <Select onValueChange={field.onChange} value={field.value}>
+                  <SelectTrigger className="w-1/2">
+                    <SelectValue placeholder="None" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    { SHADERS.map((shader) => (
+                      <SelectItem key={shader} value={shader}>
+                        {shader}
                       </SelectItem>
                     )) }
                   </SelectContent>

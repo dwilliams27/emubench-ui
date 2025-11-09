@@ -38,6 +38,6 @@ export const DSERV_ENDPOINTS = {
   }
 };
 
-export interface GetActiveTestConfigResponse {
+export interface GetActiveEmulatorConfigResponse {
   tests: Test[];
 }

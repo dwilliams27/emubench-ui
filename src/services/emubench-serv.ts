@@ -1,6 +1,6 @@
 import axios, { type AxiosInstance } from 'axios';
 import { config } from '@/config';
-import type { GetActiveTestConfigResponse } from '@/constants/api';
+import type { GetActiveEmulatorConfigResponse } from '@/constants/api';
 import { getIdToken } from 'firebase/auth';
 import { auth } from '@/constants/firebase';
 import type z from 'zod';
@@ -12,7 +12,7 @@ import { EmuGetExperimentSummaryResponse } from '@/shared/types/requests';
 export interface Api {
   getAuthToken: () => Promise<string>;
   makeApiCall: (endpoint: string, method: string, data?: any) => Promise<any>;
-  fetchTestConfigs: () => Promise<GetActiveTestConfigResponse>;
+  fetchEmulatorConfigs: () => Promise<GetActiveEmulatorConfigResponse>;
   setupTest: (config: EmuBootConfig) => Promise<{ testId: string }>;
   getActiveTestState: (testId: string) => Promise<[EmuActiveTestReponse, number]>;
   getTrace: (traceId: string) => Promise<[EmuGetTraceLogsResponse, number]>;
@@ -101,7 +101,7 @@ export class EmuBenchServ implements Api {
     }
   }
 
-  fetchTestConfigs = async () => {
+  fetchEmulatorConfigs = async () => {
     const authToken = await this.getAuthToken();
     try {
       const response = await this.axiosInstance.get(

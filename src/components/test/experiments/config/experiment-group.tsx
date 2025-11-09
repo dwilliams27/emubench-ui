@@ -4,12 +4,13 @@ import { Button } from "@/components/ui/button"
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { EmuBootConfig } from "@/shared/types";
 import { EmuExperimentRunGroup } from "@/shared/types/experiments";
 import { ColumnDef, flexRender, getCoreRowModel, useReactTable } from "@tanstack/react-table";
 import { SquarePen, XIcon } from "lucide-react";
 import { useMemo, useState } from "react";
 
-export function ExperimentGroup({ group, addIterations, removeConfigDeltaItem, addConfigDeltaItem, deleteGroup, updateGroupName }: { group: EmuExperimentRunGroup, addIterations: (amount: number) => void, removeConfigDeltaItem: (key: string) => void, addConfigDeltaItem: (data: { key: string, value?: any }) => void, deleteGroup: (id: string) => void, updateGroupName: (id: string, name: string) => void }) {
+export function ExperimentGroup({ group, baseConfig, addIterations, removeConfigDeltaItem, addConfigDeltaItem, deleteGroup, updateGroupName }: { group: EmuExperimentRunGroup, baseConfig: EmuBootConfig, addIterations: (amount: number) => void, removeConfigDeltaItem: (key: string) => void, addConfigDeltaItem: (data: { key: string, value?: any }) => void, deleteGroup: (id: string) => void, updateGroupName: (id: string, name: string) => void }) {
   const [addFormOpen, setAddFormOpen] = useState(false);
   const [isEditingName, setIsEditingName] = useState(false);
   const [editingName, setEditingName] = useState(group.name);
@@ -35,21 +36,32 @@ export function ExperimentGroup({ group, addIterations, removeConfigDeltaItem, a
     }
   };
 
+  // Merge baseConfig with group's delta to get current effective config
+  const effectiveConfig = useMemo(() => {
+    return {
+      ...baseConfig,
+      agentConfig: {
+        ...baseConfig.agentConfig,
+        ...group.baseConfigDelta.agentConfig,
+      }
+    } as EmuBootConfig;
+  }, [baseConfig, group.baseConfigDelta]);
+
   const columns: ColumnDef<{ key: string, value: string, displayValue: string }>[] = useMemo(() =>[
     {
       accessorKey: "key",
       header: "Key",
-      cell: ({ row }) => <div className="lowercase">{row.getValue("key")}</div>,
+      cell: ({ row }) => <div>{row.getValue("key")}</div>,
     },
     {
       accessorKey: "displayValue",
       header: "Value",
-      cell: ({ row }) => <div className="lowercase">{row.getValue("displayValue")}</div>,
+      cell: ({ row }) => <div>{row.getValue("displayValue")}</div>,
     },
     {
       accessorKey: "remove",
       header: () => (
-        <AddConfigDeltaModal onSubmit={addConfigDeltaItem} open={addFormOpen} close={() => setAddFormOpen(false)}>
+        <AddConfigDeltaModal onSubmit={addConfigDeltaItem} open={addFormOpen} close={() => setAddFormOpen(false)} currentConfig={effectiveConfig}>
           <div className="flex justify-end">
             <Button variant="outline" className="h-2" onClick={() => setAddFormOpen(true)}>+</Button>
           </div>
@@ -63,13 +75,15 @@ export function ExperimentGroup({ group, addIterations, removeConfigDeltaItem, a
         </div>
       ),
     },
-  ], [removeConfigDeltaItem, addConfigDeltaItem, addFormOpen, setAddFormOpen]);
+  ], [removeConfigDeltaItem, addConfigDeltaItem, addFormOpen, setAddFormOpen, effectiveConfig]);
 
   const data = useMemo(() => {
-    if (!group.baseConfigDelta.agentConfig) {
-      return [];
-    }
-    return Object.entries(group.baseConfigDelta.agentConfig).map(([key, value]) => {
+    const configEntries = [
+      ...Object.entries(group.baseConfigDelta.agentConfig || {}),
+      ...Object.entries(group.baseConfigDelta.emulatorConfig || {}),
+    ];
+
+    return configEntries.map(([key, value]) => {
       let displayValue = value as string;
       if (key in DeltaFields) {
         const field = DeltaFields[key as keyof typeof DeltaFields];
@@ -77,10 +91,9 @@ export function ExperimentGroup({ group, addIterations, removeConfigDeltaItem, a
           displayValue = field.toDisplayValue(value as string);
         }
       }
-      // TODO: Handler numbers
       return { key, value: value as string, displayValue };
     });
-  }, [group.baseConfigDelta.agentConfig]);
+  }, [group.baseConfigDelta.agentConfig, group.baseConfigDelta.emulatorConfig]);
 
   const table = useReactTable({
     data,

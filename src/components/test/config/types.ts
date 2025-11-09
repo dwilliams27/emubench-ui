@@ -162,12 +162,62 @@ export const MODELS = {
   ],
 };
 
+export const SHADERS = [
+  "16bit",
+  "32bit",
+  "acidmetal",
+  "acidtrip",
+  "acidtrip2",
+  "asciiart",
+  "auto_toon",
+  "auto_toon2",
+  "AutoHDR",
+  "bad_bloom",
+  "brighten",
+  "chrismas",
+  "cool1",
+  "darkerbrighter",
+  "default_pre_post_process",
+  "emboss",
+  "fire",
+  "fire2",
+  "firewater",
+  "FXAA",
+  "grayscale",
+  "grayscale2",
+  "integer_scaling",
+  "invert_blue",
+  "invert",
+  "invertedoutline",
+  "lens_distortion",
+  "mad_world",
+  "nightvision",
+  "nightvision2",
+  "nightvision2scanlines",
+  "PerceptualHDR",
+  "posterize",
+  "posterize2",
+  "primarycolors",
+  "sepia",
+  "sketchy",
+  "spookey1",
+  "spookey2",
+  "sunset",
+  "swap_RGB_BGR",
+  "swap_RGB_BRG",
+  "swap_RGB_GBR",
+  "swap_RGB_GRB",
+  "swap_RGB_RBG",
+  "toxic"
+];
+
 export const SETUP_TEST_CONFIG_SCHEMA = z.object({
   gameConfig: z.object({
     platform: z.string(),
     game: z.string(),
     saveState: z.object({ filename: z.string(), displayName: z.string() }),
-    gameMode: z.enum(['turn-based', 'real-time'])
+    gameMode: z.enum(['turn-based', 'real-time']),
+    shader: z.string().optional()
   }),
   agentConfig: z.object({
     modelProvider: z.string(),

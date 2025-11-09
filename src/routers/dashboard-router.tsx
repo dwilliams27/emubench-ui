@@ -2,7 +2,7 @@ import { Navigate, Route, Routes } from "react-router-dom";
 
 import ApiPlayground from "@/pages/api-playground";
 import { DashboardLayout } from "@/layouts/dashboard-layout";
-import TestConfig from "@/pages/test-config";
+import EmulatorConfig from "@/pages/test-config";
 import ActiveTests from "@/pages/active-tests";
 import TestHistory from "@/pages/test-history";
 import Traces from "@/pages/traces";
@@ -14,7 +14,7 @@ export function DashboardRouter() {
       <Route path="/" element={<DashboardLayout />}>
         <Route path="/" element={<Navigate to="/dashboard/active-tests" replace />}></Route>
         <Route path="/active-tests" element={<ActiveTests />} />
-        <Route path="/test-config" element={<TestConfig />} />
+        <Route path="/test-config" element={<EmulatorConfig />} />
         <Route path="/test-experiment" element={<TestExperiment />} />
         <Route path="/test-history" element={<TestHistory />} />
 
