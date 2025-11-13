@@ -1,9 +1,9 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { SETUP_TEST_CONFIG_SCHEMA, MODEL_PROVIDERS, MODELS } from "@/components/test/config/types"
+import { SETUP_TEST_CONFIG_SCHEMA, MODEL_PROVIDERS, MODELS, TASK_PRESETS, SYSTEM_PROMPT_PRESETS } from "@/components/test/config/types"
 import { useWatch, type UseFormReturn } from "react-hook-form";
 import { FormField, FormItem, FormLabel } from "@/components/ui/form";
-import { useMemo } from "react";
+import { useMemo, useState, useEffect } from "react";
 import type z from "zod";
 import { Separator } from "@/components/ui/separator";
 import { Input } from "@/components/ui/input";
@@ -11,7 +11,15 @@ import { Slider } from "@/components/ui/slider";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 
-export function AgentConfig({ form }: { form: UseFormReturn<z.infer<typeof SETUP_TEST_CONFIG_SCHEMA>> }) {
+export function AgentConfig({
+  form,
+  defaultTaskPresetId = "custom",
+  defaultSystemPromptPresetId = "custom"
+}: {
+  form: UseFormReturn<z.infer<typeof SETUP_TEST_CONFIG_SCHEMA>>,
+  defaultTaskPresetId?: string,
+  defaultSystemPromptPresetId?: string
+}) {
   const selectedModelProvider = useWatch({
     control: form.control,
     name: "agentConfig.modelProvider"
@@ -21,9 +29,74 @@ export function AgentConfig({ form }: { form: UseFormReturn<z.infer<typeof SETUP
     if (!selectedModelProvider) {
       return [];
     }
-    
+
     return MODELS[selectedModelProvider];
   }, [selectedModelProvider]);
+
+  const selectedGame = useWatch({
+    control: form.control,
+    name: "gameConfig.game"
+  });
+
+  const selectedSaveState = useWatch({
+    control: form.control,
+    name: "gameConfig.saveState"
+  });
+
+  const [selectedTaskPreset, setSelectedTaskPreset] = useState<string>(defaultTaskPresetId);
+  const [selectedSystemPromptPreset, setSelectedSystemPromptPreset] = useState<string>(defaultSystemPromptPresetId);
+
+  const availableTaskPresets = useMemo(() => {
+    if (!selectedGame || !selectedSaveState) {
+      return [];
+    }
+
+    const gamePresets = TASK_PRESETS[selectedGame] || [];
+    return gamePresets.filter(preset =>
+      preset.applicableSaveStates.includes(selectedSaveState.filename)
+    );
+  }, [selectedGame, selectedSaveState]);
+
+  const handleTaskPresetChange = (presetId: string) => {
+    setSelectedTaskPreset(presetId);
+
+    if (presetId === "custom") {
+      return;
+    }
+
+    const preset = availableTaskPresets.find(p => p.id === presetId);
+    if (preset) {
+      form.setValue("agentConfig.taskName", preset.name);
+      form.setValue("agentConfig.taskDescription", preset.description);
+    }
+  };
+
+  const handleSystemPromptPresetChange = (presetId: string) => {
+    setSelectedSystemPromptPreset(presetId);
+
+    if (presetId === "custom") {
+      return;
+    }
+
+    const preset = SYSTEM_PROMPT_PRESETS.find(p => p.id === presetId);
+    if (preset) {
+      form.setValue("agentConfig.systemPrompt", preset.content);
+    }
+  };
+
+  // Auto-select first task preset when save state changes (unless set to custom)
+  useEffect(() => {
+    if (selectedTaskPreset === "custom") {
+      return;
+    }
+
+    if (availableTaskPresets.length > 0) {
+      const firstPreset = availableTaskPresets[0];
+      setSelectedTaskPreset(firstPreset.id);
+      form.setValue("agentConfig.taskName", firstPreset.name);
+      form.setValue("agentConfig.taskDescription", firstPreset.description);
+    }
+  }, [availableTaskPresets, selectedTaskPreset, form]);
 
   return (
     <Card className="w-full">
@@ -136,46 +209,85 @@ export function AgentConfig({ form }: { form: UseFormReturn<z.infer<typeof SETUP
 
         <div className="flex flex-row space-x-3">
           <div className="flex flex-col space-y-4 w-1/2">
-            <FormField
-              control={form.control}
-              name="agentConfig.taskName"
-              render={({ field }) => (
-                <div className="space-y-2">
-                  <FormLabel>Task Name</FormLabel>
-                  <Input onChange={field.onChange} defaultValue={field.value} />
-                </div>
-              )}
-            />
+            <div className="space-y-2">
+              <FormLabel>Task</FormLabel>
+              <Select onValueChange={handleTaskPresetChange} value={selectedTaskPreset}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Select a task preset" />
+                </SelectTrigger>
+                <SelectContent>
+                  {availableTaskPresets.map(preset => (
+                    <SelectItem key={preset.id} value={preset.id}>
+                      {preset.name}
+                    </SelectItem>
+                  ))}
+                  <SelectItem value="custom">Custom Task</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+
+            {selectedTaskPreset === "custom" && (
+              <FormField
+                control={form.control}
+                name="agentConfig.taskName"
+                render={({ field }) => (
+                  <div className="space-y-2">
+                    <FormLabel>Task Name</FormLabel>
+                    <Input onChange={field.onChange} value={field.value} />
+                  </div>
+                )}
+              />
+            )}
+
             <FormField
               control={form.control}
               name="agentConfig.taskDescription"
               render={({ field }) => (
                 <div className="space-y-2 w-full">
                   <FormLabel>Task Description</FormLabel>
-                  <Textarea 
-                    onChange={field.onChange} 
+                  <Textarea
+                    onChange={field.onChange}
+                    value={field.value}
                     className="flex-1 resize-none h-30 overflow-y-auto"
-                    defaultValue={field.value}
                   />
                 </div>
               )}
             />
           </div>
-          <FormField
-            control={form.control}
-            name="agentConfig.systemPrompt"
-            render={({ field }) => (
-              <div className="space-y-2 w-1/2 flex-1 flex flex-col">
-                <FormLabel>System Prompt</FormLabel>
-                <Textarea 
-                  onChange={field.onChange} 
-                  className="flex-1 resize-none max-h-48 overflow-y-auto"
-                  placeholder="Enter system prompt..."
-                  defaultValue={field.value}
-                />
-              </div>
-            )}
-          />
+          <div className="w-1/2 flex flex-col space-y-4">
+            <div className="space-y-2">
+              <FormLabel>System Prompt Preset</FormLabel>
+              <Select onValueChange={handleSystemPromptPresetChange} value={selectedSystemPromptPreset}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Select a prompt preset" />
+                </SelectTrigger>
+                <SelectContent>
+                  {SYSTEM_PROMPT_PRESETS.map(preset => (
+                    <SelectItem key={preset.id} value={preset.id}>
+                      {preset.name}
+                    </SelectItem>
+                  ))}
+                  <SelectItem value="custom">Custom</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+
+            <FormField
+              control={form.control}
+              name="agentConfig.systemPrompt"
+              render={({ field }) => (
+                <div className="space-y-2 flex-1 flex flex-col">
+                  <FormLabel>System Prompt</FormLabel>
+                  <Textarea
+                    onChange={field.onChange}
+                    value={field.value}
+                    className="flex-1 resize-none max-h-48 overflow-y-auto"
+                    placeholder="Enter system prompt..."
+                  />
+                </div>
+              )}
+            />
+          </div>
         </div>
       </CardContent>
     </Card>

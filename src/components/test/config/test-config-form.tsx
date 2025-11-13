@@ -2,14 +2,17 @@ import { AgentConfig } from "@/components/test/config/agent-config";
 import { GameConfig } from "@/components/test/config/game-config";
 import { GoalConfig } from "@/components/test/config/goal/goal-config";
 import { MemoryConfig } from "@/components/test/config/memory/memory-config";
-import { MODEL_PROVIDERS, MODELS, PLATFORMS, GAMES, SETUP_TEST_CONFIG_SCHEMA, AVAILABLE_SAVE_STATES, GAME_CONTEXT } from "@/components/test/config/types";
+import { MODEL_PROVIDERS, MODELS, PLATFORMS, GAMES, SETUP_TEST_CONFIG_SCHEMA, AVAILABLE_SAVE_STATES, GAME_CONTEXT, TASK_PRESETS, SYSTEM_PROMPT_PRESETS } from "@/components/test/config/types";
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
-export function EmulatorConfigForm({ onSubmit, submitting, buttonText }: { onSubmit: (formData: z.infer<typeof SETUP_TEST_CONFIG_SCHEMA>) => Promise<void>, submitting?: boolean, buttonText?: string }) {
+const DEFAULT_TASK_PRESET = TASK_PRESETS[GAMES.ZELDA_WIND_WAKER].find(t => t.id === "ww-ladder")!;
+const DEFAULT_SYSTEM_PROMPT_PRESET = SYSTEM_PROMPT_PRESETS.find(p => p.id === "default-agent")!;
+
+export function TestConfigForm({ onSubmit, submitting, buttonText }: { onSubmit: (formData: z.infer<typeof SETUP_TEST_CONFIG_SCHEMA>) => Promise<void>, submitting?: boolean, buttonText?: string }) {
   const form = useForm<z.infer<typeof SETUP_TEST_CONFIG_SCHEMA>>({
     resolver: zodResolver(SETUP_TEST_CONFIG_SCHEMA),
     defaultValues: {
@@ -26,9 +29,9 @@ export function EmulatorConfigForm({ onSubmit, submitting, buttonText }: { onSub
         maxIterations: "20",
         temperature: 1.0,
         contextHistorySize: 3,
-        taskName: "Find and climb down the ladder",
-        taskDescription: "You will start out on top of a high wooden platform. You need to walk around using the main stick and find the ladder on the side of the platform. Walk into the ladder to start climbing down, and then climb all the way down.",
-        systemPrompt: `You are an extremely competent video game playing agent. You will be given a task and tools to interact with a game. The game will pause while you are thinking, and only play during actions you take. Tools will be executed sequentially. Sometimes you may want to take an action, and then wait. Each response you give should be a very concise summary (1 sentance) of the action you are taking and why. You MUST give a text response every single time, even if calling tools. These responses will be fed back in as context for subsequent prompts. You will be given a history of your recent actions and related screenshots. Complete the objective.`
+        taskName: DEFAULT_TASK_PRESET.name,
+        taskDescription: DEFAULT_TASK_PRESET.description,
+        systemPrompt: DEFAULT_SYSTEM_PROMPT_PRESET.content
       },
       memoryConfig: {
         context: {},
@@ -60,7 +63,11 @@ export function EmulatorConfigForm({ onSubmit, submitting, buttonText }: { onSub
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
         <div className="flex flex-col space-y-4 md:flex-row md:space-y-0 space-x-4">
           <GameConfig form={form} />
-          <AgentConfig form={form} />
+          <AgentConfig
+            form={form}
+            defaultTaskPresetId="ww-climb-down-ladder"
+            defaultSystemPromptPresetId="default-agent"
+          />
         </div>
         <MemoryConfig form={form} />
         <GoalConfig form={form} />

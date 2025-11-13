@@ -1,4 +1,4 @@
-import { EmulatorConfigForm } from "@/components/test/config/test-config-form";
+import { TestConfigForm } from "@/components/test/config/test-config-form";
 import { DEBUG_GAME_MAP, GAMES, SETUP_TEST_CONFIG_SCHEMA } from "@/components/test/config/types";
 import { Button } from "@/components/ui/button";
 import { useApi } from "@/contexts/api-context";
@@ -46,7 +46,7 @@ export default function EmulatorConfig() {
 
   return (
     <div>
-      <EmulatorConfigForm onSubmit={onSubmit} submitting={submitting} />
+      <TestConfigForm onSubmit={onSubmit} submitting={submitting} />
       { testId && (
         <Button className="mx-auto" size="sm" disabled={submitting} onClick={() => navigateToTest(testId)}>
           {`Navigate to ${testId}`}

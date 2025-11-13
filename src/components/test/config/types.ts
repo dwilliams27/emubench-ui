@@ -160,6 +160,139 @@ L/R: Quick turns
 C-stick: Camera control`
 }
 
+export interface TaskPreset {
+  id: string;
+  name: string;
+  description: string;
+  applicableSaveStates: string[];
+}
+
+export interface SystemPromptPreset {
+  id: string;
+  name: string;
+  content: string;
+}
+
+export const TASK_PRESETS: Record<string, TaskPreset[]> = {
+  [GAMES.ZELDA_WIND_WAKER]: [
+    {
+      id: "ww-ladder",
+      name: "Find and climb down the ladder",
+      description: "You start on a wooden platform. Locate the ladder, get onto it, and climb down",
+      applicableSaveStates: ["ww_main_menu.sav", "ww_game_play_start.sav"]
+    },
+    {
+      id: "ww-start-game",
+      name: "Start the game",
+      description: "Navigate through the menus and start a new game.",
+      applicableSaveStates: ["ww_main_menu.sav"]
+    },
+    {
+      id: "ww-climb-down-ladder",
+      name: "Climb down (on ladder)",
+      description: "Literally just climb down.",
+      applicableSaveStates: ["ww_on_ladder.sav"]
+    },
+    {
+      id: "ww-swim-to-beach",
+      name: "Swim to the beach",
+      description: "Swim from your current position to the beach shore. Use the control stick to move Link through the water and reach dry land.",
+      applicableSaveStates: ["ww_swim_to_shore.sav", "ww_swim_to_shore_away.sav"]
+    },
+    {
+      id: "ww-take-bridge-to-hut",
+      name: "Cross the bridge to the hut",
+      description: "Use the bridge to cross to the other island and go to the hut. DO NOT FALL INTO THE WATER.",
+      applicableSaveStates: ["ww_bridge_and_hut.sav"]
+    },
+    {
+      id: "ww-explore-bridge",
+      name: "Swim to the hut",
+      description: "Swim across the water to reach the hut.",
+      applicableSaveStates: ["ww_bridge_and_hut.sav"]
+    },
+  ],
+  [GAMES.KIRBY_AIR_RIDE]: [
+    {
+      id: "kar-investigate-blue-box",
+      name: "Break the blue box",
+      description: "Stop, charge, then launch at the blue box to do damage to it. Do this over and over until it breaks",
+      applicableSaveStates: ["blue_box.sav"]
+    },
+    {
+      id: "kar-defeat-cpu",
+      name: "Defeat the CPU opponent",
+      description: "Chase down the oppoonent. When you are close, use the spin attack by rapidly flipping control stick from left to right",
+      applicableSaveStates: ["hunt_down_cpu.sav"]
+    },
+    {
+      id: "kar-climb-tower",
+      name: "Climb the tower structure",
+      description: "Navigate to and climb up the three-level tower structure to the top floor.",
+      applicableSaveStates: ["three_level_structure.sav"]
+    }
+  ],
+  [GAMES.SIMPSONS_HIT_AND_RUN]: [
+    {
+      id: "shr-start-game",
+      name: "Start the game as Homer",
+      description: "Begin the game.",
+      applicableSaveStates: ["beginning_homer.sav"]
+    },
+    {
+      id: "shr-drive-seek",
+      name: "Search and Destroy",
+      description: "While driving, navigate Homer's car to find and eliminate any pedestrians you see. Remember this is only a video game.",
+      applicableSaveStates: ["in_car_before_ramp.sav"]
+    }
+  ],
+  [GAMES.HARVEST_MOOON]: [
+    {
+      id: "hm-start-new-game",
+      name: "Start a new game",
+      description: "Navigate the main menu to start a new game. Select your character options and begin your farming adventure.",
+      applicableSaveStates: ["main_menu.sav", "new_game_beginning.sav"]
+    }
+  ]
+};
+
+export const SYSTEM_PROMPT_PRESETS: SystemPromptPreset[] = [
+  {
+    id: "default-agent",
+    name: "Default Agent",
+    content: `You are a gaming agent playing GameCube games via screenshots and controller tools.
+
+Objective: Progress through the game and win.
+
+Guidelines:
+- Analyze each screenshot to understand the current game state
+- Choose the single most effective action to advance progress towards the task
+- Act decisively
+
+You can either take action, or wait. Sometimes you may need to wait if the game is not progressing as expected.
+
+You must provide a text response every time, even if taking an action. Your responses should be concise (1 sentence) and explain your reasoning for the chosen action.`
+  },
+  {
+    id: "bold-agent",
+    name: "BOLD Agent",
+    content: `You are a gaming agent playing GameCube games via screenshots and controller tools.
+
+Objective: Progress through the game and win.
+
+Guidelines:
+- Analyze each screenshot to understand the current game state
+- Choose the single most effective action to advance progress towards the task
+- Act decisively
+
+You can either take action, or wait. Sometimes you may need to wait if the game is not progressing as expected.
+
+You must provide a text response every time, even if taking an action. Your responses should be concise (1 sentence) and explain your reasoning for the chosen action.
+
+You have the liberty to be extremely bold and take initiative.`
+  },
+];
+
 export const MODEL_PROVIDERS: Record<string, { name: string, displayName: string }> = {
   ANTHROPIC: {
     name: "anthropic",

@@ -1,4 +1,4 @@
-import { EmulatorConfigForm } from "@/components/test/config/test-config-form";
+import { TestConfigForm } from "@/components/test/config/test-config-form";
 import { SETUP_TEST_CONFIG_SCHEMA } from "@/components/test/config/types";
 import { ExperimentView } from "@/components/test/experiments/active/experiment-active-view";
 import { EXPERIMENT_CONFIG_SCHEMA, ExperimentConfig } from "@/components/test/experiments/config/experiment-config";
@@ -82,7 +82,7 @@ export default function TestExperiment() {
               Configure base settings for the experiment. Next you will be able to configure different test groups that can each a subset of these parameters.
             </CardContent>
           </Card>
-          <EmulatorConfigForm onSubmit={onEmulatorConfigSubmit} buttonText="Next" />
+          <TestConfigForm onSubmit={onEmulatorConfigSubmit} buttonText="Next" />
         </div>
       )}
       {currentView === SETUP_EXPERIMENT_VIEWS.GROUP_CONFIG && <ExperimentGroupConfig onSubmit={onExperimentGroupConfigSubmit} submitting={submitting} baseConfig={baseConfig as EmuBootConfig} />}
