@@ -51,6 +51,18 @@ export const AVAILABLE_SAVE_STATES = {
         filename: "ww_on_ladder.sav",
         displayName: "On Ladder"
       },
+      {
+        filename: "ww_swim_to_shore.sav",
+        displayName: "Swim to Shore"
+      },
+      {
+        filename: "ww_swim_to_shore_away.sav",
+        displayName: "Swim to Shore (Facing Away)"
+      },
+      {
+        filename: "ww_bridge_and_hut.sav",
+        displayName: "Bridge and Hut"
+      },
     ],
     [GAMES.KIRBY_AIR_RIDE]: [
       {
@@ -87,7 +99,40 @@ export const DEBUG_GAME_MAP = {
 };
 
 export const GAME_CONTEXT = {
-  [GAMES.ZELDA_WIND_WAKER]: `You are playing the Legend of Zelda Wind Waker on the Gamecube.`,
+  [GAMES.ZELDA_WIND_WAKER]: `
+GameCube Controls for Zelda: Wind Waker
+Movement & Camera:
+
+Control Stick: Move Link (walk/run based on tilt)
+C-Stick: Control camera angle
+L-trigger: Z-target (lock onto enemies/NPCs)
+R-trigger: Hold to guard with shield
+
+Actions:
+
+A button: Context-sensitive action (talk, open, climb, roll, pick up) - indicated by on-screen prompt
+B button: Sword attack (hold for charged spin attack when at full health)
+
+Items & Inventory:
+
+X, Y, Z buttons: Use assigned items (equip via pause menu)
+Start: Pause menu (access items, map, quest log)
+
+Combat Notes:
+
+A while Z-targeting: Jump attack or roll dodge (direction dependent)
+A after enemy swing (good timing): Parry counter
+Control Stick + B: Directional sword strikes
+
+Important Mechanics:
+
+Hold A near ledges: Hang/shimmy
+A near walls: Flatten against wall
+R while moving: Defensive sidestep
+Wind Waker: Conduct songs by following on-screen button prompts in 3/4 or 4/4 time
+
+Context is key: A button changes function based on proximity to objects/NPCs (green icon shows available action).
+`,
   [GAMES.SIMPSONS_HIT_AND_RUN]: `Controls:
 On Foot:
 Left stick: Move character
