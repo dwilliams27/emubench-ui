@@ -337,6 +337,10 @@ export const MODELS = {
       name: "gpt-5",
       displayName: "GPT-5"
     },
+    {
+      name: "gpt-5.1",
+      displayName: "GPT-5.1"
+    },
   ],
 };
 

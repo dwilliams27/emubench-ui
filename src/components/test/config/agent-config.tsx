@@ -159,7 +159,7 @@ export function AgentConfig({
               <div className="space-y-2 w-1/3 flex flex-col items-center">
                 <FormLabel className="block text-center">Max Iterations</FormLabel>
                 <Select onValueChange={field.onChange} defaultValue={"15"}>
-                  <SelectTrigger className="w-1/2">
+                  <SelectTrigger>
                     <SelectValue placeholder="Select a max number of iterations" />
                   </SelectTrigger>
                   <SelectContent>
@@ -207,12 +207,12 @@ export function AgentConfig({
         </div>
         <Separator className="my-4"/>
 
-        <div className="flex flex-row space-x-3">
-          <div className="flex flex-col space-y-4 w-1/2">
+        <div className="flex flex-col md:flex-row gap-3">
+          <div className="flex flex-col space-y-4 w-full md:w-1/2 min-w-0">
             <div className="space-y-2">
               <FormLabel>Task</FormLabel>
               <Select onValueChange={handleTaskPresetChange} value={selectedTaskPreset}>
-                <SelectTrigger>
+                <SelectTrigger className="w-full">
                   <SelectValue placeholder="Select a task preset" />
                 </SelectTrigger>
                 <SelectContent>
@@ -254,11 +254,11 @@ export function AgentConfig({
               )}
             />
           </div>
-          <div className="w-1/2 flex flex-col space-y-4">
+          <div className="w-full md:w-1/2 flex flex-col space-y-4 min-w-0">
             <div className="space-y-2">
               <FormLabel>System Prompt Preset</FormLabel>
               <Select onValueChange={handleSystemPromptPresetChange} value={selectedSystemPromptPreset}>
-                <SelectTrigger>
+                <SelectTrigger className="w-full">
                   <SelectValue placeholder="Select a prompt preset" />
                 </SelectTrigger>
                 <SelectContent>
