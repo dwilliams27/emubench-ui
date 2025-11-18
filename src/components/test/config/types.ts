@@ -1,4 +1,6 @@
 import z from "zod";
+import { EmuCondition } from "@/shared/conditions/types";
+import { ContextMemoryItem } from "@/components/test/config/memory/memory-context";
 
 export interface SaveState {
   filename: string;
@@ -292,6 +294,172 @@ You must provide a text response every time, even if taking an action. Your resp
 You have the liberty to be extremely bold and take initiative.`
   },
 ];
+
+export interface GoalPreset {
+  id: string;
+  name: string;
+  description: string;
+  memoryWatches: Record<string, ContextMemoryItem>;
+  condition: EmuCondition;
+  applicableSaveStates: string[];
+}
+
+export const GOAL_PRESETS: Record<string, GoalPreset[]> = {
+  [GAMES.ZELDA_WIND_WAKER]: [
+    {
+      id: "ww-reach-ladder",
+      name: "Get on ladder",
+      description: "Checks if Link has successfully gotten onto the ladder.",
+      applicableSaveStates: ["ww_game_play_start.sav"],
+      memoryWatches: {
+        "LINK_Y": {
+          address: "803E4410",
+          type: "float",
+          size: 4,
+          pointerOffsets: [],
+          name: "LINK_Y",
+          description: "Link's Y Position"
+        }
+      },
+      condition: {
+        inputs: {
+          "LINK_Y": {
+            name: "LINK_Y",
+            type: "float",
+          }
+        },
+        logic: {
+          lhs: {
+            input: {
+              name: "LINK_Y",
+              type: "float",
+            }
+          },
+          operation: {
+            id: "<",
+            name: "<",
+            hasLeftOperand: true,
+            hasRightOperand: true
+          },
+          rhs: {
+            primitive: 1400
+          }
+        }
+      },
+    },
+    {
+      id: "ww-reach-ground",
+      name: "Reach ground",
+      description: "Checks if Link's Y position is below 100.",
+      applicableSaveStates: ["ww_on_ladder.sav"],
+      memoryWatches: {
+        "LINK_Y": {
+          address: "803E4410",
+          type: "float",
+          size: 4,
+          pointerOffsets: [],
+          name: "LINK_Y",
+          description: "Link's Y Position"
+        }
+      },
+      condition: {
+        inputs: {
+          "LINK_Y": {
+            name: "LINK_Y",
+            type: "float",
+          }
+        },
+        logic: {
+          lhs: {
+            input: {
+              name: "LINK_Y",
+              type: "float",
+            }
+          },
+          operation: {
+            id: "<",
+            name: "<",
+            hasLeftOperand: true,
+            hasRightOperand: true
+          },
+          rhs: {
+            primitive: 200
+          }
+        }
+      },
+    },
+    {
+      id: "ww-reach-land",
+      name: "Reach land",
+      description: "Checks if Y position is anything except 0 (and didnt drown and respawn)",
+      applicableSaveStates: ["ww_swim_to_shore.sav", "ww_swim_to_shore_away.sav"],
+      memoryWatches: {
+        "LINK_Y": {
+          address: "803E4410",
+          type: "float",
+          size: 4,
+          pointerOffsets: [],
+          name: "LINK_Y",
+          description: "Link's Y Position"
+        }
+      },
+      condition: {
+        inputs: {
+          "LINK_Y": {
+            name: "LINK_Y",
+            type: "float",
+          }
+        },
+        logic: {
+          lhs: {
+            conditionPart: {
+              lhs: {
+                input: {
+                  name: "LINK_Y",
+                  type: "float",
+                }
+              },
+              operation: {
+                id: "!=",
+                name: "!=",
+                hasLeftOperand: true,
+                hasRightOperand: true
+              },
+              rhs: {
+                "primitive": 0
+              }
+            }
+          },
+          operation: {
+            id: "&&",
+            name: "&&",
+            hasLeftOperand: true,
+            hasRightOperand: true
+          },
+          rhs: {
+            conditionPart: {
+              lhs: {
+                input: {
+                  name: "LINK_Y",
+                  type: "float",
+                }
+              },
+              operation: {
+                id: "!=",
+                name: "!=",
+                hasLeftOperand: true,
+                hasRightOperand: true
+              },
+              rhs: {
+                "primitive": 144.9639129638672
+              }
+            }
+          }
+        }
+      }
+    }
+  ]
+};
 
 export const MODEL_PROVIDERS: Record<string, { name: string, displayName: string }> = {
   ANTHROPIC: {

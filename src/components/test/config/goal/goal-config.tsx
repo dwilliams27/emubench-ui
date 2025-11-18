@@ -2,18 +2,21 @@ import { GoalCanvas } from "@/components/test/config/goal/goal-canvas";
 import { GoalItem } from "@/components/test/config/goal/goal-item";
 import { GoalBank } from "@/components/test/config/goal/goal-bank";
 import { ContextMemoryItem } from "@/components/test/config/memory/memory-context";
-import { SETUP_TEST_CONFIG_SCHEMA } from "@/components/test/config/types";
+import { SETUP_TEST_CONFIG_SCHEMA, GOAL_PRESETS } from "@/components/test/config/types";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { emuAddOperationFactory, emuAndOperationFactory, emuEqualsOperationFactory, emuGreaterThanOperationFactory, emuLessThanOperationFactory, emuMultiplyOperationFactory, emuNotOperationFactory, emuOrOperationFactory } from "@/shared/conditions/operations";
 import { EmuConditionInput, EmuConditionInputSet, EmuConditionOperand, EmuConditionOperation } from "@/shared/conditions/types";
 import { CANVAS_ITEM_ID, EMU_OPERATION_ID, genId } from "@/shared/utils/id";
 import { DndContext, DragEndEvent, DragOverlay, DragStartEvent, DragCancelEvent, TouchSensor, MouseSensor, useSensor, useSensors } from "@dnd-kit/core";
-import { useMemo, useState } from "react";
+import { useMemo, useState, useEffect } from "react";
 import { UseFormReturn, useWatch } from "react-hook-form";
 import z from "zod";
 import { ADD_PRIMITIVE_GOAL_INPUT_SCHEMA, AddPrimitiveGoalInputModal } from "@/components/test/config/goal/add-primitive-goal-input-modal";
 import { Button } from "@/components/ui/button";
 import { convertEmuExpressionToCondition } from "@/shared/conditions/evaluate";
+import { conditionToPreview } from "@/shared/conditions/preview";
+import { MemoryContext } from "@/components/test/config/memory/memory-context";
 
 export interface ItemData {
   label: string;
@@ -90,7 +93,63 @@ const baseOperations = [
   emuNotOperationFactory(),
 ];
 
-export function GoalConfig({ form }: { form: UseFormReturn<z.infer<typeof SETUP_TEST_CONFIG_SCHEMA>> }) {
+export function GoalConfig({
+  form,
+  defaultGoalPresetId = "custom"
+}: {
+  form: UseFormReturn<z.infer<typeof SETUP_TEST_CONFIG_SCHEMA>>,
+  defaultGoalPresetId?: string
+}) {
+  const selectedGame = useWatch({
+    control: form.control,
+    name: "gameConfig.game"
+  });
+
+  const selectedSaveState = useWatch({
+    control: form.control,
+    name: "gameConfig.saveState"
+  });
+
+  const [selectedGoalPreset, setSelectedGoalPreset] = useState<string>(defaultGoalPresetId);
+
+  const availableGoalPresets = useMemo(() => {
+    if (!selectedGame || !selectedSaveState) {
+      return [];
+    }
+
+    const gamePresets = GOAL_PRESETS[selectedGame] || [];
+    return gamePresets.filter(preset =>
+      preset.applicableSaveStates.includes(selectedSaveState.filename)
+    );
+  }, [selectedGame, selectedSaveState]);
+
+  // Auto-select first goal preset when save state changes (unless set to custom)
+  useEffect(() => {
+    if (selectedGoalPreset === "custom") {
+      return;
+    }
+
+    if (availableGoalPresets.length > 0) {
+      const firstPreset = availableGoalPresets[0];
+      setSelectedGoalPreset(firstPreset.id);
+      handleGoalPresetChange(firstPreset.id);
+    }
+  }, [availableGoalPresets, selectedGoalPreset]);
+
+  const handleGoalPresetChange = (presetId: string) => {
+    setSelectedGoalPreset(presetId);
+
+    if (presetId === "custom") {
+      return;
+    }
+
+    const preset = availableGoalPresets.find(p => p.id === presetId);
+    if (preset) {
+      form.setValue("memoryConfig.context", preset.memoryWatches);
+      form.setValue("goalConfig.condition", preset.condition);
+    }
+  };
+
   const contextInputs = contextMemoryToInputs(useWatch({
     control: form.control,
     name: "memoryConfig.context"
@@ -253,44 +312,93 @@ export function GoalConfig({ form }: { form: UseFormReturn<z.infer<typeof SETUP_
     return result;
   }, [canvasItems]);
 
+  const selectedPresetData = useMemo(() => {
+    if (selectedGoalPreset === "custom") return null;
+    return availableGoalPresets.find(p => p.id === selectedGoalPreset);
+  }, [selectedGoalPreset, availableGoalPresets]);
+
   return (
     <Card className="w-full">
       <CardHeader>
         <CardTitle>Goal</CardTitle>
       </CardHeader>
-      <CardContent className="space-y-2">
-        <DndContext
-          sensors={sensors}
-          onDragEnd={handleDragEnd} 
-          onDragStart={handleDragStart}
-          onDragCancel={handleDragCancel}
-        >
-          <div className="flex flex-col space-y-4">
-            <div className="flex flex-col space-y-4 md:flex-row md:space-y-0 justify-between items-center">
-              <GoalBank items={contextInputBankItems} />
-              <div className="flex items-center">
-                <AddPrimitiveGoalInputModal onSubmit={onAddNewItem} open={addFormOpen} close={() => setAddFormOpen(false)}>
-                  <Button variant="outline" onClick={() => setAddFormOpen(true)}>+ Add Primitive</Button>
-                </AddPrimitiveGoalInputModal>
-              </div>
-            </div>
-            <div className="flex flex-col space-y-4 md:flex-row md:space-y-0 justify-between">
-              <GoalBank items={operationBankItems} />
-              <GoalBank items={parenthesesBankItems} />
-            </div>
-            <GoalCanvas items={canvasItems} error={expressionError} result={expressionResult} />
-          </div>
-          <DragOverlay dropAnimation={null}>
-            {activeItem ? (
-              <div className="opacity-80 cursor-grabbing">
-                <GoalItem item={activeItem} />
-              </div>
-            ) : null}
-          </DragOverlay>
-        </DndContext>
-        <div className="goal-preview">
-          {expressionError && <div className="error">{expressionError}</div>}
+      <CardContent className="space-y-4">
+        {/* Goal Preset Dropdown */}
+        <div className="space-y-2">
+          <Select onValueChange={handleGoalPresetChange} value={selectedGoalPreset}>
+            <SelectTrigger className="w-full">
+              <SelectValue placeholder="Select a goal preset" />
+            </SelectTrigger>
+            <SelectContent>
+              {availableGoalPresets.map(preset => (
+                <SelectItem key={preset.id} value={preset.id}>
+                  {preset.name}
+                </SelectItem>
+              ))}
+              <SelectItem value="custom">Custom</SelectItem>
+            </SelectContent>
+          </Select>
         </div>
+
+        {/* Show preset info when a preset is selected */}
+        {selectedPresetData && (
+          <div className="space-y-3 rounded-lg">
+            <div>
+              <p className="text-sm font-medium mb-1">Description</p>
+              <p className="text-sm">{selectedPresetData.description}</p>
+            </div>
+            <div>
+              <p className="text-sm font-medium mb-1">Condition</p>
+              <code className="text-sm bg-background px-2 py-1 rounded">
+                {conditionToPreview(selectedPresetData.condition)}
+              </code>
+            </div>
+          </div>
+        )}
+
+        {/* Show custom Memory & Goal builder when Custom is selected */}
+        {selectedGoalPreset === "custom" && (
+          <div className="space-y-10">
+            {/* Memory Table */}
+            <MemoryContext form={form} />
+
+            {/* Goal Canvas */}
+            <div className="space-y-2">
+              <DndContext
+                sensors={sensors}
+                onDragEnd={handleDragEnd}
+                onDragStart={handleDragStart}
+                onDragCancel={handleDragCancel}
+              >
+                <div className="flex flex-col space-y-4">
+                  <div className="flex flex-col space-y-4 md:flex-row md:space-y-0 justify-between items-center">
+                    <div className="flex items-center mr-auto">
+                      <AddPrimitiveGoalInputModal onSubmit={onAddNewItem} open={addFormOpen} close={() => setAddFormOpen(false)}>
+                        <Button variant="outline" onClick={() => setAddFormOpen(true)}>+ Add Primitive</Button>
+                      </AddPrimitiveGoalInputModal>
+                    </div>
+                    <GoalBank items={contextInputBankItems} />
+                  </div>
+                  <div className="flex flex-col space-y-4 md:flex-row md:space-y-0 justify-between">
+                    <GoalBank items={operationBankItems} />
+                    <GoalBank items={parenthesesBankItems} />
+                  </div>
+                  <GoalCanvas items={canvasItems} error={expressionError} result={expressionResult} />
+                </div>
+                <DragOverlay dropAnimation={null}>
+                  {activeItem ? (
+                    <div className="opacity-80 cursor-grabbing">
+                      <GoalItem item={activeItem} />
+                    </div>
+                  ) : null}
+                </DragOverlay>
+              </DndContext>
+              <div className="goal-preview">
+                {expressionError && <div className="error">{expressionError}</div>}
+              </div>
+            </div>
+          </div>
+        )}
       </CardContent>
     </Card>
   );
