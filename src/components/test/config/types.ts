@@ -440,18 +440,18 @@ export const GOAL_PRESETS: Record<string, GoalPreset[]> = {
             conditionPart: {
               lhs: {
                 input: {
-                  name: "LINK_Y",
+                  name: "LINK_Z",
                   type: "float",
                 }
               },
               operation: {
-                id: "!=",
-                name: "!=",
+                id: ">",
+                name: ">",
                 hasLeftOperand: true,
                 hasRightOperand: true
               },
               rhs: {
-                "primitive": 144.9639129638672
+                "primitive": 314500
               }
             }
           }
@@ -495,6 +495,9 @@ export const MODELS = {
   },{
     name: "gemini-2.5-pro",
     displayName: "Gemini 2.5 Pro"
+  },{
+    name: "gemini-3-pro-preview",
+    displayName: "Gemini 3.0 Pro"
   }],
   [MODEL_PROVIDERS.OPEN_AI.name]: [
     {
