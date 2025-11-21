@@ -139,16 +139,19 @@ export function GameConfig({ form }: { form: UseFormReturn<z.infer<typeof SETUP_
         <FormField
           control={form.control}
           name="agentConfig.gameContext"
-          render={({ field }) => (
-            <div className="space-y-2 pt-2">
-              <FormLabel>Game Context</FormLabel>
-              <Textarea 
-                {...field}
-                className="flex-1 resize-none max-h-28 overflow-y-auto"
-                placeholder="Enter game context (controls, info)..."
-              />
-            </div>
-          )}
+          render={({ field }) => {
+            const trimmed = { ...field, value: field.value.trim() }
+            return (
+              <div className="space-y-2 pt-2">
+                <FormLabel>Game Context</FormLabel>
+                <Textarea 
+                  {...trimmed}
+                  className="flex-1 resize-none max-h-28 overflow-y-auto"
+                  placeholder="Enter game context (controls, info)..."
+                />
+              </div>
+            )
+          }}
         />
 
         <Separator className="my-4"/>

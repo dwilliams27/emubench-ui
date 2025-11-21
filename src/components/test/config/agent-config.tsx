@@ -243,12 +243,12 @@ export function AgentConfig({
               control={form.control}
               name="agentConfig.taskDescription"
               render={({ field }) => (
-                <div className="space-y-2 w-full">
+                <div className="space-y-2 w-full h-full flex flex-col">
                   <FormLabel>Task Description</FormLabel>
                   <Textarea
                     onChange={field.onChange}
                     value={field.value}
-                    className="flex-1 resize-none h-30 overflow-y-auto"
+                    className="flex-1 resize-none h-full max-h-48 overflow-y-auto"
                   />
                 </div>
               )}
