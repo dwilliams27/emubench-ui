@@ -43,11 +43,11 @@ export function GameConfig({ form }: { form: UseFormReturn<z.infer<typeof SETUP_
   }, [selectedPlatform, selectedGame]);
 
   return (
-    <Card className="w-full">
+    <Card className="w-full h-[600px] flex flex-col">
       <CardHeader>
         <CardTitle>Game</CardTitle>
       </CardHeader>
-      <CardContent className="space-y-2">
+      <CardContent className="space-y-2 flex-1 flex flex-col overflow-hidden">
         <FormField
           control={form.control}
           name="gameConfig.platform"
@@ -161,11 +161,11 @@ export function GameConfig({ form }: { form: UseFormReturn<z.infer<typeof SETUP_
           render={({ field }) => {
             const trimmed = { ...field, value: field.value?.trim() }
             return (
-              <div className="space-y-2 pt-2">
+              <div className="space-y-2 pt-2 flex-1 flex flex-col min-h-0">
                 <FormLabel>Game Context</FormLabel>
                 <Textarea 
                   {...trimmed}
-                  className="flex-1 resize-none max-h-28 overflow-y-auto"
+                  className="flex-1 resize-none overflow-y-auto min-h-0"
                   placeholder="Enter game context (controls, info)..."
                 />
               </div>

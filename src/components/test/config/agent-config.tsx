@@ -99,11 +99,11 @@ export function AgentConfig({
   }, [availableTaskPresets, selectedTaskPreset, form]);
 
   return (
-    <Card className="w-full">
+    <Card className="w-full h-[600px] flex flex-col">
       <CardHeader>
         <CardTitle>Agent</CardTitle>
       </CardHeader>
-      <CardContent className="space-y-2">
+      <CardContent className="space-y-2 flex-1 flex flex-col overflow-hidden">
         <FormField
           control={form.control}
           name="agentConfig.modelProvider"
@@ -207,8 +207,8 @@ export function AgentConfig({
         </div>
         <Separator className="my-4"/>
 
-        <div className="flex flex-col md:flex-row gap-3">
-          <div className="flex flex-col space-y-4 w-full md:w-1/2 min-w-0">
+        <div className="flex flex-col md:flex-row gap-3 flex-1 min-h-0">
+          <div className="flex flex-col space-y-4 w-full md:w-1/2 min-w-0 min-h-0">
             <div className="space-y-2">
               <FormLabel>Task</FormLabel>
               <Select onValueChange={handleTaskPresetChange} value={selectedTaskPreset}>
@@ -243,18 +243,18 @@ export function AgentConfig({
               control={form.control}
               name="agentConfig.taskDescription"
               render={({ field }) => (
-                <div className="space-y-2 w-full h-full flex flex-col">
+                <div className="space-y-2 flex-1 flex flex-col min-h-0">
                   <FormLabel>Task Description</FormLabel>
                   <Textarea
                     onChange={field.onChange}
                     value={field.value}
-                    className="flex-1 resize-none h-full max-h-48 overflow-y-auto"
+                    className="flex-1 resize-none overflow-y-auto min-h-0"
                   />
                 </div>
               )}
             />
           </div>
-          <div className="w-full md:w-1/2 flex flex-col space-y-4 min-w-0">
+          <div className="w-full md:w-1/2 flex flex-col space-y-4 min-w-0 min-h-0">
             <div className="space-y-2">
               <FormLabel>System Prompt Preset</FormLabel>
               <Select onValueChange={handleSystemPromptPresetChange} value={selectedSystemPromptPreset}>
@@ -276,12 +276,12 @@ export function AgentConfig({
               control={form.control}
               name="agentConfig.systemPrompt"
               render={({ field }) => (
-                <div className="space-y-2 flex-1 flex flex-col">
+                <div className="space-y-2 flex-1 flex flex-col min-h-0">
                   <FormLabel>System Prompt</FormLabel>
                   <Textarea
                     onChange={field.onChange}
                     value={field.value}
-                    className="flex-1 resize-none max-h-48 overflow-y-auto"
+                    className="flex-1 resize-none overflow-y-auto min-h-0"
                     placeholder="Enter system prompt..."
                   />
                 </div>
