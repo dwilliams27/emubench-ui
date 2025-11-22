@@ -3,6 +3,7 @@ import { DeltaFields } from "@/components/test/experiments/types";
 import { Button } from "@/components/ui/button"
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { EmuBootConfig } from "@/shared/types";
 import { EmuExperimentRunGroup } from "@/shared/types/experiments";
@@ -10,7 +11,9 @@ import { ColumnDef, flexRender, getCoreRowModel, useReactTable } from "@tanstack
 import { SquarePen, XIcon } from "lucide-react";
 import { useMemo, useState } from "react";
 
-export function ExperimentGroup({ group, baseConfig, addIterations, removeConfigDeltaItem, addConfigDeltaItem, deleteGroup, updateGroupName }: { group: EmuExperimentRunGroup, baseConfig: EmuBootConfig, addIterations: (amount: number) => void, removeConfigDeltaItem: (key: string) => void, addConfigDeltaItem: (data: { key: string, value?: any }) => void, deleteGroup: (id: string) => void, updateGroupName: (id: string, name: string) => void }) {
+const groupIterationOptions = ["1", "5", "10", "20", "30"];
+
+export function ExperimentGroup({ group, baseConfig, setIterations, removeConfigDeltaItem, addConfigDeltaItem, deleteGroup, updateGroupName }: { group: EmuExperimentRunGroup, baseConfig: EmuBootConfig, setIterations: (amount: number) => void, removeConfigDeltaItem: (key: string) => void, addConfigDeltaItem: (data: { key: string, value?: any }) => void, deleteGroup: (id: string) => void, updateGroupName: (id: string, name: string) => void }) {
   const [addFormOpen, setAddFormOpen] = useState(false);
   const [isEditingName, setIsEditingName] = useState(false);
   const [editingName, setEditingName] = useState(group.name);
@@ -138,10 +141,20 @@ export function ExperimentGroup({ group, baseConfig, addIterations, removeConfig
       </CardHeader>
       <CardContent className="space-y-2 flex flex-col">
         <div className="flex flex-row items-center">
-          <div>Group Iterations: {group.iterations}</div>
+          <div className="mr-3">Iterations</div>
           <div className="flex flex-col space-y-1">
-            <Button variant="outline" className="ml-2 h-2" onClick={() => addIterations(1)}>+</Button>
-            <Button variant="outline" className="ml-2 h-2" onClick={() => addIterations(-1)}>-</Button>
+            <Select onValueChange={(value) => setIterations(parseInt(value))} defaultValue={"10"}>
+              <SelectTrigger className="mb-0">
+                <SelectValue defaultValue="uint" />
+              </SelectTrigger>
+              <SelectContent className="w-full">
+                { groupIterationOptions.map((value) => (
+                <SelectItem key={value} value={value}>
+                  {value}
+                </SelectItem>
+                )) }
+              </SelectContent>
+            </Select>
           </div>
         </div>
         <div className="overflow-hidden rounded-md border">

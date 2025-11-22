@@ -43,12 +43,9 @@ export function ExperimentGroupConfig({ onSubmit, submitting, baseConfig }: { on
             key={group.name}
             group={group}
             baseConfig={baseConfig}
-            addIterations={(amount: number) => {
+            setIterations={(amount: number) => {
               const newGroups = [...experimentRunGroups];
-              newGroups[index].iterations += amount;
-              if (newGroups[index].iterations < 1) {
-                newGroups[index].iterations = 1;
-              }
+              newGroups[index].iterations = amount;
               setExperimentRunGroups(newGroups);
             }}
             removeConfigDeltaItem={(key: string) => {

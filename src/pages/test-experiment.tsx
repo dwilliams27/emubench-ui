@@ -73,7 +73,7 @@ export default function TestExperiment() {
         <ExperimentConfig onSubmit={onExperimentConfigSubmit} />
       )}
       {currentView === SETUP_EXPERIMENT_VIEWS.BASE_CONFIG && (
-        <div className="space-y-4">
+        <div className="space-y-2">
           <Card className="w-full">
             <CardHeader>
               <CardTitle>Base Config</CardTitle>

@@ -63,8 +63,8 @@ export function TestConfigForm({ onSubmit, submitting, buttonText }: { onSubmit:
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-        <div className="flex flex-col space-y-4 md:flex-row md:space-y-0 space-x-4">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-2">
+        <div className="flex flex-col space-y-2 md:flex-row md:space-y-0 space-x-2">
           <GameConfig form={form} />
           <AgentConfig
             form={form}
