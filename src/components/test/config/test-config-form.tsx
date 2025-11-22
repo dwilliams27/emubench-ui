@@ -65,12 +65,16 @@ export function TestConfigForm({ onSubmit, submitting, buttonText }: { onSubmit:
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-2">
         <div className="flex flex-col space-y-2 md:flex-row md:space-y-0 space-x-2">
-          <GameConfig form={form} />
-          <AgentConfig
-            form={form}
-            defaultTaskPresetId="ww-climb-down-ladder"
-            defaultSystemPromptPresetId="default-agent"
-          />
+          <div className="flex w-full md:w-1/2">
+            <GameConfig form={form} />
+          </div>
+          <div className="flex w-full md:w-1/2">
+            <AgentConfig
+              form={form}
+              defaultTaskPresetId="ww-climb-down-ladder"
+              defaultSystemPromptPresetId="default-agent"
+            />
+          </div>
         </div>
         <GoalConfig
           form={form}
