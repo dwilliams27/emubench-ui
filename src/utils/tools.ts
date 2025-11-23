@@ -27,15 +27,15 @@ export function toolToLog(toolName?: string, toolPayload?: any) {
 
 export function controllerInputToLog(toolArgs: z.infer<typeof ControllerInputSchema>) {
   let result = `Input (${durationMap[toolArgs.duration] || toolArgs.duration})\n`;
-  
-  if (toolArgs.actions.mainStick?.direction) {
-    const directionLabel = directionMap[toolArgs.actions.mainStick.direction] || toolArgs.actions.mainStick.direction;
+
+  if (toolArgs.actions.mainStick?.x || toolArgs.actions.mainStick?.y) {
+    const directionLabel = `{ x: "${toolArgs.actions.mainStick?.x ?? 128}, y: ${toolArgs.actions.mainStick?.y ?? 128}}`;
     
     result += `-- Main Stick ${directionLabel} --\n`;
   }
 
   if (toolArgs.actions.cStick?.direction) {
-    const directionLabel = directionMap[toolArgs.actions.cStick.direction] || toolArgs.actions.cStick.direction;
+    const directionLabel = `{ x: ${toolArgs.actions.cStick?.x ?? 128}, y: ${toolArgs.actions.cStick?.y ?? 128}}`;
     
     result += `-- C Stick ${directionLabel} --\n`;
   }

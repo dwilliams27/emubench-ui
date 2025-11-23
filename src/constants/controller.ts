@@ -16,17 +16,20 @@ export const ControllerInputSchema = z.object({
     }).optional().describe("Specify button states (true=pressed, false=released). Omit buttons to leave them unchanged."),
 
     mainStick: z.object({
-      direction: z.enum(["up", "right", "down", "left"]).optional().describe("The direction to move the stick in (up, right, down, left)."),
-    }).optional().describe("Specify main analog stick position. Omit to leave unchanged."),
+      x: z.number().min(0).max(255).optional().describe("The X position of the main analog stick (0-255, center at 128)."),
+      y: z.number().min(0).max(255).optional().describe("The Y position of the main analog stick (0-255, center at 128)."),
+    }).optional().describe("Specify main analog stick position. You can EITHER specify x + y for a specific position, or just a direction like up. Omit to leave unchanged."),
 
     cStick: z.object({
+      x: z.number().min(0).max(255).optional().describe("The X position of the c stick (0-255, center at 128)."),
+      y: z.number().min(0).max(255).optional().describe("The Y position of the c stick (0-255, center at 128)."),
       direction: z.enum(["up", "right", "down", "left"]).optional().describe("The direction to move the stick in (up, right, down, left)."),
-    }).optional().describe("Specify C-stick position. Omit to leave unchanged."),
+    }).optional().describe("Specify C-stick position. You can EITHER specify x + y for a specific position, or just a direction like up. Omit to leave unchanged."),
 
     triggers: z.object({
         l: z.boolean().optional().describe("Press/release the Left Trigger"),
         r: z.boolean().optional().describe("Press/release the Right Trigger"),
     }).optional().describe("Specify analog trigger pressure. Omit to leave unchanged."),
   }).describe("Define the controller actions to perform. Only include the controls you want to change."),
-  duration: z.enum(["5", "15", "30", "60"]).describe("How how many frames to press the buttons."),
+  duration: z.number().min(5).max(60).describe("How how many frames (MUST be between 5-60 frames) to press the buttons."),
 });
