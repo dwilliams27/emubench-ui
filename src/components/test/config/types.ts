@@ -546,7 +546,7 @@ export const GOAL_PRESETS: Record<string, GoalPreset[]> = {
             conditionPart: {
               lhs: {
                 input: {
-                  name: "LINK_Z",
+                  name: "LINK_X",
                   type: "float",
                 }
               },

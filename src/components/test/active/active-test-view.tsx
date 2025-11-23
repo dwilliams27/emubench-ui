@@ -9,6 +9,7 @@ import { useEffect, useState, useRef, useMemo } from "react";
 import { useSearchParams } from "react-router-dom";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { TestCondition } from "@/components/shared/test-condition";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export interface ActiveTestViewProps {
   test: Test | undefined;
@@ -102,7 +103,18 @@ export function ActiveTestView() {
           <CardTitle>Goal</CardTitle>
         </CardHeader>
         <CardContent className="flex flex-row space-x-2">
-          <TestCondition flatCondition={flatCondition} />
+          {flatCondition?.length > 0 ? (
+            <TestCondition flatCondition={flatCondition} />
+          ) : (
+            <div className="flex flex-row space-x-4 overflow-x-auto">
+              <Skeleton className="h-12 w-32 mb-2" />
+              <Skeleton className="h-12 w-32 mb-2" />
+              <Skeleton className="h-12 w-32 mb-2" />
+              <Skeleton className="h-12 w-32 mb-2" />
+              <Skeleton className="h-12 w-32 mb-2" />
+              <Skeleton className="h-12 w-32 mb-2" />
+            </div>
+          )}
         </CardContent>
       </Card>
     </div>
