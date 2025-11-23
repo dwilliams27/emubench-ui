@@ -76,7 +76,7 @@ export function TestConfigForm({ onSubmit, submitting, buttonText }: { onSubmit:
             />
           </div>
         </div>
-        <div className="flex w-full md:w-1/2 md:mx-auto">
+        <div className="flex w-full">
           <GoalConfig
             form={form}
             defaultGoalPresetId="ww-reach-ground"

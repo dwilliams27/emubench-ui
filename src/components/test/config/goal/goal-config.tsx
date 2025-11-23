@@ -358,12 +358,14 @@ export function GoalConfig({
 
         {/* Show custom Memory & Goal builder when Custom is selected */}
         {selectedGoalPreset === "custom" && (
-          <div className="space-y-10">
+          <div className="flex flex-col lg:flex-row gap-6 overflow-hidden">
             {/* Memory Table */}
-            <MemoryContext form={form} />
+            <div className="flex-1 min-w-0 overflow-auto">
+              <MemoryContext form={form} />
+            </div>
 
             {/* Goal Canvas */}
-            <div className="space-y-2">
+            <div className="flex-1 min-w-0 space-y-2 overflow-auto">
               <DndContext
                 sensors={sensors}
                 onDragEnd={handleDragEnd}

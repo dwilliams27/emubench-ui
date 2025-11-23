@@ -178,14 +178,14 @@ export function MemoryContext({ form }: { form: UseFormReturn<z.infer<typeof SET
   }
   
   return (
-    <div className="w-full">
+    <div className="w-full min-w-0">
       {/* TODO: Move button into Card Title */}
       <div className="flex items-center py-4">
         <AddMemoryContextModal onSubmit={onAddNewItem} open={addFormOpen} close={() => setAddFormOpen(false)}>
           <Button variant="outline" onClick={() => setAddFormOpen(true)}>+ Add Memory Watch</Button>
         </AddMemoryContextModal>
       </div>
-      <div className="overflow-hidden rounded-md border">
+      <div className="overflow-x-auto rounded-md border">
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
