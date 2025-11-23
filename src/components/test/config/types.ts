@@ -416,6 +416,10 @@ export const GOAL_PRESETS: Record<string, GoalPreset[]> = {
           "LINK_Y": {
             name: "LINK_Y",
             type: "float",
+          },
+          "LINK_Z": {
+            name: "LINK_Z",
+            type: "float",
           }
         },
         logic: {
@@ -460,6 +464,100 @@ export const GOAL_PRESETS: Record<string, GoalPreset[]> = {
               },
               rhs: {
                 "primitive": 314500
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      id: "ww-bridge-hut",
+      name: "Cross the river",
+      description: "Ensure link crosses the river to the hut.",
+      applicableSaveStates: ["ww_bridge_and_hut.sav"],
+      memoryWatches: {
+        "LINK_X": {
+          address: "803E440C",
+          type: "float",
+          size: 4,
+          pointerOffsets: [],
+          name: "LINK_X",
+          description: "Link's X Position"
+        },
+        "LINK_Y": {
+          address: "803E4410",
+          type: "float",
+          size: 4,
+          pointerOffsets: [],
+          name: "LINK_Y",
+          description: "Link's Y Position"
+        },
+        "LINK_Z": {
+          address: "803E4414",
+          type: "float",
+          size: 4,
+          pointerOffsets: [],
+          name: "LINK_Z",
+          description: "Link's Z Position"
+        }
+      },
+      condition: {
+        inputs: {
+          "LINK_X": {
+            name: "LINK_X",
+            type: "float",
+          },
+          "LINK_Y": {
+            name: "LINK_Y",
+            type: "float",
+          },
+          "LINK_Z": {
+            name: "LINK_Z",
+            type: "float",
+          }
+        },
+        logic: {
+          lhs: {
+            conditionPart: {
+              lhs: {
+                input: {
+                  name: "LINK_Y",
+                  type: "float",
+                }
+              },
+              operation: {
+                id: "!=",
+                name: "!=",
+                hasLeftOperand: true,
+                hasRightOperand: true
+              },
+              rhs: {
+                "primitive": 0
+              }
+            }
+          },
+          operation: {
+            id: "&&",
+            name: "&&",
+            hasLeftOperand: true,
+            hasRightOperand: true
+          },
+          rhs: {
+            conditionPart: {
+              lhs: {
+                input: {
+                  name: "LINK_Z",
+                  type: "float",
+                }
+              },
+              operation: {
+                id: ">",
+                name: ">",
+                hasLeftOperand: true,
+                hasRightOperand: true
+              },
+              rhs: {
+                "primitive": -196474.97
               }
             }
           }
