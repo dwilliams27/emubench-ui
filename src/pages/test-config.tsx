@@ -1,5 +1,5 @@
 import { TestConfigForm } from "@/components/test/config/test-config-form";
-import { DEBUG_GAME_MAP, GAMES, SETUP_TEST_CONFIG_SCHEMA } from "@/components/test/config/types";
+import { SETUP_TEST_CONFIG_SCHEMA } from "@/components/test/config/types";
 import { Button } from "@/components/ui/button";
 import { useApi } from "@/contexts/api-context";
 import { EmuError } from "@/shared/types";

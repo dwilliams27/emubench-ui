@@ -401,6 +401,14 @@ export const GOAL_PRESETS: Record<string, GoalPreset[]> = {
           pointerOffsets: [],
           name: "LINK_Y",
           description: "Link's Y Position"
+        },
+        "LINK_Z": {
+          address: "803E4414",
+          type: "float",
+          size: 4,
+          pointerOffsets: [],
+          name: "LINK_Z",
+          description: "Link's Z Position"
         }
       },
       condition: {
