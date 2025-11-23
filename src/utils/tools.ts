@@ -29,7 +29,7 @@ export function controllerInputToLog(toolArgs: z.infer<typeof ControllerInputSch
   let result = `Input (${durationMap[toolArgs.duration] || toolArgs.duration})\n`;
 
   if (toolArgs.actions.mainStick?.x || toolArgs.actions.mainStick?.y) {
-    const directionLabel = `{ x: "${toolArgs.actions.mainStick?.x ?? 128}, y: ${toolArgs.actions.mainStick?.y ?? 128}}`;
+    const directionLabel = `{ x: ${toolArgs.actions.mainStick?.x ?? 128}, y: ${toolArgs.actions.mainStick?.y ?? 128}}`;
     
     result += `-- Main Stick ${directionLabel} --\n`;
   }
