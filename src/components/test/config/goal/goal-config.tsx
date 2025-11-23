@@ -326,7 +326,7 @@ export function GoalConfig({
         {/* Goal Preset Dropdown */}
         <div className="space-y-2">
           <Select onValueChange={handleGoalPresetChange} value={selectedGoalPreset}>
-            <SelectTrigger className="w-full">
+            <SelectTrigger>
               <SelectValue placeholder="Select a goal preset" />
             </SelectTrigger>
             <SelectContent>
