@@ -3,6 +3,7 @@ import { Separator } from "@/components/ui/separator";
 import { Skeleton } from "@/components/ui/skeleton";
 import type { EmuLogBlock } from "@/shared/types";
 import { toolToLog } from "@/utils/tools";
+import { ControllerInputDisplay } from "@/components/controller/controller-input-display";
 
 export interface ActiveTestLogsProps {
   testStarted: boolean;
@@ -12,7 +13,7 @@ export interface ActiveTestLogsProps {
 export function ActiveTestLogs({ testStarted, messages }: ActiveTestLogsProps) {
   const renderLogBlock = (block: EmuLogBlock) => {
     return (
-      <div key={block.title} className="break-words border-2 rounded-2xl p-2">
+      <div key={block.title} className="break-words border-2 rounded-2xl p-2 items-center flex flex-col">
         <p>{block.title}</p>
         <Separator className="my-1"/>
         <div className="space-y-2">
@@ -20,10 +21,17 @@ export function ActiveTestLogs({ testStarted, messages }: ActiveTestLogsProps) {
             switch (log.metadata.type) {
               case ('message'): {
                 return (
-                  <p key={log.metadata.timestamp}>{log.text}</p>
+                  <p className="" key={log.metadata.timestamp}>{log.text}</p>
                 );
               }
               case ('tool-call'): {
+                if (log.metadata.toolName === 'sendControllerInput') {
+                  return (
+                    <div key={log.metadata.timestamp}>
+                      <ControllerInputDisplay input={log.metadata.toolPayload} />
+                    </div>
+                  );
+                }
                 return (
                   <div key={log.metadata.timestamp}>
                     <p className="whitespace-pre-line">{toolToLog(log.metadata.toolName, log.metadata.toolPayload)}</p>

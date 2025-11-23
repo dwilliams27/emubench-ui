@@ -10,7 +10,7 @@ export interface TabItem {
 export const TEST_TABS: Record<string, TabItem> = {
   TEST_ACTIVE: {
     label: 'Active',
-    title: 'Active Tests',
+    title: 'Active Test',
     url: '/dashboard/active-tests',
     icon: MonitorPlay,
   },
