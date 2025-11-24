@@ -585,38 +585,83 @@ export const MODEL_PROVIDERS: Record<string, { name: string, displayName: string
 export const MODELS = {
   [MODEL_PROVIDERS.ANTHROPIC.name]: [{
     name: "claude-sonnet-4-5",
-    displayName: "Claude Sonnet 4.5"
+    displayName: "Claude Sonnet 4.5",
+    tokenCost: {
+      input: 0.000003,
+      output: 0.000015,
+      reaasoning: 0.000015,
+    }
   },
   {
     name: "claude-haiku-4-5",
-    displayName: "Claude Haiku 4.5"
+    displayName: "Claude Haiku 4.5",
+    tokenCost: {
+      input: 0.000001,
+      output: 0.000005,
+      reaasoning: 0.000005,
+    }
   },
   {
     name: "claude-opus-4-1",
-    displayName: "Claude Opus 4.1"
+    displayName: "Claude Opus 4.1",
+    tokenCost: {
+      input: 0.000015,
+      output: 0.000075,
+      reaasoning: 0.000075,
+    }
   }],
   [MODEL_PROVIDERS.GOOGLE.name]: [{
     name: "gemini-2.5-flash",
-    displayName: "Gemini 2.5 Flash"
+    displayName: "Gemini 2.5 Flash",
+    tokenCost: {
+      input: 0.00000125,
+      output: 0.000010,
+      reaasoning: 0.000010,
+    }
   },{
     name: "gemini-2.5-pro",
-    displayName: "Gemini 2.5 Pro"
+    displayName: "Gemini 2.5 Pro",
+    tokenCost: {
+      input: 0.0000003,
+      output: 0.0000025,
+      reaasoning: 0.000010,
+    }
   },{
     name: "gemini-3-pro-preview",
-    displayName: "Gemini 3.0 Pro"
+    displayName: "Gemini 3.0 Pro",
+    tokenCost: {
+      input: 0.000002,
+      output: 0.000012,
+      reaasoning: 0.000012,
+    }
   }],
   [MODEL_PROVIDERS.OPEN_AI.name]: [
     {
       name: "gpt-4o",
-      displayName: "GPT-4o"
+      displayName: "GPT-4o",
+      tokenCost: {
+        input: 0.0000025,
+        output: 0.0000010,
+        reaasoning: 0.000010,
+      }
     },
     {
       name: "gpt-5",
-      displayName: "GPT-5"
+      displayName: "GPT-5",
+      tokenCost: {
+        input: 0.00000125,
+        output: 0.000010,
+        reaasoning: 0.000010,
+      }
     },
     {
       name: "gpt-5.1",
-      displayName: "GPT-5.1"
+      displayName: "GPT-5.1",
+      tokenCost: {
+        input: 0.00000125,
+        output: 0.000010,
+        reaasoning: 0.000010,
+      }
     },
   ],
 };

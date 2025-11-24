@@ -39,6 +39,9 @@ export function ActiveTestHeader(
         </CardTitle>
         <div className="flex flex-row space-x-2 w-full md:w-auto">
           <div className="flex flex-col items-center w-full">
+            {/* Token cost here */}
+          </div>
+          <div className="flex flex-col items-center w-full">
             <p>Emulator</p>
             {testStatusToBadge(emulatorStatus)}
           </div>
