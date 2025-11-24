@@ -55,9 +55,9 @@ export function ZButton({ size = 40 }: ButtonProps) {
 
 export function StartButton({ size = 40 }: ButtonProps) {
   return (
-    <svg width={size} height={size} viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <rect x="8" y="14" width="24" height="12" rx="3" fill="#9ca3af" stroke="#6b7280" strokeWidth="2"/>
-      <text x="20" y="20" textAnchor="middle" dominantBaseline="middle" fill="white" fontSize="8" fontWeight="bold">START</text>
+    <svg width={size} height={size} viewBox="0 0 46 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="8" y="14" width="36" height="12" rx="3" fill="#9ca3af" stroke="#6b7280" strokeWidth="2"/>
+      <text x="26" y="20" textAnchor="middle" dominantBaseline="middle" fill="white" fontSize="8" fontWeight="bold">START</text>
     </svg>
   );
 }

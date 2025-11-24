@@ -373,7 +373,7 @@ export function GoalConfig({
                 onDragCancel={handleDragCancel}
               >
                 <div className="flex flex-col space-y-4">
-                  <div className="flex flex-col space-y-4 md:flex-row md:space-y-0 justify-between items-center">
+                  <div className="flex flex-col space-y-4 pt-4 md:flex-row md:space-y-0 justify-between items-center">
                     <div className="flex items-center mr-auto">
                       <AddPrimitiveGoalInputModal onSubmit={onAddNewItem} open={addFormOpen} close={() => setAddFormOpen(false)}>
                         <Button variant="outline" onClick={() => setAddFormOpen(true)}>+ Add Primitive</Button>
