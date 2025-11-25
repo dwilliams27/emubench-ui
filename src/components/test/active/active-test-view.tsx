@@ -10,6 +10,7 @@ import { useSearchParams } from "react-router-dom";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { TestCondition } from "@/components/shared/test-condition";
 import { Skeleton } from "@/components/ui/skeleton";
+import { CostIndicator } from "@/components/test/active/cost-indicator";
 
 export interface ActiveTestViewProps {
   test: Test | undefined;
@@ -93,7 +94,7 @@ export function ActiveTestView() {
 
   return (
     <div className="flex flex-col space-y-1">
-      <ActiveTestHeader requestError={error} testStatus={currentState?.testState?.status} agentStatus={currentState?.agentState?.status} emulatorStatus={currentState?.emulatorState?.status} testId={testId} />
+      <ActiveTestHeader requestError={error} testStatus={currentState?.testState?.status} agentState={currentState?.agentState} emulatorStatus={currentState?.emulatorState?.status} testId={testId} />
       <div className="flex flex-col space-y-1 md:flex-row space-x-1">
         <ActiveTestScreen screenshots={currentState?.screenshots} testStarted={!!currentState?.bootConfig} />
         <ActiveTestLogs messages={currentState?.agentLogs} testStarted={!!currentState?.bootConfig} />

@@ -1,0 +1,64 @@
+import { MODELS } from "../config/types";
+import { MoneyOnFire } from "./money-on-fire";
+
+export interface CostIndicatorProps {
+  inputTokens: number;
+  outputTokens: number;
+  reasoningTokens: number;
+  modelProvider: string;
+  modelName: string;
+}
+
+type FireIntensity = 'low' | 'medium' | 'high';
+
+export function CostIndicator({
+  inputTokens,
+  outputTokens,
+  reasoningTokens,
+  modelProvider,
+  modelName,
+}: CostIndicatorProps) {
+  // Find the model in the MODELS object
+  const model = MODELS[modelProvider]?.find((m) => m.name === modelName);
+
+  // Calculate cost
+  const calculateCost = (): number => {
+    if (!model) return 0;
+
+    const inputCost = inputTokens * model.tokenCost.input;
+    const outputCost = outputTokens * model.tokenCost.output;
+    // Note: MODELS object has a typo "reaasoning" instead of "reasoning"
+    const reasoningCost = reasoningTokens * model.tokenCost.reaasoning;
+
+    return inputCost + outputCost + reasoningCost;
+  };
+
+  const totalCost = calculateCost();
+
+  // Determine fire intensity based on cost thresholds
+  const getFireIntensity = (cost: number): FireIntensity => {
+    if (cost < 0.001) return 'low';
+    if (cost < 0.01) return 'medium';
+    return 'high';
+  };
+
+  const intensity = getFireIntensity(totalCost);
+
+  // Format cost for display
+  const formatCost = (cost: number): string => {
+    if (cost === 0) return '$0.00';
+    if (cost < 0.01) {
+      // For very small amounts, show more decimal places
+      return `$${cost.toFixed(4)}`;
+    }
+    return `$${cost.toFixed(2)}`;
+  };
+
+  const formattedCost = formatCost(totalCost);
+
+  return (
+    <div className="flex items-center justify-center">
+      <MoneyOnFire cost={formattedCost} intensity={intensity} />
+    </div>
+  );
+}

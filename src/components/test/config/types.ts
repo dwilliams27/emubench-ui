@@ -609,6 +609,15 @@ export const MODELS = {
       output: 0.000075,
       reaasoning: 0.000075,
     }
+  },
+  {
+    name: "claude-opus-4-5",
+    displayName: "Claude Opus 4.5",
+    tokenCost: {
+      input: 0.000005,
+      output: 0.000025,
+      reaasoning: 0.000025,
+    }
   }],
   [MODEL_PROVIDERS.GOOGLE.name]: [{
     name: "gemini-2.5-flash",

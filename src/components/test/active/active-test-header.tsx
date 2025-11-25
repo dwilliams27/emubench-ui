@@ -1,5 +1,7 @@
 import { LoadingSpinner } from "@/components/shared/loading-spinner";
+import { CostIndicator } from "@/components/test/active/cost-indicator";
 import { Card, CardHeader, CardTitle } from "@/components/ui/card";
+import { EmuAgentState, EmuBootConfig } from "@/shared/types";
 import { testStatusToBadge } from "@/utils/test";
 
 export interface ActiveTestHeaderProps {
@@ -7,11 +9,12 @@ export interface ActiveTestHeaderProps {
   requestError?: string | null;
   testStatus?: string;
   emulatorStatus?: string;
-  agentStatus?: string;
+  agentState?: EmuAgentState | null;
+  bootConfig?: EmuBootConfig;
 }
 
 export function ActiveTestHeader(
-  { testId, requestError, testStatus, emulatorStatus, agentStatus }: ActiveTestHeaderProps) {
+  { testId, requestError, testStatus, emulatorStatus, agentState, bootConfig }: ActiveTestHeaderProps) {
   if (requestError) {
     return (
       <Card className="w-full py-2 border-red-500">
@@ -39,7 +42,13 @@ export function ActiveTestHeader(
         </CardTitle>
         <div className="flex flex-row space-x-2 w-full md:w-auto">
           <div className="flex flex-col items-center w-full">
-            {/* Token cost here */}
+            <CostIndicator
+              inputTokens={agentState?.inputTokenCount || 0}
+              outputTokens={agentState?.outputTokenCount || 0}
+              reasoningTokens={agentState?.reasoningTokenCount || 0}
+              modelProvider={bootConfig?.agentConfig.llmProvider || "anthropic"}
+              modelName={bootConfig?.agentConfig.model || "claude-sonnet-4-5"}
+            />
           </div>
           <div className="flex flex-col items-center w-full">
             <p>Emulator</p>
@@ -47,7 +56,7 @@ export function ActiveTestHeader(
           </div>
           <div className="flex flex-col items-center w-full">
             <p>Agent</p>
-            {testStatusToBadge(agentStatus)}
+            {testStatusToBadge(agentState?.status)}
           </div>
         </div>
       </CardHeader>
