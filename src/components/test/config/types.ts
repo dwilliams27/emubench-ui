@@ -851,7 +851,8 @@ export const SETUP_TEST_CONFIG_SCHEMA = z.object({
     model: z.string(),
     maxIterations: z.string(),
     temperature: z.number().min(0).max(2),
-    contextHistorySize: z.number().min(0).max(10),
+    turnMemoryLength: z.number().min(0).max(10),
+    longTermMemory: z.boolean(),
     taskName: z.string(),
     taskDescription: z.string(),
     systemPrompt: z.string(),
@@ -869,7 +870,7 @@ export const SETUP_TEST_CONFIG_SCHEMA = z.object({
   }),
   goalConfig: z.object({
     // TODO: lazy
-    successCondition: z.any(),
+    successCondition: z.any().optional(),
     failCondition: z.any().optional()
   }).optional()
 });

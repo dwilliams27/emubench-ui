@@ -88,11 +88,9 @@ export function ExperimentGroup({ group, baseConfig, setIterations, removeConfig
 
     return configEntries.map(([key, value]) => {
       let displayValue = value as string;
-      if (key in DeltaFields) {
-        const field = DeltaFields[key as keyof typeof DeltaFields];
-        if (field.toDisplayValue) {
-          displayValue = field.toDisplayValue(value as string);
-        }
+      const field = Object.values(DeltaFields).find((field) => field.key === key);
+      if (field?.toDisplayValue) {
+        displayValue = field.toDisplayValue(value as string);
       }
       return { key, value: value as string, displayValue };
     });

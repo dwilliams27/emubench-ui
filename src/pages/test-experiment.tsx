@@ -39,6 +39,7 @@ export default function TestExperiment() {
       return;
     }
     try {
+      console.log("Submitting experiment", experiment);
       const response = await api.setupExperiment(experiment as EmuExperiment);
       experiment.id = response[0].experimentId;
       setExperiment(experiment as EmuExperiment);

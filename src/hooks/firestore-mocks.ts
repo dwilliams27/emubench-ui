@@ -71,7 +71,7 @@ export const TESTS_PUBLIC_MOCK = [
                 "model": "gpt-4o",
                 "systemPrompt": "You are an extremely competent video game playing agent. You will be given a task and tools to interact with a game. The game will pause while you are thinking, and only play during actions you take. Tools will be executed sequentially. Sometimes you may want to take an action, and then wait. Each response you give should be a very concise summary (1 sentance) of the action you are taking and why. You MUST give a text response every single time, even if calling tools. These responses will be fed back in as context for subsequent prompts. You will be given a history of your recent actions and related screenshots. Complete the objective.",
                 "maxIterations": "5",
-                "contextHistorySize": 3,
+                "turnMemoryLength": 3,
                 "temperature": 1,
                 "taskName": "Find and climb down the ladder"
             },
@@ -193,7 +193,7 @@ export const TESTS_PUBLIC_MOCK = [
                 "temperature": 1,
                 "llmProvider": "openai",
                 "taskDescription": "You will start out on top of a high wooden platform. You need to walk around using the main stick and find the ladder on the side of the platform. Walk into the ladder to start climbing down, and then climb all the way down.",
-                "contextHistorySize": 3,
+                "turnMemoryLength": 3,
                 "gameContext": "You are playing the Legend of Zelda Wind Waker on the Gamecube.",
                 "systemPrompt": "You are an extremely competent video game playing agent. You will be given a task and tools to interact with a game. The game will pause while you are thinking, and only play during actions you take. Tools will be executed sequentially. Sometimes you may want to take an action, and then wait. Each response you give should be a very concise summary (1 sentance) of the action you are taking and why. You MUST give a text response every single time, even if calling tools. These responses will be fed back in as context for subsequent prompts. You will be given a history of your recent actions and related screenshots. Complete the objective.",
                 "maxIterations": "5",
@@ -325,7 +325,7 @@ export const TESTS_PUBLIC_MOCK = [
                 "taskName": "Find and climb down the ladder",
                 "model": "gpt-4o",
                 "temperature": 1,
-                "contextHistorySize": 3
+                "turnMemoryLength": 3
             },
             "emulatorConfig": {
                 "gameId": "GZLE01",
@@ -460,7 +460,7 @@ export const TESTS_PUBLIC_MOCK = [
                 "taskDescription": "You will start out on top of a high wooden platform. You need to walk around using the main stick and find the ladder on the side of the platform. Walk into the ladder to start climbing down, and then climb all the way down.",
                 "systemPrompt": "You are an extremely competent video game playing agent. You will be given a task and tools to interact with a game. The game will pause while you are thinking, and only play during actions you take. Tools will be executed sequentially. Sometimes you may want to take an action, and then wait. Each response you give should be a very concise summary (1 sentance) of the action you are taking and why. You MUST give a text response every single time, even if calling tools. These responses will be fed back in as context for subsequent prompts. You will be given a history of your recent actions and related screenshots. Complete the objective.",
                 "gameContext": "You are playing the Legend of Zelda Wind Waker on the Gamecube.",
-                "contextHistorySize": 3
+                "turnMemoryLength": 3
             },
             "experimentRunGroupId": "erg-3ecacf292af34da8",
             "id": "bootcfg-007666805a704878",
@@ -539,7 +539,7 @@ export const TESTS_PUBLIC_MOCK = [
                 "taskDescription": "You will start out on top of a high wooden platform. You need to walk around using the main stick and find the ladder on the side of the platform. Walk into the ladder to start climbing down, and then climb all the way down.",
                 "model": "gpt-4o",
                 "temperature": 1,
-                "contextHistorySize": 3,
+                "turnMemoryLength": 3,
                 "taskName": "Find and climb down the ladder",
                 "gameContext": "You are playing the Legend of Zelda Wind Waker on the Gamecube."
             },
@@ -791,7 +791,7 @@ export const TESTS_PUBLIC_MOCK = [
                 "maxIterations": "5",
                 "systemPrompt": "You are an extremely competent video game playing agent. You will be given a task and tools to interact with a game. The game will pause while you are thinking, and only play during actions you take. Tools will be executed sequentially. Sometimes you may want to take an action, and then wait. Each response you give should be a very concise summary (1 sentance) of the action you are taking and why. You MUST give a text response every single time, even if calling tools. These responses will be fed back in as context for subsequent prompts. You will be given a history of your recent actions and related screenshots. Complete the objective.",
                 "taskName": "Find and climb down the ladder",
-                "contextHistorySize": 3,
+                "turnMemoryLength": 3,
                 "gameContext": "You are playing the Legend of Zelda Wind Waker on the Gamecube.",
                 "taskDescription": "You will start out on top of a high wooden platform. You need to walk around using the main stick and find the ladder on the side of the platform. Walk into the ladder to start climbing down, and then climb all the way down.",
                 "temperature": 1
@@ -861,7 +861,7 @@ export const TESTS_PUBLIC_MOCK = [
                 "llmProvider": "openai",
                 "temperature": 1,
                 "gameContext": "You are playing the Legend of Zelda Wind Waker on the Gamecube.",
-                "contextHistorySize": 3,
+                "turnMemoryLength": 3,
                 "model": "gpt-4o",
                 "maxIterations": "5",
                 "taskDescription": "You will start out on top of a high wooden platform. You need to walk around using the main stick and find the ladder on the side of the platform. Walk into the ladder to start climbing down, and then climb all the way down.",
@@ -1009,7 +1009,7 @@ export const TESTS_PUBLIC_MOCK = [
         },
         "bootConfig": {
             "agentConfig": {
-                "contextHistorySize": 3,
+                "turnMemoryLength": 3,
                 "model": "gpt-4o",
                 "gameContext": "You are playing the Legend of Zelda Wind Waker on the Gamecube.",
                 "systemPrompt": "You are an extremely competent video game playing agent. You will be given a task and tools to interact with a game. The game will pause while you are thinking, and only play during actions you take. Tools will be executed sequentially. Sometimes you may want to take an action, and then wait. Each response you give should be a very concise summary (1 sentance) of the action you are taking and why. You MUST give a text response every single time, even if calling tools. These responses will be fed back in as context for subsequent prompts. You will be given a history of your recent actions and related screenshots. Complete the objective.",
@@ -1119,7 +1119,7 @@ export const TESTS_PUBLIC_MOCK = [
                 "taskDescription": "You will start out on top of a high wooden platform. You need to walk around using the main stick and find the ladder on the side of the platform. Walk into the ladder to start climbing down, and then climb all the way down.",
                 "maxIterations": "5",
                 "systemPrompt": "You are an extremely competent video game playing agent. You will be given a task and tools to interact with a game. The game will pause while you are thinking, and only play during actions you take. Tools will be executed sequentially. Sometimes you may want to take an action, and then wait. Each response you give should be a very concise summary (1 sentance) of the action you are taking and why. You MUST give a text response every single time, even if calling tools. These responses will be fed back in as context for subsequent prompts. You will be given a history of your recent actions and related screenshots. Complete the objective.",
-                "contextHistorySize": 3,
+                "turnMemoryLength": 3,
                 "temperature": 1
             },
             "emulatorConfig": {
@@ -1332,7 +1332,7 @@ export const TESTS_PUBLIC_MOCK = [
             "experimentRunGroupId": "erg-3ecacf292af34da8",
             "agentConfig": {
                 "llmProvider": "openai",
-                "contextHistorySize": 3,
+                "turnMemoryLength": 3,
                 "taskDescription": "You will start out on top of a high wooden platform. You need to walk around using the main stick and find the ladder on the side of the platform. Walk into the ladder to start climbing down, and then climb all the way down.",
                 "maxIterations": "5",
                 "taskName": "Find and climb down the ladder",
@@ -1425,7 +1425,7 @@ export const TESTS_PUBLIC_MOCK = [
                 "model": "gpt-4o",
                 "systemPrompt": "You are an extremely competent video game playing agent. You will be given a task and tools to interact with a game. The game will pause while you are thinking, and only play during actions you take. Tools will be executed sequentially. Sometimes you may want to take an action, and then wait. Each response you give should be a very concise summary (1 sentance) of the action you are taking and why. You MUST give a text response every single time, even if calling tools. These responses will be fed back in as context for subsequent prompts. You will be given a history of your recent actions and related screenshots. Complete the objective.",
                 "maxIterations": "5",
-                "contextHistorySize": 3,
+                "turnMemoryLength": 3,
                 "temperature": 1,
                 "taskName": "Find and climb down the ladder"
             },
@@ -1547,7 +1547,7 @@ export const TESTS_PUBLIC_MOCK = [
                 "temperature": 1,
                 "llmProvider": "openai",
                 "taskDescription": "You will start out on top of a high wooden platform. You need to walk around using the main stick and find the ladder on the side of the platform. Walk into the ladder to start climbing down, and then climb all the way down.",
-                "contextHistorySize": 3,
+                "turnMemoryLength": 3,
                 "gameContext": "You are playing the Legend of Zelda Wind Waker on the Gamecube.",
                 "systemPrompt": "You are an extremely competent video game playing agent. You will be given a task and tools to interact with a game. The game will pause while you are thinking, and only play during actions you take. Tools will be executed sequentially. Sometimes you may want to take an action, and then wait. Each response you give should be a very concise summary (1 sentance) of the action you are taking and why. You MUST give a text response every single time, even if calling tools. These responses will be fed back in as context for subsequent prompts. You will be given a history of your recent actions and related screenshots. Complete the objective.",
                 "maxIterations": "5",
@@ -1679,7 +1679,7 @@ export const TESTS_PUBLIC_MOCK = [
                 "taskName": "Find and climb down the ladder",
                 "model": "gpt-4o",
                 "temperature": 1,
-                "contextHistorySize": 3
+                "turnMemoryLength": 3
             },
             "emulatorConfig": {
                 "gameId": "GZLE01",
@@ -1814,7 +1814,7 @@ export const TESTS_PUBLIC_MOCK = [
                 "taskDescription": "You will start out on top of a high wooden platform. You need to walk around using the main stick and find the ladder on the side of the platform. Walk into the ladder to start climbing down, and then climb all the way down.",
                 "systemPrompt": "You are an extremely competent video game playing agent. You will be given a task and tools to interact with a game. The game will pause while you are thinking, and only play during actions you take. Tools will be executed sequentially. Sometimes you may want to take an action, and then wait. Each response you give should be a very concise summary (1 sentance) of the action you are taking and why. You MUST give a text response every single time, even if calling tools. These responses will be fed back in as context for subsequent prompts. You will be given a history of your recent actions and related screenshots. Complete the objective.",
                 "gameContext": "You are playing the Legend of Zelda Wind Waker on the Gamecube.",
-                "contextHistorySize": 3
+                "turnMemoryLength": 3
             },
             "experimentRunGroupId": "erg-3ecacf292af34da8",
             "id": "bootcfg-007666805a704878",
@@ -1893,7 +1893,7 @@ export const TESTS_PUBLIC_MOCK = [
                 "taskDescription": "You will start out on top of a high wooden platform. You need to walk around using the main stick and find the ladder on the side of the platform. Walk into the ladder to start climbing down, and then climb all the way down.",
                 "model": "gpt-4o",
                 "temperature": 1,
-                "contextHistorySize": 3,
+                "turnMemoryLength": 3,
                 "taskName": "Find and climb down the ladder",
                 "gameContext": "You are playing the Legend of Zelda Wind Waker on the Gamecube."
             },
@@ -2145,7 +2145,7 @@ export const TESTS_PUBLIC_MOCK = [
                 "maxIterations": "5",
                 "systemPrompt": "You are an extremely competent video game playing agent. You will be given a task and tools to interact with a game. The game will pause while you are thinking, and only play during actions you take. Tools will be executed sequentially. Sometimes you may want to take an action, and then wait. Each response you give should be a very concise summary (1 sentance) of the action you are taking and why. You MUST give a text response every single time, even if calling tools. These responses will be fed back in as context for subsequent prompts. You will be given a history of your recent actions and related screenshots. Complete the objective.",
                 "taskName": "Find and climb down the ladder",
-                "contextHistorySize": 3,
+                "turnMemoryLength": 3,
                 "gameContext": "You are playing the Legend of Zelda Wind Waker on the Gamecube.",
                 "taskDescription": "You will start out on top of a high wooden platform. You need to walk around using the main stick and find the ladder on the side of the platform. Walk into the ladder to start climbing down, and then climb all the way down.",
                 "temperature": 1
@@ -2215,7 +2215,7 @@ export const TESTS_PUBLIC_MOCK = [
                 "llmProvider": "openai",
                 "temperature": 1,
                 "gameContext": "You are playing the Legend of Zelda Wind Waker on the Gamecube.",
-                "contextHistorySize": 3,
+                "turnMemoryLength": 3,
                 "model": "gpt-4o",
                 "maxIterations": "5",
                 "taskDescription": "You will start out on top of a high wooden platform. You need to walk around using the main stick and find the ladder on the side of the platform. Walk into the ladder to start climbing down, and then climb all the way down.",
@@ -2363,7 +2363,7 @@ export const TESTS_PUBLIC_MOCK = [
         },
         "bootConfig": {
             "agentConfig": {
-                "contextHistorySize": 3,
+                "turnMemoryLength": 3,
                 "model": "gpt-4o",
                 "gameContext": "You are playing the Legend of Zelda Wind Waker on the Gamecube.",
                 "systemPrompt": "You are an extremely competent video game playing agent. You will be given a task and tools to interact with a game. The game will pause while you are thinking, and only play during actions you take. Tools will be executed sequentially. Sometimes you may want to take an action, and then wait. Each response you give should be a very concise summary (1 sentance) of the action you are taking and why. You MUST give a text response every single time, even if calling tools. These responses will be fed back in as context for subsequent prompts. You will be given a history of your recent actions and related screenshots. Complete the objective.",
@@ -2473,7 +2473,7 @@ export const TESTS_PUBLIC_MOCK = [
                 "taskDescription": "You will start out on top of a high wooden platform. You need to walk around using the main stick and find the ladder on the side of the platform. Walk into the ladder to start climbing down, and then climb all the way down.",
                 "maxIterations": "5",
                 "systemPrompt": "You are an extremely competent video game playing agent. You will be given a task and tools to interact with a game. The game will pause while you are thinking, and only play during actions you take. Tools will be executed sequentially. Sometimes you may want to take an action, and then wait. Each response you give should be a very concise summary (1 sentance) of the action you are taking and why. You MUST give a text response every single time, even if calling tools. These responses will be fed back in as context for subsequent prompts. You will be given a history of your recent actions and related screenshots. Complete the objective.",
-                "contextHistorySize": 3,
+                "turnMemoryLength": 3,
                 "temperature": 1
             },
             "emulatorConfig": {
@@ -2686,7 +2686,7 @@ export const TESTS_PUBLIC_MOCK = [
             "experimentRunGroupId": "erg-3ecacf292af34da8",
             "agentConfig": {
                 "llmProvider": "openai",
-                "contextHistorySize": 3,
+                "turnMemoryLength": 3,
                 "taskDescription": "You will start out on top of a high wooden platform. You need to walk around using the main stick and find the ladder on the side of the platform. Walk into the ladder to start climbing down, and then climb all the way down.",
                 "maxIterations": "5",
                 "taskName": "Find and climb down the ladder",
@@ -2797,7 +2797,7 @@ export const TESTS_PUBLIC_MOCK = [
             "agentConfig": {
                 "temperature": 1,
                 "taskName": "Find and climb down the ladder",
-                "contextHistorySize": 3,
+                "turnMemoryLength": 3,
                 "gameContext": "You are playing the Legend of Zelda Wind Waker on the Gamecube.",
                 "model": "gpt-4o",
                 "llmProvider": "openai",
@@ -2928,7 +2928,7 @@ export const TESTS_PUBLIC_MOCK = [
             },
             "agentConfig": {
                 "model": "gpt-4o",
-                "contextHistorySize": 3,
+                "turnMemoryLength": 3,
                 "taskDescription": "You will start out on top of a high wooden platform. You need to walk around using the main stick and find the ladder on the side of the platform. Walk into the ladder to start climbing down, and then climb all the way down.",
                 "gameContext": "You are playing the Legend of Zelda Wind Waker on the Gamecube.",
                 "systemPrompt": "You are an extremely competent video game playing agent. You will be given a task and tools to interact with a game. The game will pause while you are thinking, and only play during actions you take. Tools will be executed sequentially. Sometimes you may want to take an action, and then wait. Each response you give should be a very concise summary (1 sentance) of the action you are taking and why. You MUST give a text response every single time, even if calling tools. These responses will be fed back in as context for subsequent prompts. You will be given a history of your recent actions and related screenshots. Complete the objective.",
@@ -3169,7 +3169,7 @@ export const TESTS_PUBLIC_MOCK = [
                 "systemPrompt": "You are an extremely competent video game playing agent. You will be given a task and tools to interact with a game. The game will pause while you are thinking, and only play during actions you take. Tools will be executed sequentially. Sometimes you may want to take an action, and then wait. Each response you give should be a very concise summary (1 sentance) of the action you are taking and why. You MUST give a text response every single time, even if calling tools. These responses will be fed back in as context for subsequent prompts. You will be given a history of your recent actions and related screenshots. Complete the objective.",
                 "llmProvider": "openai",
                 "gameContext": "You are playing the Legend of Zelda Wind Waker on the Gamecube.",
-                "contextHistorySize": 3,
+                "turnMemoryLength": 3,
                 "taskName": "Find and climb down the ladder",
                 "model": "gpt-4o",
                 "taskDescription": "You will start out on top of a high wooden platform. You need to walk around using the main stick and find the ladder on the side of the platform. Walk into the ladder to start climbing down, and then climb all the way down."
@@ -3313,7 +3313,7 @@ export const TESTS_PUBLIC_MOCK = [
                 "systemPrompt": "You are an extremely competent video game playing agent. You will be given a task and tools to interact with a game. The game will pause while you are thinking, and only play during actions you take. Tools will be executed sequentially. Sometimes you may want to take an action, and then wait. Each response you give should be a very concise summary (1 sentance) of the action you are taking and why. You MUST give a text response every single time, even if calling tools. These responses will be fed back in as context for subsequent prompts. You will be given a history of your recent actions and related screenshots. Complete the objective.",
                 "model": "gpt-4o",
                 "gameContext": "You are playing the Legend of Zelda Wind Waker on the Gamecube.",
-                "contextHistorySize": 3,
+                "turnMemoryLength": 3,
                 "taskDescription": "You will start out on top of a high wooden platform. You need to walk around using the main stick and find the ladder on the side of the platform. Walk into the ladder to start climbing down, and then climb all the way down.",
                 "temperature": 1,
                 "llmProvider": "openai"
@@ -3370,7 +3370,7 @@ export const TESTS_PUBLIC_MOCK = [
         "bootConfig": {
             "experimentRunGroupId": "erg-42ff07c906914c31",
             "agentConfig": {
-                "contextHistorySize": 3,
+                "turnMemoryLength": 3,
                 "gameContext": "You are playing the Legend of Zelda Wind Waker on the Gamecube.",
                 "maxIterations": "10",
                 "taskName": "Find and climb down the ladder",
@@ -3658,7 +3658,7 @@ export const TESTS_PUBLIC_MOCK = [
                 "maxIterations": "10",
                 "taskName": "Find and climb down the ladder",
                 "systemPrompt": "You are an extremely competent video game playing agent. You will be given a task and tools to interact with a game. The game will pause while you are thinking, and only play during actions you take. Tools will be executed sequentially. Sometimes you may want to take an action, and then wait. Each response you give should be a very concise summary (1 sentance) of the action you are taking and why. You MUST give a text response every single time, even if calling tools. These responses will be fed back in as context for subsequent prompts. You will be given a history of your recent actions and related screenshots. Complete the objective.",
-                "contextHistorySize": 3,
+                "turnMemoryLength": 3,
                 "model": "gpt-4o",
                 "gameContext": "You are playing the Legend of Zelda Wind Waker on the Gamecube.",
                 "taskDescription": "You will start out on top of a high wooden platform. You need to walk around using the main stick and find the ladder on the side of the platform. Walk into the ladder to start climbing down, and then climb all the way down.",
@@ -3742,7 +3742,7 @@ export const TESTS_PUBLIC_MOCK = [
             "experimentId": "exp-d7f3b57db87b4310",
             "id": "bootcfg-0db0176a81e84e49",
             "agentConfig": {
-                "contextHistorySize": 3,
+                "turnMemoryLength": 3,
                 "taskDescription": "You will start out on top of a high wooden platform. You need to walk around using the main stick and find the ladder on the side of the platform. Walk into the ladder to start climbing down, and then climb all the way down.",
                 "maxIterations": "10",
                 "temperature": 1,
@@ -4050,7 +4050,7 @@ export const TESTS_PUBLIC_MOCK = [
             "experimentRunGroupId": "erg-42ff07c906914c31",
             "agentConfig": {
                 "model": "gpt-4o",
-                "contextHistorySize": 3,
+                "turnMemoryLength": 3,
                 "systemPrompt": "You are an extremely competent video game playing agent. You will be given a task and tools to interact with a game. The game will pause while you are thinking, and only play during actions you take. Tools will be executed sequentially. Sometimes you may want to take an action, and then wait. Each response you give should be a very concise summary (1 sentance) of the action you are taking and why. You MUST give a text response every single time, even if calling tools. These responses will be fed back in as context for subsequent prompts. You will be given a history of your recent actions and related screenshots. Complete the objective.",
                 "maxIterations": "10",
                 "taskName": "Find and climb down the ladder",
@@ -4186,7 +4186,7 @@ export const TESTS_PUBLIC_MOCK = [
                 "taskDescription": "You will start out on top of a high wooden platform. You need to walk around using the main stick and find the ladder on the side of the platform. Walk into the ladder to start climbing down, and then climb all the way down.",
                 "systemPrompt": "You are an extremely competent video game playing agent. You will be given a task and tools to interact with a game. The game will pause while you are thinking, and only play during actions you take. Tools will be executed sequentially. Sometimes you may want to take an action, and then wait. Each response you give should be a very concise summary (1 sentance) of the action you are taking and why. You MUST give a text response every single time, even if calling tools. These responses will be fed back in as context for subsequent prompts. You will be given a history of your recent actions and related screenshots. Complete the objective.",
                 "temperature": 1,
-                "contextHistorySize": 3,
+                "turnMemoryLength": 3,
                 "llmProvider": "openai",
                 "model": "gpt-4o",
                 "maxIterations": "10",
@@ -4269,7 +4269,7 @@ export const TESTS_PUBLIC_MOCK = [
                 "gameContext": "You are playing the Legend of Zelda Wind Waker on the Gamecube.",
                 "taskDescription": "You will start out on top of a high wooden platform. You need to walk around using the main stick and find the ladder on the side of the platform. Walk into the ladder to start climbing down, and then climb all the way down.",
                 "taskName": "Find and climb down the ladder",
-                "contextHistorySize": 3
+                "turnMemoryLength": 3
             }
         },
         "screenshots": {
@@ -4478,7 +4478,7 @@ export const TESTS_PUBLIC_MOCK = [
             "agentConfig": {
                 "temperature": 1,
                 "taskName": "Find and climb down the ladder",
-                "contextHistorySize": 3,
+                "turnMemoryLength": 3,
                 "gameContext": "You are playing the Legend of Zelda Wind Waker on the Gamecube.",
                 "model": "gpt-4o",
                 "llmProvider": "openai",
@@ -4609,7 +4609,7 @@ export const TESTS_PUBLIC_MOCK = [
             },
             "agentConfig": {
                 "model": "gpt-4o",
-                "contextHistorySize": 3,
+                "turnMemoryLength": 3,
                 "taskDescription": "You will start out on top of a high wooden platform. You need to walk around using the main stick and find the ladder on the side of the platform. Walk into the ladder to start climbing down, and then climb all the way down.",
                 "gameContext": "You are playing the Legend of Zelda Wind Waker on the Gamecube.",
                 "systemPrompt": "You are an extremely competent video game playing agent. You will be given a task and tools to interact with a game. The game will pause while you are thinking, and only play during actions you take. Tools will be executed sequentially. Sometimes you may want to take an action, and then wait. Each response you give should be a very concise summary (1 sentance) of the action you are taking and why. You MUST give a text response every single time, even if calling tools. These responses will be fed back in as context for subsequent prompts. You will be given a history of your recent actions and related screenshots. Complete the objective.",
@@ -4850,7 +4850,7 @@ export const TESTS_PUBLIC_MOCK = [
                 "systemPrompt": "You are an extremely competent video game playing agent. You will be given a task and tools to interact with a game. The game will pause while you are thinking, and only play during actions you take. Tools will be executed sequentially. Sometimes you may want to take an action, and then wait. Each response you give should be a very concise summary (1 sentance) of the action you are taking and why. You MUST give a text response every single time, even if calling tools. These responses will be fed back in as context for subsequent prompts. You will be given a history of your recent actions and related screenshots. Complete the objective.",
                 "llmProvider": "openai",
                 "gameContext": "You are playing the Legend of Zelda Wind Waker on the Gamecube.",
-                "contextHistorySize": 3,
+                "turnMemoryLength": 3,
                 "taskName": "Find and climb down the ladder",
                 "model": "gpt-4o",
                 "taskDescription": "You will start out on top of a high wooden platform. You need to walk around using the main stick and find the ladder on the side of the platform. Walk into the ladder to start climbing down, and then climb all the way down."
@@ -4994,7 +4994,7 @@ export const TESTS_PUBLIC_MOCK = [
                 "systemPrompt": "You are an extremely competent video game playing agent. You will be given a task and tools to interact with a game. The game will pause while you are thinking, and only play during actions you take. Tools will be executed sequentially. Sometimes you may want to take an action, and then wait. Each response you give should be a very concise summary (1 sentance) of the action you are taking and why. You MUST give a text response every single time, even if calling tools. These responses will be fed back in as context for subsequent prompts. You will be given a history of your recent actions and related screenshots. Complete the objective.",
                 "model": "gpt-4o",
                 "gameContext": "You are playing the Legend of Zelda Wind Waker on the Gamecube.",
-                "contextHistorySize": 3,
+                "turnMemoryLength": 3,
                 "taskDescription": "You will start out on top of a high wooden platform. You need to walk around using the main stick and find the ladder on the side of the platform. Walk into the ladder to start climbing down, and then climb all the way down.",
                 "temperature": 1,
                 "llmProvider": "openai"
@@ -5051,7 +5051,7 @@ export const TESTS_PUBLIC_MOCK = [
         "bootConfig": {
             "experimentRunGroupId": "erg-42ff07c906914c31",
             "agentConfig": {
-                "contextHistorySize": 3,
+                "turnMemoryLength": 3,
                 "gameContext": "You are playing the Legend of Zelda Wind Waker on the Gamecube.",
                 "maxIterations": "10",
                 "taskName": "Find and climb down the ladder",
@@ -5339,7 +5339,7 @@ export const TESTS_PUBLIC_MOCK = [
                 "maxIterations": "10",
                 "taskName": "Find and climb down the ladder",
                 "systemPrompt": "You are an extremely competent video game playing agent. You will be given a task and tools to interact with a game. The game will pause while you are thinking, and only play during actions you take. Tools will be executed sequentially. Sometimes you may want to take an action, and then wait. Each response you give should be a very concise summary (1 sentance) of the action you are taking and why. You MUST give a text response every single time, even if calling tools. These responses will be fed back in as context for subsequent prompts. You will be given a history of your recent actions and related screenshots. Complete the objective.",
-                "contextHistorySize": 3,
+                "turnMemoryLength": 3,
                 "model": "gpt-4o",
                 "gameContext": "You are playing the Legend of Zelda Wind Waker on the Gamecube.",
                 "taskDescription": "You will start out on top of a high wooden platform. You need to walk around using the main stick and find the ladder on the side of the platform. Walk into the ladder to start climbing down, and then climb all the way down.",
@@ -5423,7 +5423,7 @@ export const TESTS_PUBLIC_MOCK = [
             "experimentId": "exp-d7f3b57db87b4310",
             "id": "bootcfg-0db0176a81e84e49",
             "agentConfig": {
-                "contextHistorySize": 3,
+                "turnMemoryLength": 3,
                 "taskDescription": "You will start out on top of a high wooden platform. You need to walk around using the main stick and find the ladder on the side of the platform. Walk into the ladder to start climbing down, and then climb all the way down.",
                 "maxIterations": "10",
                 "temperature": 1,
@@ -5731,7 +5731,7 @@ export const TESTS_PUBLIC_MOCK = [
             "experimentRunGroupId": "erg-42ff07c906914c31",
             "agentConfig": {
                 "model": "gpt-4o",
-                "contextHistorySize": 3,
+                "turnMemoryLength": 3,
                 "systemPrompt": "You are an extremely competent video game playing agent. You will be given a task and tools to interact with a game. The game will pause while you are thinking, and only play during actions you take. Tools will be executed sequentially. Sometimes you may want to take an action, and then wait. Each response you give should be a very concise summary (1 sentance) of the action you are taking and why. You MUST give a text response every single time, even if calling tools. These responses will be fed back in as context for subsequent prompts. You will be given a history of your recent actions and related screenshots. Complete the objective.",
                 "maxIterations": "10",
                 "taskName": "Find and climb down the ladder",
@@ -5867,7 +5867,7 @@ export const TESTS_PUBLIC_MOCK = [
                 "taskDescription": "You will start out on top of a high wooden platform. You need to walk around using the main stick and find the ladder on the side of the platform. Walk into the ladder to start climbing down, and then climb all the way down.",
                 "systemPrompt": "You are an extremely competent video game playing agent. You will be given a task and tools to interact with a game. The game will pause while you are thinking, and only play during actions you take. Tools will be executed sequentially. Sometimes you may want to take an action, and then wait. Each response you give should be a very concise summary (1 sentance) of the action you are taking and why. You MUST give a text response every single time, even if calling tools. These responses will be fed back in as context for subsequent prompts. You will be given a history of your recent actions and related screenshots. Complete the objective.",
                 "temperature": 1,
-                "contextHistorySize": 3,
+                "turnMemoryLength": 3,
                 "llmProvider": "openai",
                 "model": "gpt-4o",
                 "maxIterations": "10",
@@ -5950,7 +5950,7 @@ export const TESTS_PUBLIC_MOCK = [
                 "gameContext": "You are playing the Legend of Zelda Wind Waker on the Gamecube.",
                 "taskDescription": "You will start out on top of a high wooden platform. You need to walk around using the main stick and find the ladder on the side of the platform. Walk into the ladder to start climbing down, and then climb all the way down.",
                 "taskName": "Find and climb down the ladder",
-                "contextHistorySize": 3
+                "turnMemoryLength": 3
             }
         },
         "screenshots": {

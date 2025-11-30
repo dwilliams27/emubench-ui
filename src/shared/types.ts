@@ -59,11 +59,12 @@ export interface EmuAgentConfig {
   temperature: number;
   taskName: string;
   taskDescription: string;
-  contextHistorySize: number;
+  turnMemoryLength: number;
+  longTermMemory: boolean;
 };
 
 export interface EmuGoalConfig {
-  successCondition: EmuCondition;
+  successCondition?: EmuCondition;
   failCondition?: EmuCondition;
 };
 
@@ -87,8 +88,13 @@ export interface EmuAgentState {
   outputTokenCount: number;
   reasoningTokenCount: number;
   totalTokenCount: number;
+  memory?: EmuAgentMemory;
   status: 'booting' | 'running' | 'finished' | 'error';
 };
+
+export interface EmuAgentMemory {
+  longTermNotes: string;
+}
 
 export interface EmuSharedTestState {
   id: string;
@@ -102,7 +108,8 @@ export interface EmuActiveTestReponse {
   agentLogs?: EmuLogBlock[] | null;
   emulatorState?: EmuEmulatorState | null;
   screenshots?: Record<string, EmuScreenshot>;
-  currentCondition?: EmuCondition;
+  currentSuccessCondition?: EmuCondition;
+  currentFailCondition?: EmuCondition;
   bootConfig: EmuBootConfig;
 };
 

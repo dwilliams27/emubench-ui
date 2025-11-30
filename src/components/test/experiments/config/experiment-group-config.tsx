@@ -66,24 +66,26 @@ export function ExperimentGroupConfig({ onSubmit, submitting, baseConfig }: { on
             addConfigDeltaItem={(data: { key: string, value?: any }) => {
               const newGroups = [...experimentRunGroups];
               const deltaField = DeltaFields[data.key];
-              newGroups[index] = {
-                ...newGroups[index],
-                baseConfigDelta: {
-                  ...newGroups[index].baseConfigDelta,
-                  ...(deltaField.configKey === "emulatorConfig" ? {
-                    emulatorConfig: {
-                      ...newGroups[index].baseConfigDelta.emulatorConfig,
-                      [deltaField.key]: deltaField.toValue(data.value)
-                    }
-                  } : {}),
-                  ...(deltaField.configKey === "agentConfig" ? {
-                    agentConfig: {
-                      ...newGroups[index].baseConfigDelta.agentConfig,
-                      [deltaField.key]: deltaField.toValue(data.value)
-                    }
-                  } : {})
-                }
-              };
+              if (deltaField) {
+                newGroups[index] = {
+                  ...newGroups[index],
+                  baseConfigDelta: {
+                    ...newGroups[index].baseConfigDelta,
+                    ...(deltaField.configKey === "emulatorConfig" ? {
+                      emulatorConfig: {
+                        ...newGroups[index].baseConfigDelta.emulatorConfig,
+                        [deltaField.key]: deltaField.toValue(data.value)
+                      }
+                    } : {}),
+                    ...(deltaField.configKey === "agentConfig" ? {
+                      agentConfig: {
+                        ...newGroups[index].baseConfigDelta.agentConfig,
+                        [deltaField.key]: deltaField.toValue(data.value)
+                      }
+                    } : {})
+                  }
+                };
+              }
               
               setExperimentRunGroups(newGroups);
             }}

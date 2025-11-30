@@ -10,6 +10,7 @@ import { Input } from "@/components/ui/input";
 import { Slider } from "@/components/ui/slider";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
 
 export function AgentConfig({
   form,
@@ -151,7 +152,7 @@ export function AgentConfig({
           )}
         />
 
-        <div className="flex flex-row mt-6">
+        <div className="flex flex-row mt-6 justify-around">
           <FormField
             control={form.control}
             name="agentConfig.maxIterations"
@@ -173,23 +174,6 @@ export function AgentConfig({
               </div>
             )}
           />
-
-          <FormField
-            control={form.control}
-            name="agentConfig.contextHistorySize"
-            render={({ field }) => (
-              <div className="w-1/3 space-y-2">
-                <FormLabel className="block text-center">Turn Context Size</FormLabel>
-                <div className="flex flex-row items-center">
-                  <div className="ml-auto">{field.value}</div>
-                  <div className="mr-auto flex flex-col space-y-1">
-                    <Button type="button" variant="outline" className="ml-2 h-2" onClick={() => field.onChange(Math.min(10, field.value + 1))}>+</Button>
-                    <Button type="button" variant="outline" className="ml-2 h-2" onClick={() => field.onChange(Math.max(0, field.value - 1))}>-</Button>
-                  </div>
-                </div>
-              </div>
-            )}
-          />
           
           <FormField
             control={form.control}
@@ -205,6 +189,44 @@ export function AgentConfig({
             )}
           />
         </div>
+
+        <div className="flex flex-row mt-6 justify-around">
+          <FormField
+            control={form.control}
+            name="agentConfig.turnMemoryLength"
+            render={({ field }) => (
+              <div className="w-1/3 space-y-2">
+                <FormLabel className="block text-center">Turn Memory Length</FormLabel>
+                <div className="flex flex-row items-center">
+                  <div className="ml-auto">{field.value}</div>
+                  <div className="mr-auto flex flex-col space-y-1">
+                    <Button type="button" variant="outline" className="ml-2 h-2" onClick={() => field.onChange(Math.min(10, field.value + 1))}>+</Button>
+                    <Button type="button" variant="outline" className="ml-2 h-2" onClick={() => field.onChange(Math.max(0, field.value - 1))}>-</Button>
+                  </div>
+                </div>
+              </div>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="agentConfig.longTermMemory"
+            render={({ field }) => (
+              <div className="w-1/3 space-y-2">
+                <FormLabel className="block text-center">Long Term Memory</FormLabel>
+                <div className="flex">
+                  <Checkbox
+                    className="mx-auto mt-2 w-6 h-6"
+                    checked={field.value}
+                    onCheckedChange={(value) => field.onChange(value)}
+                    aria-label="Enable long term memory"
+                  />
+                </div>
+              </div>
+            )}
+          />
+        </div>
+
         <Separator className="my-4"/>
 
         <div className="flex flex-col md:flex-row gap-3 flex-1 min-h-0">

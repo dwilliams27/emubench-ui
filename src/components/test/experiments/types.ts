@@ -6,7 +6,7 @@ export interface DeltaField {
   configKey: 'agentConfig' | 'emulatorConfig';
   toValue: (input: string) => any;
   getAllowedValues?: (currentConfig: EmuBootConfig) => string[];
-  toDisplayValue?: (key: string) => string;
+  toDisplayValue?: (key: any) => string;
 }
 
 export const DeltaFields: Record<string, DeltaField> = {
@@ -20,7 +20,7 @@ export const DeltaFields: Record<string, DeltaField> = {
     configKey: "agentConfig",
     toValue: (input: string) => input,
     getAllowedValues: (_) => Object.keys(MODEL_PROVIDERS).map((key) => MODEL_PROVIDERS[key].name),
-    toDisplayValue: (key) => MODEL_PROVIDERS[key as keyof typeof MODEL_PROVIDERS].displayName
+    toDisplayValue: (key) => Object.values(MODEL_PROVIDERS).find(model => model.name === key)?.displayName || "Unknown"
   },
   "Model": {
     key: "model",
@@ -37,6 +37,7 @@ export const DeltaFields: Record<string, DeltaField> = {
   "Max Iterations": {
     toValue: (input: string) => parseInt(input),
     key: "maxIterations",
+    getAllowedValues: (_) => ["5", "10", "15", "20", "30", "50"],
     configKey: "agentConfig",
   },
   "Temperature": {
@@ -44,9 +45,17 @@ export const DeltaFields: Record<string, DeltaField> = {
     key: "temperature",
     configKey: "agentConfig",
   },
-  "Turn Context Size": {
+  "Turn Memory Length": {
     toValue: (input: string) => parseInt(input),
-    key: "contextHistorySize",
+    key: "turnMemoryLength",
+    getAllowedValues: (_) => ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"],
+    configKey: "agentConfig",
+  },
+  "Long Term Memory": {
+    toValue: (input: string) => input === "true",
+    toDisplayValue: (input: boolean) => input ? "true" : "false",
+    key: "longTermMemory",
+    getAllowedValues: (_) => ["true", "false"],
     configKey: "agentConfig",
   },
   "Task Name": {

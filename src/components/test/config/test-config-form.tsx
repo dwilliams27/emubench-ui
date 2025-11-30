@@ -26,9 +26,10 @@ export function TestConfigForm({ onSubmit, submitting, buttonText }: { onSubmit:
         modelProvider: MODEL_PROVIDERS.GOOGLE.name,
         model: MODELS[MODEL_PROVIDERS.GOOGLE.name][0].name,
         gameContext: GAME_CONTEXT[GAMES.ZELDA_WIND_WAKER],
-        maxIterations: "20",
+        maxIterations: "15",
         temperature: 1.0,
-        contextHistorySize: 3,
+        turnMemoryLength: 3,
+        longTermMemory: true,
         taskName: DEFAULT_TASK_PRESET.name,
         taskDescription: DEFAULT_TASK_PRESET.description,
         systemPrompt: DEFAULT_SYSTEM_PROMPT_PRESET.content

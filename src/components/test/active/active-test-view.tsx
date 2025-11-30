@@ -10,7 +10,7 @@ import { useSearchParams } from "react-router-dom";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { TestCondition } from "@/components/shared/test-condition";
 import { Skeleton } from "@/components/ui/skeleton";
-import { CostIndicator } from "@/components/test/active/cost-indicator";
+import { EmuConditionOperand } from "@/shared/conditions/types";
 
 export interface ActiveTestViewProps {
   test: Test | undefined;
@@ -26,16 +26,30 @@ export function ActiveTestView() {
   const testId = searchParams.get('testId');
 
   const flatCondition = useMemo(() => {
-    if (!currentState?.currentCondition) {
-      return [];
+    const result: { successCondition: EmuConditionOperand[], failCondition: EmuConditionOperand[] } = { successCondition: [], failCondition: [] };
+    if (currentState?.currentSuccessCondition) {
+      try {
+        const flat = emuFlattenCondition(currentState.currentSuccessCondition);
+        result.successCondition = flat;
+      } catch (error) {
+        console.log('Error flattening condition: ', error);
+      }
     }
-    try {
-      const flat = emuFlattenCondition(currentState.currentCondition);
-      return flat;
-    } catch (error) {
-      console.log('Error flattening condition: ', error);
-      return [];
+
+    if (currentState?.currentFailCondition) {
+      try {
+        const flat = emuFlattenCondition(currentState.currentFailCondition);
+        result.failCondition = flat;
+      } catch (error) {
+        console.log('Error flattening condition: ', error);
+      }
     }
+
+    if (!result.successCondition && !result.failCondition) {
+      return null;
+    }
+    
+    return result;
   }, [currentState]);
 
   const getActiveTestState = async () => {
@@ -104,8 +118,15 @@ export function ActiveTestView() {
           <CardTitle>Goal</CardTitle>
         </CardHeader>
         <CardContent className="flex flex-row space-x-2">
-          {flatCondition?.length > 0 ? (
-            <TestCondition flatCondition={flatCondition} />
+          {flatCondition ? (
+            <div>
+              {flatCondition.successCondition && (
+                <TestCondition flatCondition={flatCondition.successCondition} />
+              )}
+              {flatCondition.failCondition && (
+                <TestCondition flatCondition={flatCondition.failCondition} />
+              )}
+            </div>
           ) : (
             <div className="flex flex-row space-x-4 overflow-x-auto">
               <Skeleton className="h-12 w-32 mb-2" />

@@ -30,21 +30,36 @@ export function configFormToEmuBootConfig(formData: z.infer<typeof SETUP_TEST_CO
       model: formData.agentConfig.model,
       maxIterations: parseInt(formData.agentConfig.maxIterations),
       temperature: formData.agentConfig.temperature,
-      contextHistorySize: formData.agentConfig.contextHistorySize,
+      turnMemoryLength: formData.agentConfig.turnMemoryLength,
       taskName: formData.agentConfig.taskName,
       taskDescription: formData.agentConfig.taskDescription,
+      longTermMemory: formData.agentConfig.longTermMemory
     },
     goalConfig: {
-      condition: {
-        inputs: Object.entries(formData.memoryConfig.context || {}).reduce((acc: Record<string, any>, [key, value]) => {
-          acc[key] = {
-            name: value.name,
-            type: value.type,
-          };
-          return acc;
-        }, {}),
-        logic: formData.goalConfig?.condition?.logic || {}
-      }
+      ...(formData.goalConfig?.successCondition && {
+        successCondition: {
+          inputs: Object.entries(formData.memoryConfig.context || {}).reduce((acc: Record<string, any>, [key, value]) => {
+            acc[key] = {
+              name: value.name,
+              type: value.type,
+            };
+            return acc;
+          }, {}),
+          logic: formData.goalConfig.successCondition.logic || {}
+        }
+      }),
+      ...(formData.goalConfig?.failCondition && {
+        failCondition: {
+          inputs: Object.entries(formData.memoryConfig.context || {}).reduce((acc: Record<string, any>, [key, value]) => {
+            acc[key] = {
+              name: value.name,
+              type: value.type,
+            };
+            return acc;
+          }, {}),
+          logic: formData.goalConfig?.failCondition?.logic || {}
+        }
+      }),
     }
   };
 }
