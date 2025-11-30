@@ -63,7 +63,8 @@ export interface EmuAgentConfig {
 };
 
 export interface EmuGoalConfig {
-  condition: EmuCondition;
+  successCondition: EmuCondition;
+  failCondition?: EmuCondition;
 };
 
 export interface EmuTestState {

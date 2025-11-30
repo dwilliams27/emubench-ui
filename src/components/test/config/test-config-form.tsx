@@ -37,7 +37,7 @@ export function TestConfigForm({ onSubmit, submitting, buttonText }: { onSubmit:
         context: DEFAULT_GOAL_PRESET.memoryWatches,
       },
       goalConfig: {
-        condition: DEFAULT_GOAL_PRESET.condition
+        successCondition: DEFAULT_GOAL_PRESET.successCondition,
       }
     }
   });

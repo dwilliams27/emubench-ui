@@ -146,7 +146,10 @@ export function GoalConfig({
     const preset = availableGoalPresets.find(p => p.id === presetId);
     if (preset) {
       form.setValue("memoryConfig.context", preset.memoryWatches);
-      form.setValue("goalConfig.condition", preset.condition);
+      form.setValue("goalConfig.successCondition", preset.successCondition);
+      if (preset.failCondition) {
+        form.setValue("goalConfig.failCondition", preset.failCondition);
+      }
     }
   };
 
@@ -308,7 +311,7 @@ export function GoalConfig({
     }
     const sorted = canvasItems.slice().sort((a, b) => a.x - b.x);
     const result = canvasItemsToEmuCondition(sorted);
-    form.setValue("goalConfig.condition", result.result || { inputs: {}, logic: {} });
+    form.setValue("goalConfig.successCondition", result.result || { inputs: {}, logic: {} });
     return result;
   }, [canvasItems]);
 
@@ -348,11 +351,19 @@ export function GoalConfig({
               <p className="text-sm">{selectedPresetData.description}</p>
             </div>
             <div>
-              <p className="text-sm font-medium mb-1">Condition</p>
+              <p className="text-sm font-medium mb-1">Task Succeeds If:</p>
               <code className="text-sm bg-background px-2 py-1 rounded">
-                {conditionToPreview(selectedPresetData.condition)}
+                {conditionToPreview(selectedPresetData.successCondition)}
               </code>
             </div>
+            { selectedPresetData.failCondition && (
+              <div>
+                <p className="text-sm font-medium mb-1">Task Immediately Fails If:</p>
+                <code className="text-sm bg-background px-2 py-1 rounded">
+                  {conditionToPreview(selectedPresetData.failCondition)}
+                </code>
+              </div>
+            )}
           </div>
         )}
 

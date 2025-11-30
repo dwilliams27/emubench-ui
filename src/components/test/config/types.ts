@@ -65,6 +65,10 @@ export const AVAILABLE_SAVE_STATES = {
         filename: "ww_bridge_and_hut.sav",
         displayName: "Bridge and Hut"
       },
+      {
+        filename: "ww_inside_hut.sav",
+        displayName: "Inside Hut"
+      },
     ],
     [GAMES.KIRBY_AIR_RIDE]: [
       {
@@ -213,6 +217,12 @@ export const TASK_PRESETS: Record<string, TaskPreset[]> = {
       description: "Swim across the water to reach the hut.",
       applicableSaveStates: ["ww_bridge_and_hut.sav"]
     },
+    {
+      id: "ww-climb-ladder-hut",
+      name: "Climb the ladder",
+      description: "Climb the ladder and talk to the grandma.",
+      applicableSaveStates: ["ww_inside_hut.sav"]
+    },
   ],
   [GAMES.KIRBY_AIR_RIDE]: [
     {
@@ -300,7 +310,8 @@ export interface GoalPreset {
   name: string;
   description: string;
   memoryWatches: Record<string, ContextMemoryItem>;
-  condition: EmuCondition;
+  successCondition: EmuCondition;
+  failCondition?: EmuCondition;
   applicableSaveStates: string[];
 }
 
@@ -321,7 +332,7 @@ export const GOAL_PRESETS: Record<string, GoalPreset[]> = {
           description: "Link's Y Position"
         }
       },
-      condition: {
+      successCondition: {
         inputs: {
           "LINK_Y": {
             name: "LINK_Y",
@@ -362,7 +373,7 @@ export const GOAL_PRESETS: Record<string, GoalPreset[]> = {
           description: "Link's Y Position"
         }
       },
-      condition: {
+      successCondition: {
         inputs: {
           "LINK_Y": {
             name: "LINK_Y",
@@ -411,7 +422,7 @@ export const GOAL_PRESETS: Record<string, GoalPreset[]> = {
           description: "Link's Z Position"
         }
       },
-      condition: {
+      successCondition: {
         inputs: {
           "LINK_Y": {
             name: "LINK_Y",
@@ -468,6 +479,67 @@ export const GOAL_PRESETS: Record<string, GoalPreset[]> = {
             }
           }
         }
+      },
+      // "link_x":"C83E475B","link_y":"4310F6C3","link_z":"4899705B"
+      failCondition: {
+        inputs: {
+          "LINK_Y": {
+            name: "LINK_Y",
+            type: "float",
+          },
+          "LINK_Z": {
+            name: "LINK_Z",
+            type: "float",
+          }
+        },
+        logic: {
+          lhs: {
+            conditionPart: {
+              lhs: {
+                input: {
+                  name: "LINK_Y",
+                  type: "float",
+                }
+              },
+              operation: {
+                id: "==",
+                name: "==",
+                hasLeftOperand: true,
+                hasRightOperand: true
+              },
+              rhs: {
+                // TODO: CONVERT
+                "primitive": 10 // 4310F6C3
+              }
+            }
+          },
+          operation: {
+            id: "&&",
+            name: "&&",
+            hasLeftOperand: true,
+            hasRightOperand: true
+          },
+          rhs: {
+            conditionPart: {
+              lhs: {
+                input: {
+                  name: "LINK_Z",
+                  type: "float",
+                }
+              },
+              operation: {
+                id: "==",
+                name: "==",
+                hasLeftOperand: true,
+                hasRightOperand: true
+              },
+              rhs: {
+                // TODO: Convert
+                "primitive": 10 // 4899705B
+              }
+            }
+          }
+        }
       }
     },
     {
@@ -501,7 +573,7 @@ export const GOAL_PRESETS: Record<string, GoalPreset[]> = {
           description: "Link's Z Position"
         }
       },
-      condition: {
+      successCondition: {
         inputs: {
           "LINK_X": {
             name: "LINK_X",
@@ -563,7 +635,49 @@ export const GOAL_PRESETS: Record<string, GoalPreset[]> = {
           }
         }
       }
-    }
+    },
+    {
+      id: "ww-climb-ladder",
+      name: "Climb the ladder",
+      description: "Checks if Link's Y position high enough.",
+      applicableSaveStates: ["ww_inside_hut.sav"],
+      memoryWatches: {
+        "LINK_Y": {
+          address: "803E4410",
+          type: "float",
+          size: 4,
+          pointerOffsets: [],
+          name: "LINK_Y",
+          description: "Link's Y Position"
+        }
+      },
+      successCondition: {
+        inputs: {
+          "LINK_Y": {
+            name: "LINK_Y",
+            type: "float",
+          }
+        },
+        logic: {
+          lhs: {
+            input: {
+              name: "LINK_Y",
+              type: "float",
+            }
+          },
+          operation: {
+            id: "==",
+            name: "==",
+            hasLeftOperand: true,
+            hasRightOperand: true
+          },
+          rhs: {
+            // TODO: Convert
+            primitive: 200
+          }
+        }
+      },
+    },
   ]
 };
 
@@ -755,6 +869,7 @@ export const SETUP_TEST_CONFIG_SCHEMA = z.object({
   }),
   goalConfig: z.object({
     // TODO: lazy
-    condition: z.any()
+    successCondition: z.any(),
+    failCondition: z.any().optional()
   }).optional()
 });
