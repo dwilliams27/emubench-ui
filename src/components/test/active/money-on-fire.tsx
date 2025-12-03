@@ -21,8 +21,8 @@ export function MoneyOnFire({ cost, intensity }: MoneyOnFireProps) {
             width="90"
             height="45"
             rx="4"
-            fill="#16a34a"
-            stroke="#15803d"
+            fill="#86efac"
+            stroke="#4ade80"
             strokeWidth="2"
           />
 
@@ -34,16 +34,16 @@ export function MoneyOnFire({ cost, intensity }: MoneyOnFireProps) {
             height="35"
             rx="2"
             fill="none"
-            stroke="#166534"
+            stroke="#4ade80"
             strokeWidth="1"
             strokeDasharray="3,2"
           />
 
           {/* Corner decorations */}
-          <circle cx="12" cy="12" r="4" fill="#166534" />
-          <circle cx="78" cy="12" r="4" fill="#166534" />
-          <circle cx="12" cy="33" r="4" fill="#166534" />
-          <circle cx="78" cy="33" r="4" fill="#166534" />
+          <circle cx="12" cy="12" r="4" fill="#4ade80" />
+          <circle cx="78" cy="12" r="4" fill="#4ade80" />
+          <circle cx="12" cy="33" r="4" fill="#4ade80" />
+          <circle cx="78" cy="33" r="4" fill="#4ade80" />
 
           {/* Cost text */}
           <text
@@ -51,7 +51,7 @@ export function MoneyOnFire({ cost, intensity }: MoneyOnFireProps) {
             y="23"
             textAnchor="middle"
             dominantBaseline="middle"
-            fill="#dcfce7"
+            fill="#166534"
             fontFamily="monospace"
             fontWeight="bold"
             fontSize="16"

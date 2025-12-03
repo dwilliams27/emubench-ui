@@ -508,8 +508,7 @@ export const GOAL_PRESETS: Record<string, GoalPreset[]> = {
                 hasRightOperand: true
               },
               rhs: {
-                // TODO: CONVERT
-                "primitive": 10 // 4310F6C3
+                "primitive": 144.96391 // 4310F6C3
               }
             }
           },
@@ -534,8 +533,7 @@ export const GOAL_PRESETS: Record<string, GoalPreset[]> = {
                 hasRightOperand: true
               },
               rhs: {
-                // TODO: Convert
-                "primitive": 10 // 4899705B
+                "primitive": 314242.84 // 4899705B
               }
             }
           }
@@ -672,8 +670,7 @@ export const GOAL_PRESETS: Record<string, GoalPreset[]> = {
             hasRightOperand: true
           },
           rhs: {
-            // TODO: Convert
-            primitive: 200
+            primitive: 375 // 43bb8000
           }
         }
       },
