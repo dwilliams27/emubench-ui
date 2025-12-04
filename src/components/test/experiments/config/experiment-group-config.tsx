@@ -14,7 +14,7 @@ export function ExperimentGroupConfig({ onSubmit, submitting, baseConfig }: { on
     setExperimentRunGroups([...experimentRunGroups, {
       name: `Group ${experimentRunGroups.length + 1}`,
       baseConfigDelta: {},
-      iterations: 1,
+      iterations: 10,
       id: import.meta.env.VITE_MOCK_API ? (experimentRunGroups.length === 0 ? "erg-3ecacf292af34da8" : "erg-42ff07c906914c31") : genId(EXPERIMENT_RUN_GROUP_ID)
     }]);
   }
