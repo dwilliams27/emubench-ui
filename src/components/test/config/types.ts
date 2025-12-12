@@ -700,7 +700,7 @@ export const MODELS = {
     tokenCost: {
       input: 0.000003,
       output: 0.000015,
-      reaasoning: 0.000015,
+      reasoning: 0.000015,
     }
   },
   {
@@ -709,7 +709,7 @@ export const MODELS = {
     tokenCost: {
       input: 0.000001,
       output: 0.000005,
-      reaasoning: 0.000005,
+      reasoning: 0.000005,
     }
   },
   {
@@ -718,7 +718,7 @@ export const MODELS = {
     tokenCost: {
       input: 0.000015,
       output: 0.000075,
-      reaasoning: 0.000075,
+      reasoning: 0.000075,
     }
   },
   {
@@ -727,7 +727,7 @@ export const MODELS = {
     tokenCost: {
       input: 0.000005,
       output: 0.000025,
-      reaasoning: 0.000025,
+      reasoning: 0.000025,
     }
   }],
   [MODEL_PROVIDERS.GOOGLE.name]: [{
@@ -736,7 +736,7 @@ export const MODELS = {
     tokenCost: {
       input: 0.00000125,
       output: 0.000010,
-      reaasoning: 0.000010,
+      reasoning: 0.000010,
     }
   },{
     name: "gemini-2.5-pro",
@@ -744,7 +744,7 @@ export const MODELS = {
     tokenCost: {
       input: 0.0000003,
       output: 0.0000025,
-      reaasoning: 0.000010,
+      reasoning: 0.000010,
     }
   },{
     name: "gemini-3-pro-preview",
@@ -752,7 +752,7 @@ export const MODELS = {
     tokenCost: {
       input: 0.000002,
       output: 0.000012,
-      reaasoning: 0.000012,
+      reasoning: 0.000012,
     }
   }],
   [MODEL_PROVIDERS.OPEN_AI.name]: [
@@ -762,7 +762,7 @@ export const MODELS = {
       tokenCost: {
         input: 0.0000025,
         output: 0.0000010,
-        reaasoning: 0.000010,
+        reasoning: 0.000010,
       }
     },
     {
@@ -771,7 +771,7 @@ export const MODELS = {
       tokenCost: {
         input: 0.00000125,
         output: 0.000010,
-        reaasoning: 0.000010,
+        reasoning: 0.000010,
       }
     },
     {
@@ -780,7 +780,16 @@ export const MODELS = {
       tokenCost: {
         input: 0.00000125,
         output: 0.000010,
-        reaasoning: 0.000010,
+        reasoning: 0.000010,
+      }
+    },
+    {
+      name: "gpt-5.2",
+      displayName: "GPT-5.2",
+      tokenCost: {
+        input: 0.00000175,
+        output: 0.000014,
+        reasoning: 0.000014,
       }
     },
   ],

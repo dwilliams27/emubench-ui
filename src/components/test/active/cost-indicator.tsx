@@ -27,8 +27,7 @@ export function CostIndicator({
 
     const inputCost = inputTokens * model.tokenCost.input;
     const outputCost = outputTokens * model.tokenCost.output;
-    // Note: MODELS object has a typo "reaasoning" instead of "reasoning"
-    const reasoningCost = reasoningTokens * model.tokenCost.reaasoning;
+    const reasoningCost = reasoningTokens * model.tokenCost.reasoning;
 
     return inputCost + outputCost + reasoningCost;
   };
