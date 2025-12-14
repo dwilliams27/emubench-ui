@@ -187,6 +187,10 @@ A, B, X, Y, Z, L, R
 - 2 frame minimum for all inputs
 - Short hop requires releasing jump within ~3 frames
 - C-stick is convenient for aerials and smash attacks
+
+## IMPORTANT
+- You will likely want to add {"frames": 30} wait inputs between actions to allow for game response
+- You only get a limited number of turns, so you will usually want to perform multiple actions per turn
 `,
 }
 
@@ -715,7 +719,7 @@ export const GOAL_PRESETS: Record<string, GoalPreset[]> = {
       id: "ssm-break-targets",
       name: "Break the Targets",
       description: "Gives reward based on how many targets have been destroyed.",
-      applicableSaveStates: ["ssm_targets_dk.sav", "ssm_targets_kirby.sav", "ssm_targets_falcon.sav"],
+      applicableSaveStates: ["ssm_target_dk.sav", "ssm_target_kirby.sav", "ssm_target_falcon.sav"],
       memoryWatches: {
         "TARGETS_LEFT": {
           address: "8049CC65",
