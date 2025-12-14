@@ -45,7 +45,7 @@ export const DeltaFields: Record<string, DeltaField> = {
     key: "temperature",
     configKey: "agentConfig",
   },
-  "Turn Memory Length": {
+  "Turn Memory": {
     toValue: (input: string) => parseInt(input),
     key: "turnMemoryLength",
     getAllowedValues: (_) => ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"],
@@ -55,6 +55,13 @@ export const DeltaFields: Record<string, DeltaField> = {
     toValue: (input: string) => input === "true",
     toDisplayValue: (input: boolean) => input ? "true" : "false",
     key: "longTermMemory",
+    getAllowedValues: (_) => ["true", "false"],
+    configKey: "agentConfig",
+  },
+  "Multi-Action Turns": {
+    toValue: (input: string) => input === "true",
+    toDisplayValue: (input: boolean) => input ? "true" : "false",
+    key: "multiInput",
     getAllowedValues: (_) => ["true", "false"],
     configKey: "agentConfig",
   },

@@ -33,7 +33,8 @@ export function configFormToEmuBootConfig(formData: z.infer<typeof SETUP_TEST_CO
       turnMemoryLength: formData.agentConfig.turnMemoryLength,
       taskName: formData.agentConfig.taskName,
       taskDescription: formData.agentConfig.taskDescription,
-      longTermMemory: formData.agentConfig.longTermMemory
+      longTermMemory: formData.agentConfig.longTermMemory,
+      multiInput: formData.agentConfig.multiInput
     },
     goalConfig: {
       ...(formData.goalConfig?.successCondition && {

@@ -30,6 +30,7 @@ export function TestConfigForm({ onSubmit, submitting, buttonText }: { onSubmit:
         temperature: 1.0,
         turnMemoryLength: 3,
         longTermMemory: true,
+        multiInput: true,
         taskName: DEFAULT_TASK_PRESET.name,
         taskDescription: DEFAULT_TASK_PRESET.description,
         systemPrompt: DEFAULT_SYSTEM_PROMPT_PRESET.content

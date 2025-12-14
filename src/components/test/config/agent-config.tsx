@@ -196,7 +196,7 @@ export function AgentConfig({
             name="agentConfig.turnMemoryLength"
             render={({ field }) => (
               <div className="w-1/3 space-y-2">
-                <FormLabel className="block text-center">Turn Memory Length</FormLabel>
+                <FormLabel className="block text-center">Turn Memory</FormLabel>
                 <div className="flex flex-row items-center">
                   <div className="ml-auto">{field.value}</div>
                   <div className="mr-auto flex flex-col space-y-1">
@@ -220,6 +220,24 @@ export function AgentConfig({
                     checked={field.value}
                     onCheckedChange={(value) => field.onChange(value)}
                     aria-label="Enable long term memory"
+                  />
+                </div>
+              </div>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="agentConfig.multiInput"
+            render={({ field }) => (
+              <div className="w-1/3 space-y-2">
+                <FormLabel className="block text-center">Multi-Action Turns</FormLabel>
+                <div className="flex">
+                  <Checkbox
+                    className="mx-auto mt-2 w-6 h-6"
+                    checked={field.value}
+                    onCheckedChange={(value) => field.onChange(value)}
+                    aria-label="Enable multi-action turns"
                   />
                 </div>
               </div>

@@ -859,6 +859,7 @@ export const SETUP_TEST_CONFIG_SCHEMA = z.object({
     temperature: z.number().min(0).max(2),
     turnMemoryLength: z.number().min(0).max(10),
     longTermMemory: z.boolean(),
+    multiInput: z.boolean(),
     taskName: z.string(),
     taskDescription: z.string(),
     systemPrompt: z.string(),
