@@ -22,15 +22,16 @@ export const PLATFORMS = {
 };
 
 export const GAMES = {
-  HARVEST_MOOON: "Harvest Moon: Magical Melody",
+  HARVEST_MOON: "Harvest Moon: Magical Melody",
   ZELDA_WIND_WAKER: "The Legend of Zelda: Wind Waker",
   KIRBY_AIR_RIDE: "Kirby Air Ride",
-  SIMPSONS_HIT_AND_RUN: "The Simpsons: Hit & Run"
+  SIMPSONS_HIT_AND_RUN: "The Simpsons: Hit & Run",
+  SUPER_SMASH_BROS_MELEE: "Super Smash Bros. Melee",
 };
 
 export const AVAILABLE_SAVE_STATES = {
   [PLATFORMS.GAMECUBE.name]: {
-    [GAMES.HARVEST_MOOON]: [
+    [GAMES.HARVEST_MOON]: [
       {
         filename: "main_menu.sav",
         displayName: "Main Menu"
@@ -93,51 +94,40 @@ export const AVAILABLE_SAVE_STATES = {
         filename: "in_car_before_ramp.sav",
         displayName: "Homer Driving"
       }
+    ],
+    [GAMES.SUPER_SMASH_BROS_MELEE]: [
+      {
+        filename: "ssm_target_dk.sav",
+        displayName: "Break the Targets - Donkey Kong"
+      },
+      {
+        filename: "ssm_target_kirby.sav",
+        displayName: "Break the Targets - Kirby"
+      },
+      {
+        filename: "ssm_target_falcon.sav",
+        displayName: "Break the Targets - Captain Falcon"
+      },
     ]
   }
 };
 
 export const DEBUG_GAME_MAP = {
-  [GAMES.HARVEST_MOOON]: "G4AEE9",
+  [GAMES.HARVEST_MOON]: "G4AEE9",
   [GAMES.ZELDA_WIND_WAKER]: "GZLE01",
   [GAMES.KIRBY_AIR_RIDE]: "GKYE01",
   [GAMES.SIMPSONS_HIT_AND_RUN]: "GHQE7D",
+  [GAMES.SUPER_SMASH_BROS_MELEE]: "GALE01",
 };
 
 export const GAME_CONTEXT = {
   [GAMES.ZELDA_WIND_WAKER]: `
-GameCube Controls for Zelda: Wind Waker
 Movement & Camera:
 
 Control Stick: Move Link (walk/run based on tilt)
 C-Stick: Control camera angle
-L-trigger: Z-target (lock onto enemies/NPCs)
-R-trigger: Hold to guard with shield
 
-Actions:
-
-A button: Context-sensitive action (talk, open, climb, roll, pick up) - indicated by on-screen prompt
-B button: Sword attack (hold for charged spin attack when at full health)
-
-Items & Inventory:
-
-X, Y, Z buttons: Use assigned items (equip via pause menu)
-Start: Pause menu (access items, map, quest log)
-
-Combat Notes:
-
-A while Z-targeting: Jump attack or roll dodge (direction dependent)
-A after enemy swing (good timing): Parry counter
-Control Stick + B: Directional sword strikes
-
-Important Mechanics:
-
-Hold A near ledges: Hang/shimmy
-A near walls: Flatten against wall
-R while moving: Defensive sidestep
-Wind Waker: Conduct songs by following on-screen button prompts in 3/4 or 4/4 time
-
-Context is key: A button changes function based on proximity to objects/NPCs (green icon shows available action).
+Context is key: A button changes function based on proximity to objects/NPCs.
 `,
   [GAMES.SIMPSONS_HIT_AND_RUN]: `Controls:
 On Foot:
@@ -163,7 +153,41 @@ A: Brake/boost charge
 B: Copy ability/attack
 X: Get off Air Ride machine (on foot)
 L/R: Quick turns
-C-stick: Camera control`
+C-stick: Camera control`,
+  [GAMES.SUPER_SMASH_BROS_MELEE]: `
+# Melee Controller Inputs (Concise)
+
+## Stick Inputs
+- **Control Stick / C-Stick**: X and Y from 0-255
+  - **Neutral**: 128
+  - **Tilt**: ~60-100 or ~156-196
+  - **Smash**: <48 or >208
+
+## Buttons
+A, B, X, Y, Z, L, R
+
+## Core Actions
+
+- **Jump**: X or Y, 2 frames (short hop) or hold (full hop)
+- **Attack**: A, 2 frames
+- **Tilt Attack**: A + stick tilt, 2 frames
+- **Smash Attack**: A + stick smash (or C-stick), 2 frames, hold A to charge
+- **Aerial**: A + direction in air (or C-stick), 2 frames
+- **Special**: B, 2 frames
+- **Side/Up/Down Special**: B + stick direction, 2 frames
+- **Grab**: Z (or shield + A), 2 frames
+- **Shield**: L or R, hold
+- **Roll**: shield + stick left/right, 2 frames
+- **Spot Dodge**: shield + stick down, 2 frames
+- **Dash**: smash stick left/right, 2 frames to start, hold to run
+- **Fast Fall**: stick down after jump apex, 2 frames
+- **L-Cancel**: L/R/Z within 7 frames before landing, 2 frames
+
+## Notes
+- 2 frame minimum for all inputs
+- Short hop requires releasing jump within ~3 frames
+- C-stick is convenient for aerials and smash attacks
+`,
 }
 
 export interface TaskPreset {
@@ -258,12 +282,20 @@ export const TASK_PRESETS: Record<string, TaskPreset[]> = {
       applicableSaveStates: ["in_car_before_ramp.sav"]
     }
   ],
-  [GAMES.HARVEST_MOOON]: [
+  [GAMES.HARVEST_MOON]: [
     {
       id: "hm-start-new-game",
       name: "Start a new game",
       description: "Navigate the main menu to start a new game. Select your character options and begin your farming adventure.",
       applicableSaveStates: ["main_menu.sav", "new_game_beginning.sav"]
+    }
+  ],
+  [GAMES.SUPER_SMASH_BROS_MELEE]: [
+    {
+      id: "ssm-targets",
+      name: "Break the Targets",
+      description: "Break as many targets as possible without dying. Strive for all 10.",
+      applicableSaveStates: ["ssm_target_dk.sav", "ssm_target_kirby.sav", "ssm_target_falcon.sav"]
     }
   ]
 };
@@ -310,8 +342,10 @@ export interface GoalPreset {
   name: string;
   description: string;
   memoryWatches: Record<string, ContextMemoryItem>;
-  successCondition: EmuCondition;
+  successCondition?: EmuCondition;
   failCondition?: EmuCondition;
+  rewardFunction?: EmuCondition;
+  rewardDescription?: string;
   applicableSaveStates: string[];
 }
 
@@ -675,6 +709,83 @@ export const GOAL_PRESETS: Record<string, GoalPreset[]> = {
         }
       },
     },
+  ],
+  [GAMES.SUPER_SMASH_BROS_MELEE]: [
+    {
+      id: "ssm-break-targets",
+      name: "Break the Targets",
+      description: "Gives reward based on how many targets have been destroyed.",
+      applicableSaveStates: ["ssm_targets_dk.sav", "ssm_targets_kirby.sav", "ssm_targets_falcon.sav"],
+      memoryWatches: {
+        "TARGETS_LEFT": {
+          address: "8049CC65",
+          type: "uint",
+          size: 1,
+          pointerOffsets: [],
+          name: "TARGETS_LEFT",
+          description: "Number of targets left"
+        },
+        "IS_ALIVE": {
+          address: "8045114E",
+          type: "uint",
+          size: 1,
+          pointerOffsets: [],
+          name: "IS_ALIVE",
+          description: "Set to 0 if dead"
+        }
+      },
+      failCondition: {
+        inputs: {
+          "IS_ALIVE": {
+            name: "IS_ALIVE",
+            type: "uint",
+          }
+        },
+        logic: {
+          lhs: {
+            input: {
+              name: "IS_ALIVE",
+              type: "uint",
+            }
+          },
+          operation: {
+            id: "==",
+            name: "==",
+            hasLeftOperand: true,
+            hasRightOperand: true
+          },
+          rhs: {
+            primitive: 0
+          }
+        }
+      },
+      rewardFunction: {
+        inputs: {
+          "TARGETS_LEFT": {
+            name: "TARGETS_LEFT",
+            type: "uint",
+          }
+        },
+        logic: {
+          lhs: {
+            primitive: 10
+          },
+          operation: {
+            id: "-",
+            name: "-",
+            hasLeftOperand: true,
+            hasRightOperand: true
+          },
+          rhs: {
+            input: {
+              name: "TARGETS_LEFT",
+              type: "uint",
+            }
+          },
+        }
+      },
+      rewardDescription: "Reward is equal to number of targets broken. Possible values 0-10.",
+    },
   ]
 };
 
@@ -878,6 +989,8 @@ export const SETUP_TEST_CONFIG_SCHEMA = z.object({
   goalConfig: z.object({
     // TODO: lazy
     successCondition: z.any().optional(),
-    failCondition: z.any().optional()
+    failCondition: z.any().optional(),
+    rewardFunction: z.any().optional(),
+    rewardDescription: z.string().optional()
   }).optional()
 });

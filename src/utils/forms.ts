@@ -61,6 +61,19 @@ export function configFormToEmuBootConfig(formData: z.infer<typeof SETUP_TEST_CO
           logic: formData.goalConfig?.failCondition?.logic || {}
         }
       }),
+      ...(formData.goalConfig?.rewardFunction && {
+        rewardFunction: {
+          inputs: Object.entries(formData.memoryConfig.context || {}).reduce((acc: Record<string, any>, [key, value]) => {
+            acc[key] = {
+              name: value.name,
+              type: value.type,
+            };
+            return acc;
+          }, {}),
+          logic: formData.goalConfig?.rewardFunction?.logic || {}
+        },
+        rewardDescription: formData.goalConfig?.rewardDescription || "",
+      }),
     }
   };
 }

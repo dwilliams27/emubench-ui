@@ -53,7 +53,7 @@ export const ContextMemoryWatches: Record<string, ContextMemoryItem[]> = {
       description: "Link's Z Position"
     },
   ],
-  [GAMES.HARVEST_MOOON]: [
+  [GAMES.HARVEST_MOON]: [
     {
       address: "80000000",
       type: "chars",

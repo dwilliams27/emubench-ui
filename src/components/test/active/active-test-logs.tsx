@@ -28,7 +28,7 @@ export function ActiveTestLogs({ testStarted, messages }: ActiveTestLogsProps) {
                 if (log.metadata.toolName === 'sendControllerInput') {
                   return (
                     <div key={log.metadata.timestamp}>
-                      <ControllerInputDisplay inputs={log.metadata.toolPayload} />
+                      <ControllerInputDisplay inputs={log.metadata.toolPayload?.inputs} />
                     </div>
                   );
                 }

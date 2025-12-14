@@ -26,7 +26,7 @@ export function ActiveTestView() {
   const testId = searchParams.get('testId');
 
   const flatCondition = useMemo(() => {
-    const result: { successCondition: EmuConditionOperand[], failCondition: EmuConditionOperand[] } = { successCondition: [], failCondition: [] };
+    const result: { successCondition: EmuConditionOperand[], failCondition: EmuConditionOperand[], rewardFunction: EmuConditionOperand[] } = { successCondition: [], failCondition: [], rewardFunction: [] };
     if (currentState?.currentSuccessCondition) {
       try {
         const flat = emuFlattenCondition(currentState.currentSuccessCondition);
@@ -45,7 +45,16 @@ export function ActiveTestView() {
       }
     }
 
-    if (!result.successCondition && !result.failCondition) {
+    if (currentState?.currentRewardFunction) {
+      try {
+        const flat = emuFlattenCondition(currentState.currentRewardFunction);
+        result.rewardFunction = flat;
+      } catch (error) {
+        console.log('Error flattening condition: ', error);
+      }
+    }
+
+    if (!result.successCondition && !result.failCondition && !result.rewardFunction) {
       return null;
     }
     
@@ -120,10 +129,13 @@ export function ActiveTestView() {
         <CardContent className="flex flex-row space-x-2">
           {flatCondition ? (
             <div>
-              {flatCondition.successCondition && (
+              {flatCondition.rewardFunction?.length > 0 && (
+                <TestCondition flatCondition={flatCondition.failCondition} />
+              )}
+              {flatCondition.successCondition?.length > 0 && (
                 <TestCondition flatCondition={flatCondition.successCondition} />
               )}
-              {flatCondition.failCondition && (
+              {flatCondition.failCondition?.length > 0 && (
                 <TestCondition flatCondition={flatCondition.failCondition} />
               )}
             </div>

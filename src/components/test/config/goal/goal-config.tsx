@@ -350,12 +350,22 @@ export function GoalConfig({
               <p className="text-sm font-medium mb-1">Description</p>
               <p className="text-sm">{selectedPresetData.description}</p>
             </div>
-            <div>
-              <p className="text-sm font-medium mb-1">Task Succeeds If:</p>
-              <code className="text-sm bg-background px-2 py-1 rounded">
-                {conditionToPreview(selectedPresetData.successCondition)}
-              </code>
-            </div>
+            { selectedPresetData.rewardFunction && (
+              <div>
+                <p className="text-sm font-medium mb-1">Reward Function:</p>
+                <code className="text-sm bg-background px-2 py-1 rounded">
+                  {conditionToPreview(selectedPresetData.rewardFunction)}
+                </code>
+              </div>
+            )}
+            { selectedPresetData.successCondition && (
+              <div>
+                <p className="text-sm font-medium mb-1">Task Succeeds If:</p>
+                <code className="text-sm bg-background px-2 py-1 rounded">
+                  {conditionToPreview(selectedPresetData.successCondition)}
+                </code>
+              </div>
+            )}
             { selectedPresetData.failCondition && (
               <div>
                 <p className="text-sm font-medium mb-1">Task Immediately Fails If:</p>
