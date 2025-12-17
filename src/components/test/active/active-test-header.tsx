@@ -41,7 +41,7 @@ export function ActiveTestHeader(
           </div>
         </CardTitle>
         <div className="flex flex-row space-x-2 w-full md:w-auto">
-          <div className="flex flex-col items-center w-full">
+          <div className="flex flex-col items-center justify-center w-full mr-4">
             <CostIndicator
               inputTokens={agentState?.inputTokenCount || 0}
               outputTokens={agentState?.outputTokenCount || 0}
