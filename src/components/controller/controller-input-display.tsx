@@ -14,24 +14,15 @@ import {
   CStick,
 } from "./controller-svgs";
 
-const durationMap: Record<number, string> = {
-  5: "Instant",
-  10: "Quick",
-  15: "Short",
-  20: "Medium",
-  30: "Long",
-  60: "Extended",
-};
-
 export function ControllerInputDisplay({ inputs }: MultipleControllerInput) {
   return (
     <div className="flex flex-col space-y-4">
-      {inputs.map((input, index) => {
+      {inputs.reverse().map((input, index) => {
         if (!input.buttons && !input.mainStick && !input.cStick && !input.triggers) {
           return (
             <div key={index} className="flex flex-col items-center gap-2 p-3">
               <div className="text-sm text-muted-foreground">
-                No active inputs ({durationMap[input.frames] || `${input.frames} frames`})
+                No input for {`${input.frames} frames`}
               </div>
             </div>
           );
