@@ -60,7 +60,7 @@ export const AVAILABLE_SAVE_STATES = {
       },
       {
         filename: "ww_swim_to_shore_away.sav",
-        displayName: "Swim to Shore (Facing Away)"
+        displayName: "Swim to Shore (Away)"
       },
       {
         filename: "ww_bridge_and_hut.sav",
@@ -98,15 +98,15 @@ export const AVAILABLE_SAVE_STATES = {
     [GAMES.SUPER_SMASH_BROS_MELEE]: [
       {
         filename: "ssm_target_dk.sav",
-        displayName: "Break the Targets - Donkey Kong"
+        displayName: "BtT - Donkey Kong"
       },
       {
         filename: "ssm_target_kirby.sav",
-        displayName: "Break the Targets - Kirby"
+        displayName: "BtT - Kirby"
       },
       {
         filename: "ssm_target_falcon.sav",
-        displayName: "Break the Targets - Captain Falcon"
+        displayName: "BtT - Captain Falcon"
       },
     ]
   }

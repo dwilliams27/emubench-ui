@@ -32,6 +32,19 @@ export function GameConfig({ form }: { form: UseFormReturn<z.infer<typeof SETUP_
     if (GAME_CONTEXT[game]) {
       form.setValue("agentConfig.gameContext", GAME_CONTEXT[game]);
     }
+    // Set a default save state for the selected game
+    const saveStates = AVAILABLE_SAVE_STATES[selectedPlatform]?.[game];
+    if (saveStates && saveStates.length > 0) {
+      form.setValue("gameConfig.saveState.filename", saveStates[0].filename);
+      form.setValue("gameConfig.saveState.displayName", saveStates[0].displayName);
+    }
+  }
+
+  const onSetSaveState = (filename: string) => {
+    const saveState = availableSaveStates.find((s) => s.filename === filename);
+    if (saveState) {
+      form.setValue("gameConfig.saveState", saveState);
+    }
   }
 
   const availableSaveStates = useMemo(() => {
@@ -106,7 +119,7 @@ export function GameConfig({ form }: { form: UseFormReturn<z.infer<typeof SETUP_
                 <FormItem>
                   <div className="flex flex-col items-center my-auto space-y-6">
                     <FormLabel>Save State</FormLabel>
-                    <Select onValueChange={field.onChange} value={field.value}>
+                    <Select onValueChange={onSetSaveState} value={field.value}>
                       <SelectTrigger className="w-full">
                         <SelectValue placeholder="Select a Save State" />
                       </SelectTrigger>

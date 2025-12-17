@@ -130,13 +130,22 @@ export function ActiveTestView() {
           {flatCondition ? (
             <div>
               {flatCondition.rewardFunction?.length > 0 && (
-                <TestCondition flatCondition={flatCondition.failCondition} />
+                <div>
+                  <p className="text-sm font-medium mb-1">Reward Function:</p>
+                  <TestCondition flatCondition={flatCondition.rewardFunction} />
+                </div>
               )}
               {flatCondition.successCondition?.length > 0 && (
-                <TestCondition flatCondition={flatCondition.successCondition} />
+                <div>
+                  <p className="text-sm font-medium mb-1">Test succeeds if:</p>
+                  <TestCondition flatCondition={flatCondition.successCondition} />
+                </div>
               )}
               {flatCondition.failCondition?.length > 0 && (
-                <TestCondition flatCondition={flatCondition.failCondition} />
+                <div>
+                  <p className="text-sm font-medium mb-1">Test fails if:</p>
+                  <TestCondition flatCondition={flatCondition.failCondition} />
+                </div>
               )}
             </div>
           ) : (

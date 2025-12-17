@@ -147,9 +147,9 @@ export function GoalConfig({
     if (preset) {
       form.setValue("memoryConfig.context", preset.memoryWatches);
       form.setValue("goalConfig.successCondition", preset.successCondition);
-      if (preset.failCondition) {
-        form.setValue("goalConfig.failCondition", preset.failCondition);
-      }
+      form.setValue("goalConfig.failCondition", preset.failCondition);
+      form.setValue("goalConfig.rewardFunction", preset.rewardFunction);
+      form.setValue("goalConfig.rewardDescription", preset.rewardDescription);
     }
   };
 

@@ -32,6 +32,7 @@ export default function TestExperiment() {
       name: experimentName,
       description: experimentDescription,
       runGroups,
+      numericalResult: !!baseConfig?.goalConfig.rewardFunction,
       baseConfig: baseConfig as EmuBootConfig,
       totalTestRuns: runGroups.reduce((acc, group) => acc + group.iterations, 0)
     };
