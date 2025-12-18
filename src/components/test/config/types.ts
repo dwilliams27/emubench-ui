@@ -849,16 +849,24 @@ export const MODELS = {
     name: "gemini-2.5-flash",
     displayName: "Gemini 2.5 Flash",
     tokenCost: {
-      input: 0.00000125,
-      output: 0.000010,
+      input: 0.0000003,
+      output: 0.0000025,
       reasoning: 0.000010,
+    }
+  },{
+    name: "gemini-3-flash-preview",
+    displayName: "Gemini 3.0 Flash",
+    tokenCost: {
+      input: 0.0000005,
+      output: 0.000003,
+      reasoning: 0.000003,
     }
   },{
     name: "gemini-2.5-pro",
     displayName: "Gemini 2.5 Pro",
     tokenCost: {
-      input: 0.0000003,
-      output: 0.0000025,
+      input: 0.00000125,
+      output: 0.000010,
       reasoning: 0.000010,
     }
   },{
@@ -876,7 +884,7 @@ export const MODELS = {
       displayName: "GPT-4o",
       tokenCost: {
         input: 0.0000025,
-        output: 0.0000010,
+        output: 0.000010,
         reasoning: 0.000010,
       }
     },

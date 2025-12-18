@@ -77,7 +77,6 @@ export function ExperimentActiveGroupView({ runGroup, tests }: { runGroup: EmuEx
         {/* Configuration Delta */}
         {deltaItems.length > 0 && (
           <div>
-            <h4 className="text-sm font-medium mb-3">Configuration Delta</h4>
             <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
               {deltaItems.map(({ key, value }) => (
                 <ConfigDeltaItem key={key} keyPath={key} value={value} />

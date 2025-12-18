@@ -9,8 +9,6 @@ export interface CostIndicatorProps {
   modelName: string;
 }
 
-type FireIntensity = 'low' | 'medium' | 'high';
-
 export function CostIndicator({
   inputTokens,
   outputTokens,

@@ -153,42 +153,6 @@ export function ExperimentStatTestPanel({ groups, minSampleSize = 20 }: Statisti
           </div>
         </div>
 
-        {/* P-Value Trend Chart */}
-        {pValueHistory.length > 0 && (
-          <div>
-            <h4 className="text-sm font-medium mb-3">P-value Over Time</h4>
-            <ResponsiveContainer width="100%" height={200}>
-              <LineChart data={pValueHistory}>
-                <CartesianGrid strokeDasharray="3 3" opacity={0.3} />
-                <XAxis 
-                  dataKey="testNumber" 
-                  label={{ value: 'Number of Tests', position: 'insideBottom', offset: -5 }}
-                  style={{ fontSize: '12px' }}
-                />
-                <YAxis 
-                  scale="log"
-                  domain={[0.0001, 1]}
-                  ticks={[0.0001, 0.001, 0.01, 0.05, 0.1, 1]}
-                  style={{ fontSize: '12px' }}
-                />
-                <Tooltip 
-                  formatter={(value: number) => value.toFixed(4)}
-                  labelFormatter={(label) => `Test ${label}`}
-                />
-                <ReferenceLine y={0.05} stroke="#ef4444" strokeDasharray="3 3" label="p = 0.05" />
-                <ReferenceLine y={0.01} stroke="#991b1b" strokeDasharray="3 3" label="p = 0.01" />
-                <Line 
-                  type="monotone" 
-                  dataKey="pValue" 
-                  stroke="#8b5cf6" 
-                  strokeWidth={2}
-                  dot={false}
-                />
-              </LineChart>
-            </ResponsiveContainer>
-          </div>
-        )}
-
         {/* Sample Sizes */}
         <div>
           <h4 className="text-sm font-medium mb-3">Sample Sizes</h4>
