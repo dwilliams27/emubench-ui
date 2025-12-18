@@ -158,10 +158,11 @@ C-stick: Camera control`,
 # Melee Controller Inputs (Concise)
 
 ## Stick Inputs
-- **Control Stick / C-Stick**: X and Y from 0-255
+- **Control Stick**: X and Y from 0-255
   - **Neutral**: 128
   - **Tilt**: ~60-100 or ~156-196
   - **Smash**: <48 or >208
+- C-Stick IS DISABLED
 
 ## Buttons
 A, B, X, Y, Z, L, R
@@ -189,8 +190,9 @@ A, B, X, Y, Z, L, R
 - C-stick is convenient for aerials and smash attacks
 
 ## IMPORTANT
-- You will likely want to add {"frames": 30} wait inputs between actions to allow for game response
+- You will likely want to add {"frames": 10} or {"frames": 30} wait inputs between actions to allow for game response
 - You only get a limited number of turns, so you will usually want to perform multiple actions per turn
+- C-Stick is disabled in this environment, do not use it
 `,
 }
 
