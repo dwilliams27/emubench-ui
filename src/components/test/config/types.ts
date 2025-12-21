@@ -22,25 +22,25 @@ export const PLATFORMS = {
 };
 
 export const GAMES = {
-  HARVEST_MOON: "Harvest Moon: Magical Melody",
+  // HARVEST_MOON: "Harvest Moon: Magical Melody",
   ZELDA_WIND_WAKER: "The Legend of Zelda: Wind Waker",
-  KIRBY_AIR_RIDE: "Kirby Air Ride",
-  SIMPSONS_HIT_AND_RUN: "The Simpsons: Hit & Run",
+  // KIRBY_AIR_RIDE: "Kirby Air Ride",
+  // SIMPSONS_HIT_AND_RUN: "The Simpsons: Hit & Run",
   SUPER_SMASH_BROS_MELEE: "Super Smash Bros. Melee",
 };
 
 export const AVAILABLE_SAVE_STATES = {
   [PLATFORMS.GAMECUBE.name]: {
-    [GAMES.HARVEST_MOON]: [
-      {
-        filename: "main_menu.sav",
-        displayName: "Main Menu"
-      },
-      {
-        filename: "new_game_beginning.sav",
-        displayName: "Start of New Game"
-      },
-    ],
+    // [GAMES.HARVEST_MOON]: [
+    //   {
+    //     filename: "main_menu.sav",
+    //     displayName: "Main Menu"
+    //   },
+    //   {
+    //     filename: "new_game_beginning.sav",
+    //     displayName: "Start of New Game"
+    //   },
+    // ],
     [GAMES.ZELDA_WIND_WAKER]: [
       {
         filename: "ww_main_menu.sav",
@@ -71,30 +71,30 @@ export const AVAILABLE_SAVE_STATES = {
         displayName: "Inside Hut"
       },
     ],
-    [GAMES.KIRBY_AIR_RIDE]: [
-      {
-        filename: "blue_box.sav",
-        displayName: "City Trial - In front of Blue Box"
-      },
-      {
-        filename: "hunt_down_cpu.sav",
-        displayName: "City Trial - Facing CPU"
-      },
-      {
-        filename: "three_level_structure.sav",
-        displayName: "City Trial - Facing Tower"
-      }
-    ],
-    [GAMES.SIMPSONS_HIT_AND_RUN]: [
-      {
-        filename: "beginning_homer.sav",
-        displayName: "Game Start - Homer"
-      },
-      {
-        filename: "in_car_before_ramp.sav",
-        displayName: "Homer Driving"
-      }
-    ],
+    // [GAMES.KIRBY_AIR_RIDE]: [
+    //   {
+    //     filename: "blue_box.sav",
+    //     displayName: "City Trial - In front of Blue Box"
+    //   },
+    //   {
+    //     filename: "hunt_down_cpu.sav",
+    //     displayName: "City Trial - Facing CPU"
+    //   },
+    //   {
+    //     filename: "three_level_structure.sav",
+    //     displayName: "City Trial - Facing Tower"
+    //   }
+    // ],
+    // [GAMES.SIMPSONS_HIT_AND_RUN]: [
+    //   {
+    //     filename: "beginning_homer.sav",
+    //     displayName: "Game Start - Homer"
+    //   },
+    //   {
+    //     filename: "in_car_before_ramp.sav",
+    //     displayName: "Homer Driving"
+    //   }
+    // ],
     [GAMES.SUPER_SMASH_BROS_MELEE]: [
       {
         filename: "ssm_target_dk.sav",
@@ -157,10 +157,10 @@ export const AVAILABLE_SAVE_STATES = {
 };
 
 export const DEBUG_GAME_MAP = {
-  [GAMES.HARVEST_MOON]: "G4AEE9",
+  // [GAMES.HARVEST_MOON]: "G4AEE9",
   [GAMES.ZELDA_WIND_WAKER]: "GZLE01",
-  [GAMES.KIRBY_AIR_RIDE]: "GKYE01",
-  [GAMES.SIMPSONS_HIT_AND_RUN]: "GHQE7D",
+  // [GAMES.KIRBY_AIR_RIDE]: "GKYE01",
+  // [GAMES.SIMPSONS_HIT_AND_RUN]: "GHQE7D",
   [GAMES.SUPER_SMASH_BROS_MELEE]: "GALE01",
 };
 
@@ -173,31 +173,31 @@ C-Stick: Control camera angle
 
 Context is key: A button changes function based on proximity to objects/NPCs.
 `,
-  [GAMES.SIMPSONS_HIT_AND_RUN]: `Controls:
-On Foot:
-Left stick: Move character
-C stick: Camera control
-A: Jump
-B: Kick/attack
-X: Action button (talk, enter vehicles, collect items)
-Y: Run (hold)
-L: Look behind
+//   [GAMES.SIMPSONS_HIT_AND_RUN]: `Controls:
+// On Foot:
+// Left stick: Move character
+// C stick: Camera control
+// A: Jump
+// B: Kick/attack
+// X: Action button (talk, enter vehicles, collect items)
+// Y: Run (hold)
+// L: Look behind
 
-Driving:
-Left stick: Steer
-A: Accelerate
-B: Brake/reverse
-X: Exit vehicle
-Y: Horn
-L: Handbrake
-R: Rear view`,
-  [GAMES.KIRBY_AIR_RIDE]: `Controls:
-Left stick: Move/steer
-A: Brake/boost charge
-B: Copy ability/attack
-X: Get off Air Ride machine (on foot)
-L/R: Quick turns
-C-stick: Camera control`,
+// Driving:
+// Left stick: Steer
+// A: Accelerate
+// B: Brake/reverse
+// X: Exit vehicle
+// Y: Horn
+// L: Handbrake
+// R: Rear view`,
+//   [GAMES.KIRBY_AIR_RIDE]: `Controls:
+// Left stick: Move/steer
+// A: Brake/boost charge
+// B: Copy ability/attack
+// X: Get off Air Ride machine (on foot)
+// L/R: Quick turns
+// C-stick: Camera control`,
   [GAMES.SUPER_SMASH_BROS_MELEE]: `
 # Melee Controller Inputs (Concise)
 
@@ -298,48 +298,48 @@ export const TASK_PRESETS: Record<string, TaskPreset[]> = {
       applicableSaveStates: ["ww_inside_hut.sav"]
     },
   ],
-  [GAMES.KIRBY_AIR_RIDE]: [
-    {
-      id: "kar-investigate-blue-box",
-      name: "Break the blue box",
-      description: "Stop, charge, then launch at the blue box to do damage to it. Do this over and over until it breaks",
-      applicableSaveStates: ["blue_box.sav"]
-    },
-    {
-      id: "kar-defeat-cpu",
-      name: "Defeat the CPU opponent",
-      description: "Chase down the oppoonent. When you are close, use the spin attack by rapidly flipping control stick from left to right",
-      applicableSaveStates: ["hunt_down_cpu.sav"]
-    },
-    {
-      id: "kar-climb-tower",
-      name: "Climb the tower structure",
-      description: "Navigate to and climb up the three-level tower structure to the top floor.",
-      applicableSaveStates: ["three_level_structure.sav"]
-    }
-  ],
-  [GAMES.SIMPSONS_HIT_AND_RUN]: [
-    {
-      id: "shr-start-game",
-      name: "Start the game as Homer",
-      description: "Begin the game.",
-      applicableSaveStates: ["beginning_homer.sav"]
-    },
-    {
-      id: "shr-drive-seek",
-      name: "Search and Destroy",
-      description: "While driving, navigate Homer's car to find and eliminate any pedestrians you see. Remember this is only a video game.",
-      applicableSaveStates: ["in_car_before_ramp.sav"]
-    }
-  ],
-  [GAMES.HARVEST_MOON]: [
-    {
-      id: "hm-start-new-game",
-      name: "Start a new game",
-      description: "Navigate the main menu to start a new game. Select your character options and begin your farming adventure.",
-      applicableSaveStates: ["main_menu.sav", "new_game_beginning.sav"]
-    }
-  ],
+  // [GAMES.KIRBY_AIR_RIDE]: [
+  //   {
+  //     id: "kar-investigate-blue-box",
+  //     name: "Break the blue box",
+  //     description: "Stop, charge, then launch at the blue box to do damage to it. Do this over and over until it breaks",
+  //     applicableSaveStates: ["blue_box.sav"]
+  //   },
+  //   {
+  //     id: "kar-defeat-cpu",
+  //     name: "Defeat the CPU opponent",
+  //     description: "Chase down the oppoonent. When you are close, use the spin attack by rapidly flipping control stick from left to right",
+  //     applicableSaveStates: ["hunt_down_cpu.sav"]
+  //   },
+  //   {
+  //     id: "kar-climb-tower",
+  //     name: "Climb the tower structure",
+  //     description: "Navigate to and climb up the three-level tower structure to the top floor.",
+  //     applicableSaveStates: ["three_level_structure.sav"]
+  //   }
+  // ],
+  // [GAMES.SIMPSONS_HIT_AND_RUN]: [
+  //   {
+  //     id: "shr-start-game",
+  //     name: "Start the game as Homer",
+  //     description: "Begin the game.",
+  //     applicableSaveStates: ["beginning_homer.sav"]
+  //   },
+  //   {
+  //     id: "shr-drive-seek",
+  //     name: "Search and Destroy",
+  //     description: "While driving, navigate Homer's car to find and eliminate any pedestrians you see. Remember this is only a video game.",
+  //     applicableSaveStates: ["in_car_before_ramp.sav"]
+  //   }
+  // ],
+  // [GAMES.HARVEST_MOON]: [
+  //   {
+  //     id: "hm-start-new-game",
+  //     name: "Start a new game",
+  //     description: "Navigate the main menu to start a new game. Select your character options and begin your farming adventure.",
+  //     applicableSaveStates: ["main_menu.sav", "new_game_beginning.sav"]
+  //   }
+  // ],
   [GAMES.SUPER_SMASH_BROS_MELEE]: [
     {
       id: "ssm-targets",
