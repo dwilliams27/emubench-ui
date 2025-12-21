@@ -117,10 +117,12 @@ export function GoalConfig({
       return [];
     }
 
-    const gamePresets = GOAL_PRESETS[selectedGame] || [];
-    return gamePresets.filter(preset =>
-      preset.applicableSaveStates.includes(selectedSaveState.filename)
-    );
+    const goalPresets = GOAL_PRESETS[selectedGame] || [];
+    return goalPresets.filter(preset => {
+      return preset.applicableSaveStates.some(saveState => 
+        selectedSaveState.filename.startsWith(saveState)
+      );
+    });
   }, [selectedGame, selectedSaveState]);
 
   // Auto-select first goal preset when save state changes (unless set to custom)

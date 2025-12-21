@@ -52,10 +52,12 @@ export function AgentConfig({
       return [];
     }
 
-    const gamePresets = TASK_PRESETS[selectedGame] || [];
-    return gamePresets.filter(preset =>
-      preset.applicableSaveStates.includes(selectedSaveState.filename)
-    );
+    const taskPresets = TASK_PRESETS[selectedGame] || [];
+    return taskPresets.filter(preset => {
+      return preset.applicableSaveStates.some(saveState => 
+        selectedSaveState.filename.startsWith(saveState)
+      );
+    });
   }, [selectedGame, selectedSaveState]);
 
   const handleTaskPresetChange = (presetId: string) => {

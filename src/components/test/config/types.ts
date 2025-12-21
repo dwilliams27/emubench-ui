@@ -108,6 +108,50 @@ export const AVAILABLE_SAVE_STATES = {
         filename: "ssm_target_falcon.sav",
         displayName: "BtT - Captain Falcon"
       },
+      {
+        filename: "ssm_target_bowser.sav",
+        displayName: "BtT - Bowser"
+      },
+      {
+        filename: "ssm_target_fox.sav",
+        displayName: "BtT - Fox"
+      },
+      {
+        filename: "ssm_target_link.sav",
+        displayName: "BtT - Link"
+      },
+      {
+        filename: "ssm_target_ice.sav",
+        displayName: "BtT - Ice Climbers"
+      },
+      {
+        filename: "ssm_target_mario.sav",
+        displayName: "BtT - Mario"
+      },
+      {
+        filename: "ssm_target_ness.sav",
+        displayName: "BtT - Ness"
+      },
+      {
+        filename: "ssm_target_peach.sav",
+        displayName: "BtT - Peach"
+      },
+      {
+        filename: "ssm_target_pika.sav",
+        displayName: "BtT - Pikachu"
+      },
+      {
+        filename: "ssm_target_samus.sav",
+        displayName: "BtT - Samus"
+      },
+      {
+        filename: "ssm_target_yoshi.sav",
+        displayName: "BtT - Yoshi"
+      },
+      {
+        filename: "ssm_target_zelda.sav",
+        displayName: "BtT - Zelda"
+      },
     ]
   }
 };
@@ -301,7 +345,7 @@ export const TASK_PRESETS: Record<string, TaskPreset[]> = {
       id: "ssm-targets",
       name: "Break the Targets",
       description: "Break as many targets as possible without dying. Strive for all 10.",
-      applicableSaveStates: ["ssm_target_dk.sav", "ssm_target_kirby.sav", "ssm_target_falcon.sav"]
+      applicableSaveStates: ["ssm_target"]
     }
   ]
 };
@@ -721,7 +765,7 @@ export const GOAL_PRESETS: Record<string, GoalPreset[]> = {
       id: "ssm-break-targets",
       name: "Break the Targets",
       description: "Gives reward based on how many targets have been destroyed.",
-      applicableSaveStates: ["ssm_target_dk.sav", "ssm_target_kirby.sav", "ssm_target_falcon.sav"],
+      applicableSaveStates: ["ssm_target"],
       memoryWatches: {
         "TARGETS_LEFT": {
           address: "8049CC65",
