@@ -7,10 +7,9 @@ import { emuFlattenCondition } from "@/shared/conditions/evaluate";
 import type { EmuActiveTestReponse } from "@/shared/types";
 import { useEffect, useState, useRef, useMemo } from "react";
 import { useSearchParams } from "react-router-dom";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { TestCondition } from "@/components/shared/test-condition";
-import { Skeleton } from "@/components/ui/skeleton";
 import { EmuConditionOperand } from "@/shared/conditions/types";
+import { ActiveTestGoal } from "@/components/test/active/active-test-goal";
+import { ActiveTestMemory } from "@/components/test/active/active-test-memory";
 
 export interface ActiveTestViewProps {
   test: Test | undefined;
@@ -122,44 +121,18 @@ export function ActiveTestView() {
         <ActiveTestScreen screenshots={currentState?.screenshots} testStarted={!!currentState?.bootConfig} />
         <ActiveTestLogs messages={currentState?.agentLogs} testStarted={!!currentState?.bootConfig} />
       </div>
-      <Card className="w-full md:w-2/3">
-        <CardHeader>
-          <CardTitle>Goal</CardTitle>
-        </CardHeader>
-        <CardContent className="flex flex-row space-x-2">
-          {flatCondition ? (
-            <div>
-              {flatCondition.rewardFunction?.length > 0 && (
-                <div>
-                  <p className="text-sm font-medium mb-1">Reward Function:</p>
-                  <TestCondition flatCondition={flatCondition.rewardFunction} />
-                </div>
-              )}
-              {flatCondition.successCondition?.length > 0 && (
-                <div>
-                  <p className="text-sm font-medium mb-1">Test succeeds if:</p>
-                  <TestCondition flatCondition={flatCondition.successCondition} />
-                </div>
-              )}
-              {flatCondition.failCondition?.length > 0 && (
-                <div>
-                  <p className="text-sm font-medium mb-1">Test fails if:</p>
-                  <TestCondition flatCondition={flatCondition.failCondition} />
-                </div>
-              )}
-            </div>
-          ) : (
-            <div className="flex flex-row space-x-4 overflow-x-auto">
-              <Skeleton className="h-12 w-32 mb-2" />
-              <Skeleton className="h-12 w-32 mb-2" />
-              <Skeleton className="h-12 w-32 mb-2" />
-              <Skeleton className="h-12 w-32 mb-2" />
-              <Skeleton className="h-12 w-32 mb-2" />
-              <Skeleton className="h-12 w-32 mb-2" />
-            </div>
-          )}
-        </CardContent>
-      </Card>
+      <div className="w-full h-full space-x-0 md:space-x-1 space-y-1 md:space-y-0 px-0 md:pr-1 flex flex-col md:flex-row">
+        <div className="w-full md:w-1/2">
+          <ActiveTestGoal
+            successCondition={flatCondition?.successCondition}
+            failCondition={flatCondition?.failCondition}
+            rewardFunction={flatCondition?.rewardFunction}
+          />
+        </div>
+        <div className="w-full md:w-1/2">
+          <ActiveTestMemory memory={currentState?.agentState?.memory}/>
+        </div>
+      </div>
     </div>
   )
 }

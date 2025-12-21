@@ -141,12 +141,13 @@ export const MockGetActiveTestStateResponse = {
             "timestamp": "2025-11-19T01:04:07.597Z",
             "toolName": "sendControllerInput",
             "toolPayload": {
-              "actions": {
+              "inputs": [{
                 "mainStick": {
-                  "direction": "right"
-                }
-              },
-              "duration": 30
+                  "x": 255,
+                  "y": 128
+                },
+                "frames": 30
+              }],
             },
             "screenshotName": "https://storage.googleapis.com/emubench-sessions/tst-a4428fc04abd4c01/ScreenShots/2.png?X-Goog-Algorithm=GOOG4-RSA-SHA256&X-Goog-Credential=emubench-cloud-run-sa%40emubench-459802.iam.gserviceaccount.com%2F20251119%2Fauto%2Fstorage%2Fgoog4_request&X-Goog-Date=20251119T010407Z&X-Goog-Expires=86400&X-Goog-SignedHeaders=host&X-Goog-Signature=00f1f48bc1cfdcca6d139cddcd17581a63a874177bf16aae2b3640b51823184760426d68808e5c57a8be3e3398a9a6aa6543f10d2c212858aec0f5c3f4e8f7b9113062304004e746b49e18d8112b635dc2a7eb3b2a137f720291e265922d6692692e6e91062ab06c426423d0e4cd5ebe31944992bae41e44f7f07c9ade974416fec48ef852f6f7728a4cfdb10490e181e8f231ad64a1bd80415481bd3af443516ffc273591467986e463852bc0934311b736b094065a02445163feb12b7d38c5a876dce9828690639776281cdb5025fa97860f9f2615e787c447169688ebcf5eed9169557c79e8fb7e4e9c1fb1de2a6a11cc71b1060a366a5032afdbcc514113",
             "contextMemWatchValues": {
@@ -204,14 +205,13 @@ export const MockGetActiveTestStateResponse = {
             "timestamp": "2025-11-19T01:03:33.590Z",
             "toolName": "sendControllerInput",
             "toolPayload": {
-              "actions": {
+              "inputs": [{
                 "mainStick": {
-                  "direction": "down",
                   "x": 128,
-                  "y": 0,
-                }
-              },
-              "duration": 30
+                  "y": 0
+                },
+                "frames": 30
+              }],
             },
             "screenshotName": "https://storage.googleapis.com/emubench-sessions/tst-a4428fc04abd4c01/ScreenShots/1.png?X-Goog-Algorithm=GOOG4-RSA-SHA256&X-Goog-Credential=emubench-cloud-run-sa%40emubench-459802.iam.gserviceaccount.com%2F20251119%2Fauto%2Fstorage%2Fgoog4_request&X-Goog-Date=20251119T010333Z&X-Goog-Expires=86400&X-Goog-SignedHeaders=host&X-Goog-Signature=924b119624bcb15658b1947224aded47a483ee6cea761302903351d6dd1a21de6ae27fc1900041a9e483ecd7c812f229708c436d3667e50ced691549b1f1eb8b6eca365ebf4f2eb811662316ea0b9c7dc2718db0d30e75eb894e52a02b1aa27234ad58c57664c303fbca8582cb4688c3ed9a7c9abb845a0a7ada9639395ca1f50572fb0067a393ecbe8af397ee25fb080542bd5c8f5a323fbe2c635bc8980ff535edc752bc2bef4766f50adb93a3f5480c77f9a759d5e3fdc41e61602c6ad621bcb5007752a3de4cf7cd8d74f4d4d9a099215cc4266e90014d10166daa7ad458ef4ec7886f0fd082fdd4f692b681377aa545da816f2dac017fc4a82b01776279",
             "contextMemWatchValues": {
@@ -247,15 +247,14 @@ export const MockGetActiveTestStateResponse = {
                         "timestamp": "2025-12-03T03:01:30.196Z",
                         "toolName": "sendControllerInput",
                         "toolPayload": {
-              "actions": {
-                "mainStick": {
-                  "direction": "right",
-                  "x": 125,
-                  "y": 155,
-                }
-              },
-              "duration": 20
-            },
+                          "inputs": [{
+                            "mainStick": {
+                              "x": 255,
+                              "y": 128
+                            },
+                            "frames": 30
+                          }],
+                        },
                         "screenshotName": "https://storage.googleapis.com/emubench-sessions/tst-cc0126623f1f45f6/ScreenShots/8.png?X-Goog-Algorithm=GOOG4-RSA-SHA256&X-Goog-Credential=emubench-cloud-run-sa%40emubench-459802.iam.gserviceaccount.com%2F20251203%2Fauto%2Fstorage%2Fgoog4_request&X-Goog-Date=20251203T030130Z&X-Goog-Expires=86400&X-Goog-SignedHeaders=host&X-Goog-Signature=797d8621dbc41f5c51ddc270d27d4ce787ddb32de4754ec43633ed928ac5bc42ca0de0d17694e1aba0a079d765b5b4ec9d0dca92ab196bc596718abc4d44107e8934928a984325de769f6e9d884203c6dd8dadeb635dadc50b055ca3974a41ad6dc9892e4f0138f99c49e61bfe17b0ca9f399b93c605a0e0ad58f5ba75f99be89d53111a92971e0ef6484dce0579ad25d2a532277afeb7936618656904fb0a114cd93e6ec8b415c4a7b5a70313c6e8e86b008e41397f5646593b3363e602571fe134ec5c0d007de43c5687379b112f0a1000b629fa2aac0772d5b8c997ec5982d2fdc62e735792e3584b5a8a3c39b4457d285f55bbb184c71234c9f34d2aa398",
                         "contextMemWatchValues": {
                             "LINK_Y": "44CE4000"
@@ -290,6 +289,13 @@ export const MockGetActiveTestStateResponse = {
             "timestamp": "2025-11-19T01:06:53.613Z",
             "toolName": "sendControllerInput",
             "toolPayload": {
+              "inputs": [{
+                "mainStick": {
+                  "x": 255,
+                  "y": 128
+                },
+                "frames": 30
+              }],
               "actions": {
                 "mainStick": {
                   "direction": "right"
@@ -332,12 +338,13 @@ export const MockGetActiveTestStateResponse = {
             "timestamp": "2025-11-19T01:05:39.121Z",
             "toolName": "sendControllerInput",
             "toolPayload": {
-              "actions": {
+              "inputs": [{
                 "mainStick": {
-                  "direction": "right"
-                }
-              },
-              "duration": 30
+                  "x": 255,
+                  "y": 128
+                },
+                "frames": 30
+              }],
             },
             "screenshotName": "https://storage.googleapis.com/emubench-sessions/tst-a4428fc04abd4c01/ScreenShots/4.png?X-Goog-Algorithm=GOOG4-RSA-SHA256&X-Goog-Credential=emubench-cloud-run-sa%40emubench-459802.iam.gserviceaccount.com%2F20251119%2Fauto%2Fstorage%2Fgoog4_request&X-Goog-Date=20251119T010539Z&X-Goog-Expires=86400&X-Goog-SignedHeaders=host&X-Goog-Signature=6c13c41053f19e3b26d49fa995de469b5e25236a8ee1248e945fca8fa7ded62a19178b8cf6b14ca992c463c361a9a0da42c665998449e99246c0a7590cef07199894176094f95fbf9604a647f6000d080c7b7bf4bdffb421c60715fdc834fba898cdb8a6831787c03e60e94d72976f03978819e4c9b330f6e284102ff684b188034896e0c3f8586cfc0f5e6c252799e80a95153ee3f4cb658606825ae004a4c8fd85bd69a7640650f03b72633d3701b223f00f16510b33bbfcbbc9c6ae76d91249010ef51cebbed268ce8ea28b018b0513133b9e63f681ddd56136907a16b47e70f48fb154b75f5cb52a5fd9cac0c6d590888e2f1a8b2961c3b7ff8f7a6112be",
             "contextMemWatchValues": {
@@ -375,12 +382,13 @@ export const MockGetActiveTestStateResponse = {
             "timestamp": "2025-11-19T01:07:40.095Z",
             "toolName": "sendControllerInput",
             "toolPayload": {
-              "actions": {
+              "inputs": [{
                 "mainStick": {
-                  "direction": "down"
-                }
-              },
-              "duration": 60
+                  "x": 128,
+                  "y": 0
+                },
+                "frames": 60
+              }],
             },
             "screenshotName": "https://storage.googleapis.com/emubench-sessions/tst-a4428fc04abd4c01/ScreenShots/11.png?X-Goog-Algorithm=GOOG4-RSA-SHA256&X-Goog-Credential=emubench-cloud-run-sa%40emubench-459802.iam.gserviceaccount.com%2F20251119%2Fauto%2Fstorage%2Fgoog4_request&X-Goog-Date=20251119T010740Z&X-Goog-Expires=86400&X-Goog-SignedHeaders=host&X-Goog-Signature=388fdfd3ac7ccb1149ea40141e5dea468eb523d4f1d40ca242464b881f0e5848acbd5c47a7e6d1e6d243b5b3294015b49f12e8f57c353d63c3dbce6815bff8f2058aaeec4ec959c9a7e7b8e989b1ac55a4a4cb2a893927c1e6642aea2c9fd8d826396b03088edbd710be1f51fc20175a80a90a69c057f747ed4c7809ca75d68a6ef273695cbd965b7688b4a27e3db58aed1dfde3b1bad7ac3f84e7ed8b83cc9a0296a9fcc7862a909c08dced80429cae3bf721da38f679e0c530e843558ee6b45816f1151b305944e0dba9a9f04148e7280008a6df1f7c063f0021501a83e4a4a320ad135504ade213b984c93efb191ee5b39c498c6d90272e8a688a3384bcd9",
             "contextMemWatchValues": {
@@ -417,12 +425,13 @@ export const MockGetActiveTestStateResponse = {
             "timestamp": "2025-11-19T01:05:13.597Z",
             "toolName": "sendControllerInput",
             "toolPayload": {
-              "actions": {
+              "inputs": [{
                 "mainStick": {
-                  "direction": "right"
-                }
-              },
-              "duration": 20
+                  "x": 255,
+                  "y": 128
+                },
+                "frames": 20
+              }],
             },
             "screenshotName": "https://storage.googleapis.com/emubench-sessions/tst-a4428fc04abd4c01/ScreenShots/3.png?X-Goog-Algorithm=GOOG4-RSA-SHA256&X-Goog-Credential=emubench-cloud-run-sa%40emubench-459802.iam.gserviceaccount.com%2F20251119%2Fauto%2Fstorage%2Fgoog4_request&X-Goog-Date=20251119T010513Z&X-Goog-Expires=86400&X-Goog-SignedHeaders=host&X-Goog-Signature=450763fff3a748f723f50f384b29c121515d2d2f843fbd07ece1385a7362955b24db1717fce654b75dcad8bf5825422e78ebc0e062beb3416c6322f8f16e12a9116685e47ff851ef897db1bfcc51837af30d7b5c1cbf2ede64cc7f72c5446ba852273481e7ebb168cba86ce38992ed8ae1ade8c6cf0fff684cf7e094c228fd45c5c89fa80dfb0e7093700e865e69d227e3a0e3f798c0a07295865bf3c0dda879220c404fa10f91205131ee50ba66ec6778a75baffd984ea9535f49a1c0c4db8ac9a08cc35692e6b5994c13fbb8c11d07436d739a45add3ee26917f5361887a16810bf47e159035a69495e220f6aed295d7ce969695bb27992a3ec2f540814a4a",
             "contextMemWatchValues": {
@@ -459,12 +468,13 @@ export const MockGetActiveTestStateResponse = {
             "timestamp": "2025-11-19T01:06:11.404Z",
             "toolName": "sendControllerInput",
             "toolPayload": {
-              "actions": {
+              "inputs": [{
                 "mainStick": {
-                  "direction": "right"
-                }
-              },
-              "duration": 30
+                  "x": 255,
+                  "y": 128
+                },
+                "frames": 30
+              }],
             },
             "screenshotName": "https://storage.googleapis.com/emubench-sessions/tst-a4428fc04abd4c01/ScreenShots/6.png?X-Goog-Algorithm=GOOG4-RSA-SHA256&X-Goog-Credential=emubench-cloud-run-sa%40emubench-459802.iam.gserviceaccount.com%2F20251119%2Fauto%2Fstorage%2Fgoog4_request&X-Goog-Date=20251119T010611Z&X-Goog-Expires=86400&X-Goog-SignedHeaders=host&X-Goog-Signature=aa0ecc428edf991c39a0e98b4e89ea9b70d3a9678e8792f0d5005415e81c0b32616e42695cfff53806870fdb5d84bf11830288c611d0a40da29975ed61780e3681667ce041dbc858e3da4c13d29a2179d26b0b7a2fcea0dbd73ff891d8d4a3d3dd00eb77ffa3def7af67436001a4d35c87d291bb439bf28b471991cab77f6b3b83f16495695db59355a537b53c4acfacf760fdd1a77ccdb4d51fed9794d1d7aa4b2a92047a851c88ce789c2c06c3b9ede5ccbb43603da2c78dd462a0bb06d866784e984dd8cbbf76a589fcc785b61e8a803487d5737d54a004cdb45db19fd5f8fdd259d14cecbe10b5d4a6cd593c2552ee3ef1c2cc5a15f5acf47ca6300ea84d",
             "contextMemWatchValues": {
@@ -522,12 +532,13 @@ export const MockGetActiveTestStateResponse = {
             "timestamp": "2025-11-19T01:06:26.362Z",
             "toolName": "sendControllerInput",
             "toolPayload": {
-              "actions": {
+              "inputs": [{
                 "mainStick": {
-                  "direction": "right"
-                }
-              },
-              "duration": 30
+                  "x": 255,
+                  "y": 128
+                },
+                "frames": 30
+              }],
             },
             "screenshotName": "https://storage.googleapis.com/emubench-sessions/tst-a4428fc04abd4c01/ScreenShots/7.png?X-Goog-Algorithm=GOOG4-RSA-SHA256&X-Goog-Credential=emubench-cloud-run-sa%40emubench-459802.iam.gserviceaccount.com%2F20251119%2Fauto%2Fstorage%2Fgoog4_request&X-Goog-Date=20251119T010626Z&X-Goog-Expires=86400&X-Goog-SignedHeaders=host&X-Goog-Signature=b52caca452c5a2c02277db4cc62cbcfaec92893b46ad193ff567d82d7b4b5d2427cf39981acbf68febc0bb673f6f8a236cb40ef5fd86912758ff472f3a012253b66318adec4e518f6568966293520b5e0378e23d4b59b80ff52c96f3b26874d276370d0b8494eef5c4ecf8bf22cdbbf3e82855383bbfc75bc1eeb6767ed1174b4d12211c85b68d4a6d5000cb6455c94e8a305a4491d57d104b08e0dbadafc8b90ae013deb00e6e971d2783ac1a7991970afe9d47f3a3feb325256e5ec2b4f6be1f405a3c01de164ac43ae778c4948eaca038cbe57a5ee5f5144e63193ede4ddfaa232e2491095a9e6311ef2adca135fe5ad7dcbd6f821830d8aa59f050e12c87",
             "contextMemWatchValues": {
@@ -564,12 +575,13 @@ export const MockGetActiveTestStateResponse = {
             "timestamp": "2025-11-19T01:05:57.253Z",
             "toolName": "sendControllerInput",
             "toolPayload": {
-              "actions": {
+              "inputs": [{
                 "mainStick": {
-                  "direction": "right"
-                }
-              },
-              "duration": 30
+                  "x": 255,
+                  "y": 128
+                },
+                "frames": 30
+              }],
             },
             "screenshotName": "https://storage.googleapis.com/emubench-sessions/tst-a4428fc04abd4c01/ScreenShots/5.png?X-Goog-Algorithm=GOOG4-RSA-SHA256&X-Goog-Credential=emubench-cloud-run-sa%40emubench-459802.iam.gserviceaccount.com%2F20251119%2Fauto%2Fstorage%2Fgoog4_request&X-Goog-Date=20251119T010557Z&X-Goog-Expires=86400&X-Goog-SignedHeaders=host&X-Goog-Signature=15ed87f8a1995cf2e93fb70d391aaef95fc9695e9b701e09335ad333bf54bf55a6b0b842cc72965cd792dea33cbbec1ccd27e6d8b42adc18447ce5279c0f0230d8575248607789838c8c78cad4fd0f9eaf7919f155950d3958540c706c59dac1852d9bbd24075b7a290733ef7da6e809de78e139ce4422d4aa619214ccd7cb13187eff04c5731221f94c99b7451ec3b0412a969440d593c6194dc786a9c4419e0ede2b0ee8569aa66b28d33e2e7e04e64504855971e29a4c84ecfb632d0473043998a6456c9f1e251cc5476500124195ee90cb449604db3b68c7c226a344d7f98008a708fdfc5579645663b38956cd844065fc70f2f69b779ef922e8912f3658",
             "contextMemWatchValues": {
@@ -648,12 +660,13 @@ export const MockGetActiveTestStateResponse = {
             "timestamp": "2025-11-19T01:07:10.125Z",
             "toolName": "sendControllerInput",
             "toolPayload": {
-              "actions": {
+              "inputs": [{
                 "mainStick": {
-                  "direction": "down"
-                }
-              },
-              "duration": 60
+                  "x": 128,
+                  "y": 0
+                },
+                "frames": 60
+              }],
             },
             "screenshotName": "https://storage.googleapis.com/emubench-sessions/tst-a4428fc04abd4c01/ScreenShots/10.png?X-Goog-Algorithm=GOOG4-RSA-SHA256&X-Goog-Credential=emubench-cloud-run-sa%40emubench-459802.iam.gserviceaccount.com%2F20251119%2Fauto%2Fstorage%2Fgoog4_request&X-Goog-Date=20251119T010710Z&X-Goog-Expires=86400&X-Goog-SignedHeaders=host&X-Goog-Signature=3b12fc9be03e66c2381a67ef7000291fd5881e55ddda9d30efc107be66afb60f801e142a94bbefc8a994f76be2edd887f02bafd044bfe5e63e82a511898d417ff74a245d61300fb39a4a15a359685c37aa193a18afee8c06209899acb256ec2170c2cdd1111e3fe16a6b8a3003edc2b4254a4c96cdfa98a6def502dd89a836be1f9048c6e8275cf8c7c1f6e783bd5c4132266950de7cbf0eee1de14e9cca02804432d807aed5126c9d4012f2dd134eff565554d5fe0b4ce04c1319833d966226570c9fe99b019d3d49a7597a8a90a39cc8d92da674e530e355ebd8492ccd392a94694dadc6738b9338f23c527087ecf77c9d7e8d91ecafb7462fb0910a0c1f59",
             "contextMemWatchValues": {
