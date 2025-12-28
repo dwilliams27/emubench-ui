@@ -836,6 +836,119 @@ export const GOAL_PRESETS: Record<string, GoalPreset[]> = {
       },
       rewardDescription: "Reward is equal to number of targets broken. Possible values 0-10.",
     },
+    {
+      id: "ssm-home-run",
+      name: "Home Run Contest",
+      description: "Gives reward based on how far the sandbag is launched.",
+      applicableSaveStates: ["ssm_home_run"],
+      memoryWatches: {
+        "BAG_MOVING": {
+          address: "804A0D86",
+          type: "uint",
+          size: 1,
+          pointerOffsets: [],
+          name: "BAG_MOVING",
+          description: "1 after bag stops moving, 2 when contest ends"
+        },
+        "IN_MENU": {
+          address: "80431373",
+          type: "uint",
+          size: 1,
+          pointerOffsets: [],
+          name: "IN_MENU",
+          description: "Set to 1 if game ended and back to menu"
+        },
+        "DISTANCE": {
+          address: "8049CC70",
+          type: "uint",
+          size: 1,
+          pointerOffsets: [],
+          name: "DISTANCE",
+          description: "How far the bag was launched"
+        }
+      },
+      successCondition: {
+        inputs: {
+          "IN_MENU": {
+            name: "IN_MENU",
+            type: "uint",
+          },
+          "BAG_MOVING": {
+            name: "BAG_MOVING",
+            type: "uint",
+          }
+        },
+        logic: {
+          lhs: {
+            conditionPart: {
+              lhs: {
+                input: {
+                  name: "IN_MENU",
+                  type: "uint",
+                }
+              },
+              operation: {
+                id: "==",
+                name: "==",
+                hasLeftOperand: true,
+                hasRightOperand: true
+              },
+              rhs: {
+                primitive: 1
+              }
+            }
+          },
+          operation: {
+            id: "||",
+            name: "||",
+            hasLeftOperand: true,
+            hasRightOperand: true
+          },
+          rhs: {
+            conditionPart: {
+              lhs: {
+                input: {
+                  name: "BAG_MOVING",
+                  type: "uint",
+                }
+              },
+              operation: {
+                id: ">",
+                name: ">",
+                hasLeftOperand: true,
+                hasRightOperand: true
+              },
+              rhs: {
+                primitive: 0
+              }
+            }
+          }
+        }
+      },
+      rewardFunction: {
+        inputs: {
+          "DISTANCE": {
+            name: "DISTANCE",
+            type: "uint",
+          }
+        },
+        logic: {
+          lhs: {
+            input: {
+              name: "DISTANCE",
+              type: "uint",
+            }
+          },
+          operation: {
+            id: "identity",
+            name: "identity",
+            hasLeftOperand: true,
+            hasRightOperand: false
+          },
+        }
+      },
+      rewardDescription: "Reward is equal to number of targets broken. Possible values 0-10.",
+    }
   ]
 };
 
