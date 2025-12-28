@@ -273,8 +273,8 @@ A, B, X, Y, Z, L, R
 - **Jump**: X or Y, 2 frames (short hop) or hold (full hop)
 - **Attack**: A, 2 frames
 - **Tilt Attack**: A + stick tilt, 2 frames
-- **Smash Attack**: A + stick smash (or C-stick), 2 frames, hold A to charge
-- **Aerial**: A + direction in air (or C-stick), 2 frames
+- **Smash Attack**: A + stick smash, 2 frames, hold A to charge
+- **Aerial**: A + direction in air, 2 frames
 - **Special**: B, 2 frames
 - **Side/Up/Down Special**: B + stick direction, 2 frames
 - **Grab**: Z (or shield + A), 2 frames
@@ -288,7 +288,6 @@ A, B, X, Y, Z, L, R
 ## Notes
 - 2 frame minimum for all inputs
 - Short hop requires releasing jump within ~3 frames
-- C-stick is convenient for aerials and smash attacks
 
 ## IMPORTANT
 - You will likely want to add {"frames": 10} or {"frames": 30} wait inputs between actions to allow for game response
