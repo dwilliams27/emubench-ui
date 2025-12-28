@@ -406,7 +406,7 @@ export const TASK_PRESETS: Record<string, TaskPreset[]> = {
     {
       id: "ssm-home-run",
       name: "Home Run Contest",
-      description: "Do as much damage as possible, pick up the home run bat, then side-smash the sandbag with it to launch the sandbag as far as possible. Be sure to keep an eye on the timer at the top!",
+      description: "Do as much damage to the sandbag as possible, pick up the home run bat, then side-smash the sandbag to the right to launch it. Be sure to keep an eye on the timer at the top, you will get a score of ZERO if you fail to smash the sandbag before the timer runs out! After the sandbag has been launched, you should continually wait for 120 frames until the test is over.",
       applicableSaveStates: ["ssm_home_run"]
     }
   ]
