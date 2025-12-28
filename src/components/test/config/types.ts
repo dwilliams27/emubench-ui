@@ -97,60 +97,117 @@ export const AVAILABLE_SAVE_STATES = {
     // ],
     [GAMES.SUPER_SMASH_BROS_MELEE]: [
       {
-        filename: "ssm_target_dk.sav",
-        displayName: "BtT - Donkey Kong"
-      },
-      {
-        filename: "ssm_target_kirby.sav",
-        displayName: "BtT - Kirby"
-      },
-      {
-        filename: "ssm_target_falcon.sav",
-        displayName: "BtT - Captain Falcon"
-      },
-      {
-        filename: "ssm_target_bowser.sav",
-        displayName: "BtT - Bowser"
-      },
-      {
-        filename: "ssm_target_fox.sav",
-        displayName: "BtT - Fox"
-      },
-      {
-        filename: "ssm_target_link.sav",
-        displayName: "BtT - Link"
-      },
-      {
-        filename: "ssm_target_ice.sav",
-        displayName: "BtT - Ice Climbers"
-      },
-      {
         filename: "ssm_target_mario.sav",
         displayName: "BtT - Mario"
-      },
-      {
-        filename: "ssm_target_ness.sav",
-        displayName: "BtT - Ness"
-      },
-      {
-        filename: "ssm_target_peach.sav",
-        displayName: "BtT - Peach"
       },
       {
         filename: "ssm_target_pika.sav",
         displayName: "BtT - Pikachu"
       },
       {
-        filename: "ssm_target_samus.sav",
-        displayName: "BtT - Samus"
+        filename: "ssm_target_bowser.sav",
+        displayName: "BtT - Bowser"
+      },
+      {
+        filename: "ssm_target_peach.sav",
+        displayName: "BtT - Peach"
       },
       {
         filename: "ssm_target_yoshi.sav",
         displayName: "BtT - Yoshi"
       },
       {
+        filename: "ssm_target_dk.sav",
+        displayName: "BtT - Donkey Kong"
+      },
+      {
+        filename: "ssm_target_falcon.sav",
+        displayName: "BtT - Captain Falcon"
+      },
+      {
+        filename: "ssm_target_fox.sav",
+        displayName: "BtT - Fox"
+      },
+      {
+        filename: "ssm_target_ness.sav",
+        displayName: "BtT - Ness"
+      },
+      {
+        filename: "ssm_target_ice.sav",
+        displayName: "BtT - Ice Climbers"
+      },
+      {
+        filename: "ssm_target_kirby.sav",
+        displayName: "BtT - Kirby"
+      },
+      {
+        filename: "ssm_target_samus.sav",
+        displayName: "BtT - Samus"
+      },
+      {
         filename: "ssm_target_zelda.sav",
         displayName: "BtT - Zelda"
+      },
+      {
+        filename: "ssm_target_link.sav",
+        displayName: "BtT - Link"
+      },
+
+      {
+        filename: "ssm_home_run_mario.sav",
+        displayName: "HomeRun - Mario"
+      },
+      {
+        filename: "ssm_home_run_pika.sav",
+        displayName: "HomeRun - Pikachu"
+      },
+      {
+        filename: "ssm_home_run_bowser.sav",
+        displayName: "HomeRun - Bowser"
+      },
+      {
+        filename: "ssm_home_run_peach.sav",
+        displayName: "HomeRun - Peach"
+      },
+      {
+        filename: "ssm_home_run_yoshi.sav",
+        displayName: "HomeRun - Yoshi"
+      },
+      {
+        filename: "ssm_home_run_dk.sav",
+        displayName: "HomeRun - Donkey Kong"
+      },
+      {
+        filename: "ssm_home_run_falcon.sav",
+        displayName: "HomeRun - Captain Falcon"
+      },
+      {
+        filename: "ssm_home_run_fox.sav",
+        displayName: "HomeRun - Fox"
+      },
+      {
+        filename: "ssm_home_run_ness.sav",
+        displayName: "HomeRun - Ness"
+      },
+      {
+        filename: "ssm_home_run_ice.sav",
+        displayName: "HomeRun - Ice Climbers"
+      },
+      {
+        filename: "ssm_home_run_kirby.sav",
+        displayName: "HomeRun - Kirby"
+      },
+      {
+        filename: "ssm_home_run_samus.sav",
+        displayName: "HomeRun - Samus"
+      },
+      {
+        filename: "ssm_home_run_zelda.sav",
+        displayName: "HomeRun - Zelda"
+      },
+      {
+        filename: "ssm_home_run_link.sav",
+        displayName: "HomeRun - Link"
       },
     ]
   }
@@ -346,6 +403,12 @@ export const TASK_PRESETS: Record<string, TaskPreset[]> = {
       name: "Break the Targets",
       description: "Break as many targets as possible without dying. Strive for all 10.",
       applicableSaveStates: ["ssm_target"]
+    },
+    {
+      id: "ssm-home-run",
+      name: "Home Run Contest",
+      description: "Do as much damage as possible, pick up the home run bat, then side-smash the sandbag with it to launch the sandbag as far as possible. Be sure to keep an eye on the timer at the top!",
+      applicableSaveStates: ["ssm_home_run"]
     }
   ]
 };
