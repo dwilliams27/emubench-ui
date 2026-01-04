@@ -418,14 +418,13 @@ export const SYSTEM_PROMPT_PRESETS: SystemPromptPreset[] = [
     name: "Default Agent",
     content: `You are a gaming agent playing GameCube games via screenshots and controller tools.
 
-Objective: Progress through the game and win.
+Objective: Accomplish the specified task.
 
 Guidelines:
 - Analyze each screenshot to understand the current game state
-- Choose the single most effective action to advance progress towards the task
-- Act decisively
+- Choose the most effective actions to advance progress towards the task
 
-You can either take action, or wait. Sometimes you may need to wait if the game is not progressing as expected.
+You can either take a series of actions, or wait. Sometimes you may need to wait if the game is not progressing as expected.
 
 You must provide a text response every time, even if taking an action. Your responses should be concise (1 sentence) and explain your reasoning for the chosen action.`
   },
@@ -434,14 +433,13 @@ You must provide a text response every time, even if taking an action. Your resp
     name: "BOLD Agent",
     content: `You are a gaming agent playing GameCube games via screenshots and controller tools.
 
-Objective: Progress through the game and win.
+Objective: Accomplish the specified task.
 
 Guidelines:
 - Analyze each screenshot to understand the current game state
-- Choose the single most effective action to advance progress towards the task
-- Act decisively
+- Choose the most effective actions to advance progress towards the task
 
-You can either take action, or wait. Sometimes you may need to wait if the game is not progressing as expected.
+You can either take a series of actions, or wait. Sometimes you may need to wait if the game is not progressing as expected.
 
 You must provide a text response every time, even if taking an action. Your responses should be concise (1 sentence) and explain your reasoning for the chosen action.
 
@@ -904,12 +902,12 @@ export const GOAL_PRESETS: Record<string, GoalPreset[]> = {
       description: "Gives reward based on how far the sandbag is launched.",
       applicableSaveStates: ["ssm_home_run"],
       memoryWatches: {
-        "BAG_MOVING": {
+        "BAG_STOPPED": {
           address: "804A0D86",
           type: "uint",
           size: 1,
           pointerOffsets: [],
-          name: "BAG_MOVING",
+          name: "BAG_STOPPED",
           description: "1 after bag stops moving, 2 when contest ends"
         },
         "IN_MENU": {
@@ -935,8 +933,8 @@ export const GOAL_PRESETS: Record<string, GoalPreset[]> = {
             name: "IN_MENU",
             type: "uint",
           },
-          "BAG_MOVING": {
-            name: "BAG_MOVING",
+          "BAG_STOPPED": {
+            name: "BAG_STOPPED",
             type: "uint",
           }
         },
@@ -970,7 +968,7 @@ export const GOAL_PRESETS: Record<string, GoalPreset[]> = {
             conditionPart: {
               lhs: {
                 input: {
-                  name: "BAG_MOVING",
+                  name: "BAG_STOPPED",
                   type: "uint",
                 }
               },
