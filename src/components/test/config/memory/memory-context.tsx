@@ -53,16 +53,58 @@ export const ContextMemoryWatches: Record<string, ContextMemoryItem[]> = {
       description: "Link's Z Position"
     },
   ],
-  [GAMES.HARVEST_MOON]: [
+  [GAMES.SUPER_SMASH_BROS_MELEE]: [
     {
-      address: "80000000",
-      type: "chars",
-      size: 6,
+      address: "804A0D86",
+      type: "uint",
+      size: 1,
       pointerOffsets: [],
-      name: "GAME_ID",
-      description: "Game ID, used for testing"
+      name: "BAG_STOPPED",
+      description: "1 after bag stops moving, 2 when contest ends"
     },
-  ]
+    {
+      address: "80431373",
+      type: "uint",
+      size: 1,
+      pointerOffsets: [],
+      name: "IN_MENU",
+      description: "Set to 1 if game ended and back to menu"
+    },
+    {
+      address: "8049CC70",
+      type: "uint",
+      size: 1,
+      pointerOffsets: [],
+      name: "DISTANCE",
+      description: "How far the bag was launched"
+    },
+    {
+      address: "8049CC65",
+      type: "uint",
+      size: 1,
+      pointerOffsets: [],
+      name: "TARGETS_LEFT",
+      description: "Number of targets left"
+    },
+    {
+      address: "8045114E",
+      type: "uint",
+      size: 1,
+      pointerOffsets: [],
+      name: "IS_ALIVE",
+      description: "Set to 0 if dead"
+    }
+  ],
+  // [GAMES.HARVEST_MOON]: [
+  //   {
+  //     address: "80000000",
+  //     type: "chars",
+  //     size: 6,
+  //     pointerOffsets: [],
+  //     name: "GAME_ID",
+  //     description: "Game ID, used for testing"
+  //   },
+  // ]
 }
 
 export const columns: ColumnDef<ContextMemoryItem>[] = [
