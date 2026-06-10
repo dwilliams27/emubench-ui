@@ -30,8 +30,7 @@ export class EmuBenchServ implements Api {
       timeout: 120000,
       headers: {
         'Content-Type': 'application/json',
-      },
-      adapter: 'xhr'
+      }
     });
   }
 

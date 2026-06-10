@@ -34,11 +34,14 @@ export default function EmulatorConfig() {
 
       navigateToTest(result.testId);
     } catch (error) {
+      console.error('[Test Config Form]: Unable to setup test: ', error);
       if (error instanceof EmuError) {
         setError(error.traceId || error.message);
+      } else if (error instanceof Error) {
+        setError(error.message);
+      } else {
+        setError(String(error));
       }
-      console.log('[Test Config Form]: Unable to setup test: ', error);
-      setError(JSON.stringify(error));
     } finally {
       setSubmitting(false);
     }

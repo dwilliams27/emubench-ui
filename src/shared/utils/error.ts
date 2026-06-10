@@ -32,12 +32,13 @@ export function formatError(error: unknown) {
   return parts.join(' ').trim() || 'Unknown error occurred';
 }
 
-export function createEmuError(payload: unknown) {
+export function createEmuError(payload: unknown): EmuError {
   if (typeof payload === 'string') {
     return new EmuError(payload);
   }
   if (payload instanceof Error) {
     return new EmuError(payload.message);
   }
-  return new Error('An unknown error occurred');
+  const formatted = formatError(payload);
+  return new EmuError(formatted);
 }
