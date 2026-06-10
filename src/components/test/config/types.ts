@@ -223,6 +223,8 @@ export const DEBUG_GAME_MAP = {
 
 export const GAME_CONTEXT = {
   [GAMES.ZELDA_WIND_WAKER]: `
+Timing: This game runs at 30 frames per second — 30 frames of input is a FULL SECOND. Link at full run covers a lot of ground in 30 frames. Use short bursts (5-10 frames) for fine positioning.
+
 Movement & Camera:
 
 Control Stick: Move Link (walk/run based on tilt)
@@ -257,6 +259,9 @@ Context is key: A button changes function based on proximity to objects/NPCs.
 // C-stick: Camera control`,
   [GAMES.SUPER_SMASH_BROS_MELEE]: `
 # Melee Controller Inputs (Concise)
+
+## Timing
+This game runs at 60 frames per second — 60 frames of input is a FULL SECOND. A character at full run covers a lot of ground in 60 frames. Use short bursts (5-15 frames) for spacing and positioning.
 
 ## Stick Inputs
 - **Control Stick**: X and Y from 0-255
@@ -1063,6 +1068,15 @@ export const MODELS = {
       output: 0.000025,
       reasoning: 0.000025,
     }
+  },
+  {
+    name: "claude-fable-5",
+    displayName: "Claude Fable 5",
+    tokenCost: {
+      input: 0.00001,
+      output: 0.00005,
+      reasoning: 0.00005,
+    }
   }],
   [MODEL_PROVIDERS.GOOGLE.name]: [{
     name: "gemini-2.5-flash",
@@ -1132,6 +1146,15 @@ export const MODELS = {
         input: 0.00000175,
         output: 0.000014,
         reasoning: 0.000014,
+      }
+    },
+    {
+      name: "gpt-5.4",
+      displayName: "GPT-5.4",
+      tokenCost: {
+        input: 0.0000025,
+        output: 0.000015,
+        reasoning: 0.000015,
       }
     },
   ],
